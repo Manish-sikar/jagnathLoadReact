@@ -1,0 +1,43 @@
+/* header social-icon */
+
+ /* .top-hover a:hover {
+    background:  #26d48c !important;
+    border: 0  !important;;
+ } */
+
+ .h5 {
+   display: inline-block; /* Ensure it acts like a block element */
+   width: 100%; /* Take full width */
+   word-break: break-word; /* Allow long text to break */
+ }
+
+ .small-box {
+  background-color: #ffffff; /* White background for the boxes */
+  border: 1px solid #ddd; /* Light border for the boxes */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animation */
+}
+
+.small-box:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+ul {
+  list-style: disc;
+  margin-left: 20px; /* Indent for bullet points */
+}
+
+h2 {
+  font-size: 1.5rem; /* Heading size */
+}
+
+p,
+li {
+  font-size: 1rem; /* Body text size */
+  color: #333; /* Darker text color */
+}
+ /* subheader */
+
+ 
