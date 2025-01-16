@@ -10,7 +10,7 @@ export function setAuthToken(token) {
 
 
 // helpers.js
-export  const baseURL = "http://localhost:5656/api/admin";
+export  const baseURL = "https://bc87-117-98-68-130.ngrok-free.app/api/admin";
     // Use the same base URL as your axios instance
 
 
