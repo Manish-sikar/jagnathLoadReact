@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { AddnewUserApplyForm } from "../../services/applyNewUserForm";
+import { useNavigate } from "react-router-dom";
 
 const UserFormFillPage = () => {
     const [statesData, setStatesData] = useState([]); // Store states and districts data
     const [selectedState, setSelectedState] = useState("");
     const [districts, setDistricts] = useState([]); // Districts of selected state
+    const navigate = useNavigate();
     const dropdownCategories = [
         { title: "Loan Products", items: loanProducts },
         { title: "Our Services", items: ourServices },
@@ -76,14 +78,7 @@ const UserFormFillPage = () => {
         console.log(formData);
     
         try {
-        //   const response = await fetch("API_URL", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(formData),
-        //   });
-
           const response = await AddnewUserApplyForm(formData)
-    console.log(response)
           if (response.status===201) {
             Swal.fire("Success!", "Form submitted successfully!", "success");
             setFormData({
@@ -99,6 +94,7 @@ const UserFormFillPage = () => {
             });
             setSelectedState("");
             setDistricts([]);
+              navigate("/dashboard")
           } else {
             throw new Error("Failed to submit form");
           }
