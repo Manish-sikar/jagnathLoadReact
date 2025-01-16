@@ -1,9 +1,13 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 const SubHeaderUser = () => {
+  const navigate = useNavigate();
+
   const dropdownData = [
     { title: "Loan Products", items: loanProducts },
     { title: "Our Services", items: ourServices },
@@ -12,13 +16,14 @@ const SubHeaderUser = () => {
     { title: "Investment", items: investment },
     { title: "Insurance", items: insurance },
     { title: "Book for New Vehicle", items: bookForVehicle },
-    // { title: "Report", items: report },
-    // { title: "Support", items: support },
   ];
+
+  const handleNavigate = (item) => {
+    navigate(`/user-apply-form`, { state: { item } }); // Pass clicked item as state
+  };
 
   return (
     <>
-      {/* Sub Navbar */}
       <Navbar
         collapseOnSelect
         expand="lg"
@@ -38,7 +43,10 @@ const SubHeaderUser = () => {
                   menuVariant="light"
                 >
                   {dropdown.items.map((item, i) => (
-                    <NavDropdown.Item key={i} href={`#${item.replace(/\s+/g, "-").toLowerCase()}`}>
+                    <NavDropdown.Item
+                      key={i}
+                      onClick={() => handleNavigate(item)} // Use onClick to navigate
+                    >
                       {item}
                     </NavDropdown.Item>
                   ))}
@@ -62,8 +70,6 @@ const accountOpening = ["AU Bank", "IndusInd Bank", "Axis Bank"];
 const investment = ["RD", "FD"];
 const insurance = ["Car insurance", "Two-wheeler insurance", "Commercial insurance"];
 const bookForVehicle = ["Mahindra", "Kia", "Maruti Suzuki", "Tata"];
-const report = ["Lead data", "Lead commission"];
-const support = ["Contact number", "Gmail"];
 
 // Styling (unchanged)
 const style = {
