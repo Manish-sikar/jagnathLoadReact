@@ -10,7 +10,7 @@ export function setAuthToken(token) {
 
 
 // helpers.js
-export  const baseURL = "https://47cb-117-98-68-130.ngrok-free.app/api/admin";
+export  const baseURL = "https://jagannathnode.onrender.com/api/admin";
     // Use the same base URL as your axios instance
 
 
