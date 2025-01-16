@@ -39,5 +39,6 @@ li {
   color: #333; /* Darker text color */
 }
  /* subheader */
-
- 
+a{
+   text-decoration: none; /* Removes underline */
+  color: inherit; }
