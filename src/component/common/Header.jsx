@@ -64,7 +64,7 @@ const Header = () => {
   return (
     <>
       {/* Main Navbar */}
-      <Navbar collapseOnSelect expand="lg" style={style.navbar} variant="dark">
+      <Navbar collapseOnSelect expand="lg" style={style.navbar} >
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
           <img 
