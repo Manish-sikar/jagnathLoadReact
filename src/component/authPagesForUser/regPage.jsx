@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   MDBBtn,
   MDBContainer,
@@ -10,27 +10,11 @@ import {
   MDBInput,
   MDBRadio,
 } from "mdb-react-ui-kit";
-import Select from "react-select";
-import { UserRegApi } from "../../services/authServices";
-import Swal from "sweetalert2"; // Import SweetAlert
+import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
+import { UserRegApi } from "../../services/authServices";
 
 const RegUserPage = () => {
-  const stateOptions = [
-    { label: "State", value: 1 },
-    { label: "Option 1", value: 2 },
-    { label: "Option 2", value: 3 },
-    { label: "Option 3", value: 4 },
-  ];
-
-  const cityOptions = [
-    { label: "City", value: 1 },
-    { label: "Option 1", value: 2 },
-    { label: "Option 2", value: 3 },
-    { label: "Option 3", value: 4 },
-  ];
-
-  // Local state for form data
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -39,65 +23,81 @@ const RegUserPage = () => {
     email: "",
     gender: "",
     state: "",
-    city: "",
+    district: "",
     address: "",
     password: "",
   });
-const navigate = useNavigate()
- 
 
+  const [statesData, setStatesData] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch the JSON file
+    const fetchStatesData = async () => {
+      try {
+        const response = await fetch("/assets/json/states-and-districts.json");
+        const data = await response.json();
+        setStatesData(data.states); // Set states data
+      } catch (error) {
+        Swal.fire("Error!", "Failed to load states and districts data.", "error");
+      }
+    };
+
+    fetchStatesData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value, // Store the date as a string
-    });
-  };
-  
-  // Handle select change
-  const handleSelectChange = (name, value) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
-  // Form validation function
+  const handleStateChange = (e) => {
+    const selectedState = e.target.value;
+    setSelectedState(selectedState);
+
+    // Find districts for the selected state
+    const stateData = statesData.find((state) => state.state === selectedState);
+    setDistricts(stateData ? stateData.districts : []); // Set districts
+    setFormData((prev) => ({ ...prev, state: selectedState, district: "" })); // Reset district
+  };
+
+  const handleDistrictChange = (e) => {
+    setFormData((prev) => ({ ...prev, district: e.target.value }));
+  };
+
   const validateForm = () => {
-    const { firstName, lastName, phone, email, birthday, gender, state, city, address, password } = formData;
-    if (!firstName || !lastName || !phone || !email || !birthday || !gender || !state || !city || !address || !password) {
+    const { firstName, lastName, phone, email, birthday, gender, state, district, address, password } = formData;
+    if (!firstName || !lastName || !phone || !email || !birthday || !gender || !state || !district || !address || !password) {
       Swal.fire("Error", "All fields are required.", "error");
       return false;
     }
     return true;
   };
- 
-
 
   const AddNewCustomer = async () => {
-    if (!validateForm()) return; // If form is invalid, stop here
-  
+    if (!validateForm()) return;
+
     try {
       const response = await UserRegApi(formData); // Pass formData to API
-      console.log(response, "response");
-      
       if (response.status === 201) {
         Swal.fire("Success", "User registered successfully!", "success");
-        navigate("/login-User")
-        resetForm(); // Optionally reset form after success
+        navigate("/login-User");
+        resetForm();
       } else {
         Swal.fire("Error", "Something went wrong. Please try again.", "error");
       }
     } catch (error) {
-      // Extract the error message from the response
       const errorMessage = error.response?.data?.error || "Something went wrong. Please try again.";
       Swal.fire("Error", errorMessage, "error");
     }
   };
-  
 
-  // Reset form
   const resetForm = () => {
     setFormData({
       firstName: "",
@@ -107,10 +107,12 @@ const navigate = useNavigate()
       email: "",
       gender: "",
       state: "",
-      city: "",
+      district: "",
       address: "",
       password: "",
     });
+    setSelectedState("");
+    setDistricts([]);
   };
 
   return (
@@ -130,45 +132,32 @@ const navigate = useNavigate()
 
               <MDBCol md="6">
                 <MDBCardBody className="text-black d-flex flex-column justify-content-center">
-                  <h3 className="mb-5 text-uppercase fw-bold">
-                    Customer Registration Form
-                  </h3>
+                  <h3 className="mb-5 text-uppercase fw-bold">Customer Registration Form</h3>
 
-                  <MDBRow>
-                    <MDBCol md="6">
-                      <MDBInput
-                        wrapperClass="mb-4"
-                        label="First Name"
-                        size="lg"
-                        id="form1"
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                      />
-                    </MDBCol>
+                  <MDBInput
+                    wrapperClass="mb-4"
+                    label="First Name"
+                    size="lg"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                  />
 
-                    <MDBCol md="6">
-                      <MDBInput
-                        wrapperClass="mb-4"
-                        label="Last Name"
-                        size="lg"
-                        id="form2"
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                      />
-                    </MDBCol>
-                  </MDBRow>
+                  <MDBInput
+                    wrapperClass="mb-4"
+                    label="Last Name"
+                    size="lg"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                  />
 
                   <MDBInput
                     wrapperClass="mb-4"
                     label="Birthday"
                     size="lg"
-                    id="form3"
-                    type="date"
                     name="birthday"
+                    type="date"
                     value={formData.birthday}
                     onChange={handleInputChange}
                   />
@@ -177,91 +166,73 @@ const navigate = useNavigate()
                     wrapperClass="mb-4"
                     label="Phone No"
                     size="lg"
-                    id="form5"
-                    type="text"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
                   />
+
                   <MDBInput
                     wrapperClass="mb-4"
                     label="Email ID"
                     size="lg"
-                    id="form6"
-                    type="text"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
                   />
+
                   <MDBInput
                     wrapperClass="mb-4"
                     label="Password"
                     size="lg"
-                    id="form7"
                     type="password"
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
                   />
-                  <div className="d-md-flex justify-content-start align-items-center mb-4">
-                    <h6 className="fw-bold mb-0 me-4">Gender: </h6>
-                    <MDBRadio
-                      name="gender"
-                      id="inlineRadio1"
-                      value="Female"
-                      label="Female"
-                      inline
-                      checked={formData.gender === "Female"}
-                      onChange={handleInputChange}
-                    />
-                    <MDBRadio
-                      name="gender"
-                      id="inlineRadio2"
-                      value="Male"
-                      label="Male"
-                      inline
-                      checked={formData.gender === "Male"}
-                      onChange={handleInputChange}
-                    />
-                    <MDBRadio
-                      name="gender"
-                      id="inlineRadio3"
-                      value="Other"
-                      label="Other"
-                      inline
-                      checked={formData.gender === "Other"}
-                      onChange={handleInputChange}
-                    />
+
+                  <div className="mb-4">
+                    <label htmlFor="state" className="form-label">
+                      State
+                    </label>
+                    <select
+                      className="form-select"
+                      id="state"
+                      value={selectedState}
+                      onChange={handleStateChange}
+                    >
+                      <option value="">Select State</option>
+                      {statesData.map((state) => (
+                        <option key={state.state} value={state.state}>
+                          {state.state}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
-                  <MDBRow>
-                    <MDBCol md="6">
-                      <Select
-                        className="mb-4"
-                        options={stateOptions}
-                        placeholder="Select State"
-                        value={stateOptions.find((option) => option.value === formData.state)}
-                        onChange={(selectedOption) => handleSelectChange("state", selectedOption?.value)}
-                      />
-                    </MDBCol>
-
-                    <MDBCol md="6">
-                      <Select
-                        className="mb-4"
-                        options={cityOptions}
-                        placeholder="Select City"
-                        value={cityOptions.find((option) => option.value === formData.city)}
-                        onChange={(selectedOption) => handleSelectChange("city", selectedOption?.value)}
-                      />
-                    </MDBCol>
-                  </MDBRow>
+                  <div className="mb-4">
+                    <label htmlFor="district" className="form-label">
+                      District
+                    </label>
+                    <select
+                      className="form-select"
+                      id="district"
+                      value={formData.district}
+                      onChange={handleDistrictChange}
+                      disabled={!districts.length}
+                    >
+                      <option value="">Select District</option>
+                      {districts.map((district) => (
+                        <option key={district} value={district}>
+                          {district}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
                   <MDBInput
                     wrapperClass="mb-4"
                     label="Full Address"
                     size="lg"
-                    id="form4"
-                    type="textarea"
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange}
@@ -276,7 +247,7 @@ const navigate = useNavigate()
                     </MDBBtn>
                   </div>
                 </MDBCardBody>
-               Have an account? <Link to="/login-User"> Login here </Link> 
+                Have an account? <Link to="/login-User">Login here</Link>
               </MDBCol>
             </MDBRow>
           </MDBCard>
