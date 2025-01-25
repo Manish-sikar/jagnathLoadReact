@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {LoginApi} from "../../services/authServices";
  import { useAuth } from "./contex";
+import Swal from "sweetalert2";
 
 const SinInPage = () => {
   const [UserName, setUserName] = useState("");
@@ -18,11 +19,12 @@ const SinInPage = () => {
         localStorage.setItem("authToken", response.token);
         setToken(response.token)
         setData (response.admin_name)
-        navigate("/admin/dashboard");
+        navigate("/admin/setting/social_media");
       }
     } catch (error) {
-      console.error("Login failed:", error);
-      // Handle error (e.g., show an error message)
+      const errorMessage =
+        error.response?.data?.error || "Login failed. Please try again.";
+      Swal.fire("Error", errorMessage, "error");
     }
   };
 
