@@ -110,7 +110,7 @@ const AdminLayout = () => {
         <AdminSideBar />
         <div className="main-panel">
           <AdminHeader />
-          <div className="container">
+          <div className="container mt-5">
             <div className="page-inner">
               <main>
                 <Outlet />
