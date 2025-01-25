@@ -91,7 +91,7 @@ const Header = () => {
               <Nav.Link href="#Services" style={style.navLink}>Services</Nav.Link>
               <Nav.Link href="#ChooseUs" style={style.navLink}>Choose Us</Nav.Link>
               <Nav.Link href="/dashboard" style={style.navLink}>EMI Collection</Nav.Link>
-              <Nav.Link href="/reg-User" style={style.navLink}>Register</Nav.Link>
+             <Nav.Link href="/login-User" style={style.navLink}>Login</Nav.Link>
               <Nav.Link href="#ContactUs" style={style.navLink}>Contact Us</Nav.Link>
             </Nav>
           </Navbar.Collapse>
