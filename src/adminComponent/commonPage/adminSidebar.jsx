@@ -231,6 +231,16 @@ const AdminSideBar = () => {
                   <p>User Apply Form </p>
                 </NavLink>
               </li>
+               <li class="nav-item">
+                <NavLink
+                  to="/admin/partner"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i class="fas fa-desktop"></i>
+                  <p>Partner's Data </p>
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
