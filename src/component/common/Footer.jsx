@@ -49,7 +49,7 @@ const Footer = () => {
               <Link to="" className="h3 text-secondary">Our Services</Link>
               <div className="mt-4 d-flex flex-column help-link">
                 {footerData?.footer_services?.map((service) => (
-                  <Link to={`/${service.service_name}`} className="mb-2 text-white" key={service._id}>
+                  <Link to='#' className="mb-2 text-white" key={service._id}>
                     <i className="fas fa-angle-right text-secondary me-2"></i>
                     {service.service_name}
                   </Link>
