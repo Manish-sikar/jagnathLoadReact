@@ -13,7 +13,6 @@ const AdminSideBar = () => {
     submenu: false,
   });
 
-  // Function to toggle collapse state
   const toggleCollapse = (section) => {
     setCollapseStates((prevState) => ({
       ...prevState,
