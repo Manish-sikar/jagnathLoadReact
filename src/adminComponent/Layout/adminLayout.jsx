@@ -94,16 +94,10 @@ const AdminLayout = () => {
       document.body.removeChild(properJS);
       document.body.removeChild(scrollerJS);
       document.body.removeChild(kaiadminJS);
-    //   document.head.removeChild(demoCSS);
     };
-
- 
 
   }, []); // Empty dependency array ensures this only runs on mount/unmount
 
-
-
-  
   return (
     <>
       <div className="wrapper">
