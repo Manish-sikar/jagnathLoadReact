@@ -24,7 +24,6 @@ const AdminSideBar = () => {
     <>
       <div className="sidebar" data-background-color="dark">
         <div className="sidebar-logo">
-          {/* Logo Header */}
           <div className="logo-header" data-background-color="dark">
             <NavLink to="/admin" className="logo">
               <img
