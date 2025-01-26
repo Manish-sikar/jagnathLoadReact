@@ -25,54 +25,63 @@ const HeroBanner = () => {
 
 export default HeroBanner;
   // Inline styles object
-  const style = {
+const style = {
+  heroBanner: {
+    backgroundImage: 'url("../img/Untitled design.png")',  // Replace with your own image
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '100vh',  // Full viewport height
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    textAlign: 'center',
+    padding: '0 20px',
+  },
+  heroContent: {
+    maxWidth: '600px',
+  },
+  heroBannerHeading: {
+    fontSize: '3rem',
+    fontWeight: 'bold',
+    marginBottom: '20px',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
+  },
+  heroBannerParagraph: {
+    fontSize: '1.2rem',
+    marginBottom: '30px',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
+  },
+  callNowBtn: {
+    backgroundColor: '#ff5a5f',  // Attractive button color
+    color: 'white',
+    padding: '12px 30px',
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    borderRadius: '30px',
+    boxShadow: '0 5px 15px rgba(255, 90, 95, 0.3)',
+    transition: 'background-color 0.3s, transform 0.3s',
+  },
+  callNowBtnHover: {
+    backgroundColor: '#d44f54',  // Slightly darker shade for hover
+    transform: 'scale(1.05)',  // Slight scaling effect
+  },
+  callNowBtnActive: {
+    transform: 'scale(1)',
+  },
+
+  // Responsive media query styles
+  '@media (max-width: 768px)': {
     heroBanner: {
-      backgroundImage: 'url("../img/Untitled design.png")',  // Replace with your own image
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: '100vh',  // Full viewport height
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'white',
-      textAlign: 'center',
-      padding: '0 20px',
-    },
-    heroContent: {
-      maxWidth: '600px',
+      backgroundSize: 'contain',  // Adjust for smaller screens
+      height: '70vh',  // Adjust height for mobile screens
     },
     heroBannerHeading: {
-      fontSize: '3rem',
-      fontWeight: 'bold',
-      marginBottom: '20px',
-      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
+      fontSize: '2rem',
     },
     heroBannerParagraph: {
-      fontSize: '1.2rem',
-      marginBottom: '30px',
-      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
+      fontSize: '1rem',
     },
-    callNowBtn: {
-      backgroundColor: '#ff5a5f',  // Attractive button color
-      color: 'white',
-      padding: '12px 30px',
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-      textDecoration: 'none',
-      borderRadius: '30px',
-      boxShadow: '0 5px 15px rgba(255, 90, 95, 0.3)',
-      transition: 'background-color 0.3s, transform 0.3s',
-    },
-    callNowBtnHover: {
-      backgroundColor: '#d44f54',  // Slightly darker shade for hover
-      transform: 'scale(1.05)',  // Slight scaling effect
-    },
-    callNowBtnActive: {
-      transform: 'scale(1)',
-    },
-    mediaQuery: {
-      '@media (max-width: 768px)': {
-        fontSize: '1rem', // Adjust for mobile responsiveness
-      },
-    },
-  };
+  },
+};
