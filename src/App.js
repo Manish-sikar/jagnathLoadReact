@@ -229,11 +229,19 @@ function App() {
                 </ProtectedRoute>
               }
             />
-                 <Route
+                   <Route
                 path="/admin/become-partner"
                 element={
                   <ProtectedRoute>
                     <BecomePartnerForm />
+                  </ProtectedRoute>
+                }
+              />
+                 <Route
+                path="/admin/partner"
+                element={
+                  <ProtectedRoute>
+                    <PartnerPage />
                   </ProtectedRoute>
                 }
               />
