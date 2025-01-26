@@ -115,9 +115,7 @@ const LoginUser = () => {
             Continue with Twitter
           </MDBBtn>
 
-          <div className="d-flex justify-content-between mx-4 mb-4">
-          Don't have an account? <Link to="/reg-User">Register Now</Link>
-          </div>
+         
         </MDBCol>
       </MDBRow>
     </MDBContainer>
