@@ -132,8 +132,6 @@ const Home = () => {
           return;
         }
     try {
- 
-      // Call your API to submit form data
       await AddNewContactForm(formData);
   
       // Show success notification
