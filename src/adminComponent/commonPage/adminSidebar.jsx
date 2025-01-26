@@ -231,7 +231,7 @@ const AdminSideBar = () => {
                   <p>User Apply Form </p>
                 </NavLink>
               </li>
-               <li class="nav-item">
+              <li class="nav-item">
                 <NavLink
                   to="/admin/partner"
                   activeClassName="active"
