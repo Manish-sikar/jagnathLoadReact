@@ -22,6 +22,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import LoginBanner from "./bannerPages/loginBanner";
 import { Carousel, Card } from "react-bootstrap";
+import Service from "./Service";
+
 const Home = () => {
   const [serviceState, setServiceState] = useState([]);
   const [projectState, setProjectState] = useState([]);
@@ -261,34 +263,7 @@ const Home = () => {
 
       {/* <!-- Services Start --> */}
 
-       <div className="service-page-container">
-      {/* Heading for the service page */}
-      <h1 className="text-center my-4">Our Services</h1>
-      <Carousel>
-        {serviceState.map((item, idx) => (
-          <Carousel.Item key={idx}>
-            <div className="d-flex justify-content-center">
-              <Card style={{ width: "10rem" }} className="p-3">
-                <Card.Img
-                  variant="top"
-                  src={
-                    `${baseURL}/${item.card_logo}` ||
-                    "https://via.placeholder.com/150"
-                  } // Fallback for missing images
-                  alt={item.card_title || `Card ${idx + 1}`} // Fallback for missing names
-                />
-                <Card.Body>
-                  <Card.Title>
-                    {item.card_title || `Card ${idx + 1}`}
-                  </Card.Title>{" "}
-                  {/* Fallback for missing names */}
-                </Card.Body>
-              </Card>
-            </div>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    </div>
+             <Service></Service>
 
       {/* <!-- Services End --> */}
       {/* <!-- Project start --> */}
