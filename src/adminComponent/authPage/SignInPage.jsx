@@ -36,7 +36,7 @@ const SinInPage = () => {
             <div className="card" style={{ borderRadius: "1rem" }}>
               <div className="row g-0">
              
-                <div className="col-md-10 col-lg-7 d-flex align-items-center">
+                <div className="col-md-12 col-lg-7 d-flex align-items-center">
                   <div className="card-body p-4 p-lg-5 text-black">
                     <form onSubmit={handleLogin}>
                       <div className="d-flex align-items-center mb-3 pb-1">
