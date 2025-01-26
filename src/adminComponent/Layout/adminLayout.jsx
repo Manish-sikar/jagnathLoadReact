@@ -111,8 +111,8 @@ const AdminLayout = () => {
               </main>
             </div>
           </div>
-          </div>
           <AdminFooter />
+            </div>
       </div>
     </>
   );
