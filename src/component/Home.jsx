@@ -190,7 +190,7 @@ const Home = () => {
               <div class="d-flex counter">
                 <h1 class="me-3 text-primary counter-value">120</h1>
                 <h5 class="text-white mt-1">
-                  Total clients who love Diditaladdworldtech
+                  Total clients who love JasnathFinance
                 </h5>
               </div>
             </div>
