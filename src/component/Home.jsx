@@ -263,13 +263,13 @@ const Home = () => {
 
       {/* <!-- Services Start --> */}
 
-      <div className="service-page-container">
-        {/* Heading for the service page */}
-        <h1 className="text-center my-4">Our Services</h1>{" "}
-        {/* Add heading with some margin */}
-        <Row className="g-3 ms-4">
-          {serviceState.map((item, idx) => (
-            <Col xs={12} sm={6} md={4} lg={2} key={idx} className="p-3">
+       <div className="service-page-container">
+      {/* Heading for the service page */}
+      <h1 className="text-center my-4">Our Services</h1>
+      <Carousel>
+        {serviceState.map((item, idx) => (
+          <Carousel.Item key={idx}>
+            <div className="d-flex justify-content-center">
               <Card style={{ width: "10rem" }} className="p-3">
                 <Card.Img
                   variant="top"
@@ -286,10 +286,11 @@ const Home = () => {
                   {/* Fallback for missing names */}
                 </Card.Body>
               </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
+            </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </div>
 
       {/* <!-- Services End --> */}
 
