@@ -93,7 +93,7 @@ const Home = () => {
     const filteredServices = serviceData.filter(
       (service) => service.status === "1"
     );
-    setServiceState(filteredServices.slice(-6)); // Get the last 6 services
+    setServiceState(filteredServices.slice(-6)); 
   };
 
   const fetchProjectData = async () => {
