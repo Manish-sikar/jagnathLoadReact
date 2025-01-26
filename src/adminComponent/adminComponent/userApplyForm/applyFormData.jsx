@@ -32,14 +32,6 @@ const ApplyFormData = () => {
   return (
     <div className="col-md-12 mt-5">
       <div className="card">
-        <div className="card-header">
-          <div className="d-flex align-items-center">
-            <h4 className="card-title">Partner's</h4>
-            <Link to="/admin/become-partner" className="btn btn-primary btn-round ms-auto">
-              <i className="fa fa-plus"></i> Add Partner
-            </Link>
-          </div>
-        </div>
         <div className="card-body">
           <div className="table-responsive">
             {loading ? (
