@@ -72,7 +72,6 @@ const Home = () => {
     return true; // All fields are valid
   };
   
-
   const iconMapping = {
     "fab fa-facebook": faFacebook,
     "fab fa-twitter": faXTwitter,
