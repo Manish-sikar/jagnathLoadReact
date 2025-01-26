@@ -22,6 +22,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import HeroBanner from "./herobanner";
 import LoginBanner from "./bannerPages/loginBanner";
+
 const Home = () => {
   const [serviceState, setServiceState] = useState([]);
   const [projectState, setProjectState] = useState([]);
@@ -118,7 +119,7 @@ const Home = () => {
       {/* <!-- Carousel Start --> */}
     
       {/* <!-- Carousel End --> */}
-      <HeroBanner/>
+    <LoginBanner/>
       {/* <!-- Fact Start --> */}
       <div class="container-fluid bg-secondary py-5">
         <div class="container">
