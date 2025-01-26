@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { GetnewUserApplyForm } from "../../../services/applyNewUserForm";
+import { Link } from "react-router-dom";
 
 const ApplyFormData = () => {
   const [tableData, setTableData] = useState([]);
