@@ -10,7 +10,6 @@ const SinInPage = () => {
   const navigate = useNavigate();
   const { setToken, setData } = useAuth();
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
