@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { GetnewUserApplyForm } from "../../../services/applyNewUserForm";
 
- 
-
 const ApplyFormData = () => {
   const [tableData, setTableData] = useState([]);
 
