@@ -41,6 +41,7 @@ import Dashboard from "./component/authenticUserPages/dashboard";
 import ProtectedRouteUser from "./component/authPagesForUser/protectRoutesUser";
 import UserFormFillPage from "./component/authenticUserPages/userFormFill";
 import ApplyFormData from "./adminComponent/adminComponent/userApplyForm/applyFormData";
+import PartnerPage from "./adminComponent/adminComponent/parthnerPage/parthnerPage";
 
 
 function App() {
