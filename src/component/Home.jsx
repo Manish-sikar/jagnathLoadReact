@@ -21,6 +21,7 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import LoginBanner from "./bannerPages/loginBanner";
+import { Carousel, Card } from "react-bootstrap";
 const Home = () => {
   const [serviceState, setServiceState] = useState([]);
   const [projectState, setProjectState] = useState([]);
