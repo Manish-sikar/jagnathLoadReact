@@ -436,7 +436,7 @@ const Home = () => {
                 </div>
               </div>
               <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-                <div class="p-3 rounded contact-form">
+                <div class="p-3 rounded">
                   <div class="mb-4">
                     <label for="fullName" class="form-label">
                       Full Name
