@@ -32,6 +32,11 @@ const ApplyFormData = () => {
   return (
     <div className="col-md-12 mt-5">
       <div className="card">
+         <div className="card-header">
+            <div className="d-flex align-items-center">
+              <h4 className="card-title">Apply Form User's Data</h4>
+            </div>
+          </div>
         <div className="card-body">
           <div className="table-responsive">
             {loading ? (
