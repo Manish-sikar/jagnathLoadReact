@@ -17,7 +17,6 @@ import { GetOurTeamData } from "../services/ourTeamService";
 import { GetContactDetailsData } from "../services/contactService";
 import { AddNewContactForm } from "../services/contactFormService";
 import Swal from "sweetalert2";
-import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import LoginBanner from "./bannerPages/loginBanner";
 import { Carousel, Card } from "react-bootstrap";
