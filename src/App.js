@@ -33,7 +33,6 @@ import FooterData from "./adminComponent/adminComponent/footer/footer";
 import BillingData from "./adminComponent/adminComponent/billing/billing";
 import SinInPage from "./adminComponent/authPage/SignInPage";
 import ProtectedRoute from "./adminComponent/authPage/protectRoutes";
-import BecomePartnerForm from "./adminComponent/adminComponent/userApplyForm/becomePartner";
 import { AuthProvider } from "./adminComponent/authPage/contex";
 import LoginUser from "./component/authPagesForUser/loginPage";
 import { AuthProviderUser } from "./component/authPagesForUser/contexUser";
@@ -42,6 +41,7 @@ import ProtectedRouteUser from "./component/authPagesForUser/protectRoutesUser";
 import UserFormFillPage from "./component/authenticUserPages/userFormFill";
 import ApplyFormData from "./adminComponent/adminComponent/userApplyForm/applyFormData";
 import PartnerPage from "./adminComponent/adminComponent/parthnerPage/parthnerPage";
+import BecomePartnerForm from "./adminComponent/adminComponent/parthnerPage/becomePartner";
 
 
 function App() {
