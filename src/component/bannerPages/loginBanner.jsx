@@ -40,7 +40,7 @@ useEffect(()=>{
                 className={`carousel-item ${index === 0 ? "active" : ""}`}
               >
                 <img
-                  src={`${baseURL}/${item.banner_img}`}
+                  src={item.banner_img}
                   className="img-fluid"
                   alt={`Slide ${index + 1}`}
                 />
