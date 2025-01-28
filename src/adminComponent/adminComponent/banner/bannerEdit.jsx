@@ -170,7 +170,7 @@ const BannerEdit = () => {
           ) : (
             formData?.banner_img && (
               <img
-                src={`${baseURL}/${formData?.banner_img}`}
+                src={formData?.banner_img}
                 alt="Banner Image "
                 className="w-25 pt-2"
               />
