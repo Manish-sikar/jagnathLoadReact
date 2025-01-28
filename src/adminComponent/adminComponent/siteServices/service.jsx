@@ -257,7 +257,7 @@ const ServicesPage = () => {
                   {serviceData.map((item) => (
                     <tr key={item._id}>
                       <td>
-                        <img src={`${baseURL}/${item.card_logo}`} className="w-75 img-fluid" /> 
+                        <img src={item.card_logo} className="w-75 img-fluid" /> 
                       </td>
                       <td>{item.card_title}</td>
                       <td>{item.btn_link}</td>
