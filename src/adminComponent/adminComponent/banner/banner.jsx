@@ -335,7 +335,7 @@ const BannerTable = () => {
                     <tr key={index}>
                       <td>
                         <img
-                          src={`${baseURL}/${item.banner_img}`}
+                          src={item.banner_img}
                           alt="Banner"
                           style={{ height: "100px" }}
                         />
