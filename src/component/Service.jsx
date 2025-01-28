@@ -70,7 +70,7 @@ const Service = () => {
                   variant="top"
                   src={
                     item.card_logo
-                      ? `${baseURL}/${item.card_logo}`
+                      ? item.card_logo
                       : "https://via.placeholder.com/150"
                   }
                   alt={item.card_title || `Card ${idx + 1}`}
