@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { baseURL } from "../../../services/apiService";
 import { updateProjectData } from "../../../services/projectService";
 
 const ProjectEditPage = () => {
@@ -152,7 +151,7 @@ const ProjectEditPage = () => {
           ) : (
             item.projectimg && (
               <img
-                src={`${baseURL}/${item.projectimg}`}
+                src={item.projectimg}
                 alt="Current Banner"
                 className="w-25 pt-2 img-fluid"
               />
