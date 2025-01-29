@@ -152,7 +152,7 @@ const SiteSetting = () => {
                   ) : (
                     formData?.site_logo && (
                       <img
-                        src={`${baseURL}/${formData?.site_logo}`}
+                        src={formData?.site_logo}
                         alt="Site Logo"
                         style={{
                           maxWidth: "100px",
@@ -214,7 +214,7 @@ const SiteSetting = () => {
                   ) : (
                     formData?.favicon && (
                       <img
-                        src={`${baseURL}/${formData?.favicon}`}
+                        src={formData?.favicon}
                         alt="Site Favicon"
                         style={{
                           maxWidth: "100px",
