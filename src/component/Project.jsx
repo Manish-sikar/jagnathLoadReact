@@ -107,7 +107,7 @@ const Project = () => {
                 <div class="p-4 text-center services-content">
                   <div class="services-content-icon">
                     <img
-                      src={`${baseURL}/${project.projectimg}`}
+                      src={project.projectimg}
                       alt={project.project_title}
                       class="mb-4"
                       style={{
