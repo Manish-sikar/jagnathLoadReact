@@ -164,6 +164,8 @@ const Home = () => {
   <LoginBanner />
       {/* <!-- Carousel End --> */}
     
+             <Service></Service>
+      
       {/* <!-- Fact Start --> */}
       <div class="container-fluid bg-secondary py-5">
         <div class="container">
@@ -261,7 +263,6 @@ const Home = () => {
 
       {/* <!-- Services Start --> */}
 
-             <Service></Service>
 
       {/* <!-- Services End --> */}
       {/* <!-- Project start --> */}
