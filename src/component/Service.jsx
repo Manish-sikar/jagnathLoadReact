@@ -27,7 +27,6 @@ const Service = () => {
 
   return (
     <div className="service-page-container">
-      <h1 className="text-center my-4">Our Services</h1>
 
       {servicesData.length === 0 ? (
         <p className="text-center">No services available at the moment.</p>
