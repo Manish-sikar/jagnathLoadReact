@@ -68,7 +68,7 @@ const Header = () => {
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
           <img 
-        src={`${baseURL}/${formData?.site_logo}`} 
+        src={formData?.site_logo}
         alt="Site Logo" 
         className="rounded-circle" 
         style={{ width: 'auto', height: '80px' }}  // Adjust size of the logo as needed
