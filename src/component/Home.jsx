@@ -286,7 +286,7 @@ const Home = () => {
                   <div className="p-4 text-center services-content">
                     <div className="services-content-icon">
                       <img
-                        src={`${baseURL}/${project.projectimg}`}
+                        src={project.projectimg}
                         alt={project.project_title}
                         className="mb-4 "
                         style={{
