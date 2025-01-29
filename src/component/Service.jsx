@@ -46,9 +46,9 @@ const Service = () => {
           }}
           pagination={{ clickable: true }}
           breakpoints={{
-            320: { slidesPerView: 1, spaceBetween: 10 }, // Mobile view
-            640: { slidesPerView: 2, spaceBetween: 15 }, // Small tablets
-            1024: { slidesPerView: 3, spaceBetween: 20 }, // Laptops
+             320: { slidesPerView: 1, spaceBetween: 10 }, // Mobile view
+            640: { slidesPerView: 3, spaceBetween: 15 }, // Small tablets
+            1024: { slidesPerView: 4, spaceBetween: 20 }, // Laptops
             1280: { slidesPerView: 4, spaceBetween: 30 }, // Desktops
           }}
         >
