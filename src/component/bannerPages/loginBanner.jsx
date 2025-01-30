@@ -46,7 +46,7 @@ useEffect(()=>{
                 />
                 <div className="carousel-caption">
                   <div className="container carousel-content">
-                    <h6 className="text-secondary h4 animated fadeInUp">
+{/*                     <h6 className="text-secondary h4 animated fadeInUp">
                       {item.title}
                     </h6>
                     <h1 className="text-white display-1 mb-4 animated fadeInRight">
@@ -62,7 +62,7 @@ useEffect(()=>{
                       >
                         {item.btn_txt}
                       </button>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
