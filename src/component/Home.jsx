@@ -407,96 +407,40 @@ const Home = () => {
                   ></iframe>
                 </div>
               </div>
-              <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-                <div class="p-3 rounded">
-                  <div class="mb-4">
-                    <label for="fullName" class="form-label">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="fullName"
-                      class="form-control border-0 py-3"
-                      placeholder="Enter your full name"
-                      name="fullName"
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label for="designation" class="form-label">
-                      Designation
-                    </label>
-                    <input
-                      type="text"
-                      id="designation"
-                      class="form-control border-0 py-3"
-                      placeholder="Enter your designation"
-                      name="designation"
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label for="email" class="form-label">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      class="form-control border-0 py-3"
-                      placeholder="Enter your email"
-                      name="email"
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label for="mobile" class="form-label">
-                      Mobile
-                    </label>
-                    <input
-                      type="tel"
-                      id="mobile"
-                      class="form-control border-0 py-3"
-                      placeholder="Enter your mobile number"
-                      name="mobile"
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label for="institutionName" class="form-label">
-                      Institution Name
-                    </label>
-                    <input
-                      type="text"
-                      id="institutionName"
-                      class="form-control border-0 py-3"
-                      placeholder="Enter your institution name"
-                      name="institutionName"
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label for="message" class="form-label">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      class="w-100 form-control border-0 py-3"
-                      rows="6"
-                      placeholder="Enter your message"
-                      name="message"
-                      onChange={handleChange}
-                    ></textarea>
-                  </div>
-                  <div class="text-start">
-                    <button
-                      class="btn bg-primary text-white py-3 px-3"
-                      type="button"
-                      onClick={handleSubmit}
-                    >
-                      Send Message
-                    </button>
-                  </div>
-                </div>
+<div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
+  <div class="p-4 rounded contact-form shadow-lg border border-light bg-white">
+    <div class="mb-4">
+      <label for="fullName" class="form-label fw-bold">Full Name</label>
+      <input type="text" id="fullName" class="form-control border p-3" placeholder="Enter your full name" name="fullName" onChange={handleChange} />
+    </div>
+    <div class="mb-4">
+      <label for="designation" class="form-label fw-bold">Designation</label>
+      <input type="text" id="designation" class="form-control border p-3" placeholder="Enter your designation" name="designation" onChange={handleChange} />
+    </div>
+    <div class="mb-4">
+      <label for="email" class="form-label fw-bold">Email</label>
+      <input type="email" id="email" class="form-control border p-3" placeholder="Enter your email" name="email" onChange={handleChange} />
+    </div>
+    <div class="mb-4">
+      <label for="mobile" class="form-label fw-bold">Mobile</label>
+      <input type="tel" id="mobile" class="form-control border p-3" placeholder="Enter your mobile number" name="mobile" onChange={handleChange} />
+    </div>
+    <div class="mb-4">
+      <label for="institutionName" class="form-label fw-bold">Institution Name</label>
+      <input type="text" id="institutionName" class="form-control border p-3" placeholder="Enter your institution name" name="institutionName" onChange={handleChange} />
+    </div>
+    <div class="mb-4">
+      <label for="message" class="form-label fw-bold">Message</label>
+      <textarea id="message" class="w-100 form-control border p-3" rows="6" placeholder="Enter your message" name="message" onChange={handleChange}></textarea>
+    </div>
+    <div class="text-start">
+      <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button" onClick={handleSubmit}>
+        Send Message
+      </button>
+    </div>
+  </div>
+</div>
+
               </div>
             </div>
           </div>
