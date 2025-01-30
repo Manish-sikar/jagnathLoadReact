@@ -11,7 +11,9 @@ const ContactData = () => {
     footer_title: "",
     footer_desc: "",
     footer_social_details: [],
-    footer_services: [],
+    footer_our_services: [],
+    footer_banking_services: [],
+    footer_other_services: [],
     footer_address1: "",
     footer_address2: "",
     footer_email: "",
@@ -31,7 +33,9 @@ const ContactData = () => {
         footer_title: data.footer_title || "",
         footer_desc: data.footer_desc || "",
         footer_social_details: data.footer_social_details || [],
-        footer_services: data.footer_services || [],
+        footer_our_services: data.footer_our_services || [],
+        footer_banking_services: data.footer_banking_services || [],
+        footer_other_services: data.footer_other_services || [],
         footer_address1: data.footer_address1 || "",
         footer_address2: data.footer_address2 || "",
         footer_email: data.footer_email || "",
@@ -64,12 +68,12 @@ const ContactData = () => {
     }));
   };
 
-  const handleServiceChange = (index, e) => {
-    const updatedServices = [...formData.footer_services];
+  const handleServiceChange = (index, e, serviceType) => {
+    const updatedServices = [...formData[serviceType]];
     updatedServices[index][e.target.name] = e.target.value;
     setFormData((prevData) => ({
       ...prevData,
-      footer_services: updatedServices,
+      [serviceType]: updatedServices,
     }));
   };
 
@@ -78,7 +82,7 @@ const ContactData = () => {
       ...prevData,
       footer_social_details: [
         ...prevData.footer_social_details,
-        { icon_name: "", icon_url: "", icon_class: "" }, // Initialize with empty values
+        { icon_name: "", icon_url: "", icon_class: "" },
       ],
     }));
   };
@@ -91,21 +95,21 @@ const ContactData = () => {
     }));
   };
 
-  const addService = () => {
+  const addService = (serviceType) => {
     setFormData((prevData) => ({
       ...prevData,
-      footer_services: [
-        ...prevData.footer_services,
-        { service_name: "" }, // Initialize with an empty value
+      [serviceType]: [
+        ...prevData[serviceType],
+        { service_name: "" },
       ],
     }));
   };
 
-  const removeService = (index) => {
-    const updatedServices = formData.footer_services.filter((_, i) => i !== index);
+  const removeService = (index, serviceType) => {
+    const updatedServices = formData[serviceType].filter((_, i) => i !== index);
     setFormData((prevData) => ({
       ...prevData,
-      footer_services: updatedServices,
+      [serviceType]: updatedServices,
     }));
   };
 
@@ -266,25 +270,73 @@ const ContactData = () => {
                       Add Social Detail
                     </button>
                   </div>
+
+                  {/* Footer Our Services */}
                   <div className="form-group">
-                    <label>Footer Services</label>
-                    {formData.footer_services.map((service, index) => (
+                    <label>Footer Our Services</label>
+                    {formData.footer_our_services.map((service, index) => (
                       <div key={index} className="d-flex mb-2">
                         <input
                           type="text"
                           className="form-control me-2"
                           name="service_name"
                           value={service.service_name}
-                          onChange={(e) => handleServiceChange(index, e)}
+                          onChange={(e) => handleServiceChange(index, e, "footer_our_services")}
                           placeholder="Service Name"
                         />
-                        <button className="btn btn-danger" onClick={() => removeService(index)}>
+                        <button className="btn btn-danger" onClick={() => removeService(index, "footer_our_services")}>
                           Remove
                         </button>
                       </div>
                     ))}
-                    <button className="btn btn-primary mt-2" onClick={addService}>
+                    <button className="btn btn-primary mt-2" onClick={() => addService("footer_our_services")}>
                       Add Service
+                    </button>
+                  </div>
+
+                  {/* Footer Banking Services */}
+                  <div className="form-group">
+                    <label>Footer Banking Services</label>
+                    {formData.footer_banking_services.map((service, index) => (
+                      <div key={index} className="d-flex mb-2">
+                        <input
+                          type="text"
+                          className="form-control me-2"
+                          name="service_name"
+                          value={service.service_name}
+                          onChange={(e) => handleServiceChange(index, e, "footer_banking_services")}
+                          placeholder="Service Name"
+                        />
+                        <button className="btn btn-danger" onClick={() => removeService(index, "footer_banking_services")}>
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                    <button className="btn btn-primary mt-2" onClick={() => addService("footer_banking_services")}>
+                      Add Banking Service
+                    </button>
+                  </div>
+
+                  {/* Footer Other Services */}
+                  <div className="form-group">
+                    <label>Footer Other Services</label>
+                    {formData.footer_other_services.map((service, index) => (
+                      <div key={index} className="d-flex mb-2">
+                        <input
+                          type="text"
+                          className="form-control me-2"
+                          name="service_name"
+                          value={service.service_name}
+                          onChange={(e) => handleServiceChange(index, e, "footer_other_services")}
+                          placeholder="Service Name"
+                        />
+                        <button className="btn btn-danger" onClick={() => removeService(index, "footer_other_services")}>
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                    <button className="btn btn-primary mt-2" onClick={() => addService("footer_other_services")}>
+                      Add Other Service
                     </button>
                   </div>
                 </div>
@@ -301,7 +353,9 @@ const ContactData = () => {
                     footer_title: "",
                     footer_desc: "",
                     footer_social_details: [],
-                    footer_services: [],
+                    footer_our_services: [],
+                    footer_banking_services: [],
+                    footer_other_services: [],
                     footer_address1: "",
                     footer_address2: "",
                     footer_email: "",
