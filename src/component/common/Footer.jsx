@@ -21,10 +21,11 @@ const Footer = () => {
 
   return (
     <>
+      {/* <!-- Footer Start --> */}
       <div className="container-fluid footer bg-dark wow fadeIn" data-wow-delay=".3s">
         <div className="container pt-5 pb-4">
           <div className="row g-5">
-            <div className="col-lg-5 col-md-8">
+            <div className="col-lg-3 col-md-4">
               <Link to="#">
                 <h1 className="text-white fw-bold d-block">
                   {footerData?.footer_title}
@@ -44,11 +45,33 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="col-lg-3 col-md-6">
+            <div className="col-lg-2 col-md-3">
               <Link to="" className="h3 text-secondary">Our Services</Link>
               <div className="mt-4 d-flex flex-column help-link">
-                {footerData?.footer_services?.map((service) => (
-                  <Link to='#' className="mb-2 text-white" key={service._id}>
+                {footerData?.footer_our_services?.map((service) => (
+                  <Link to={`/${service.service_name}`} className="mb-2 text-white" key={service._id}>
+                    <i className="fas fa-angle-right text-secondary me-2"></i>
+                    {service.service_name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="col-lg-2 col-md-3">
+              <Link to="" className="h3 text-secondary">Banking Services</Link>
+              <div className="mt-4 d-flex flex-column help-link">
+                {footerData?.footer_banking_services?.map((service) => (
+                  <Link to={`/${service.service_name}`} className="mb-2 text-white" key={service._id}>
+                    <i className="fas fa-angle-right text-secondary me-2"></i>
+                    {service.service_name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="col-lg-2 col-md-3">
+              <Link to="" className="h3 text-secondary">Other Services</Link>
+              <div className="mt-4 d-flex flex-column help-link">
+                {footerData?.footer_other_services?.map((service) => (
+                  <Link to={`/${service.service_name}`} className="mb-2 text-white" key={service._id}>
                     <i className="fas fa-angle-right text-secondary me-2"></i>
                     {service.service_name}
                   </Link>
@@ -56,7 +79,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="col-lg-3 col-md-6">
+            <div className="col-lg-3 col-md-3">
               <Link to="" className="h3 text-secondary">Contact Us</Link>
               <div className="text-white mt-4 d-flex flex-column contact-link">
                 <Link to="" className="pb-3 text-light border-bottom border-primary">
