@@ -25,7 +25,7 @@ const Footer = () => {
       <div className="container-fluid footer bg-dark wow fadeIn" data-wow-delay=".3s">
         <div className="container pt-5 pb-4">
           <div className="row g-5">
-            <div className="col-lg-3 col-md-4">
+            <div className="col-lg-3 col-md-3">
               <Link to="#">
                 <h1 className="text-white fw-bold d-block">
                   {footerData?.footer_title}
@@ -45,7 +45,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="col-lg-2 col-md-3">
+            <div className="col-lg-2 col-md-2">
               <Link to="" className="h3 text-secondary">Our Services</Link>
               <div className="mt-4 d-flex flex-column help-link">
                 {footerData?.footer_our_services?.map((service) => (
@@ -56,7 +56,7 @@ const Footer = () => {
                 ))}
               </div>
             </div>
-            <div className="col-lg-2 col-md-3">
+            <div className="col-lg-2 col-md-2">
               <Link to="" className="h3 text-secondary">Banking Services</Link>
               <div className="mt-4 d-flex flex-column help-link">
                 {footerData?.footer_banking_services?.map((service) => (
@@ -67,7 +67,7 @@ const Footer = () => {
                 ))}
               </div>
             </div>
-            <div className="col-lg-2 col-md-3">
+            <div className="col-lg-2 col-md-2">
               <Link to="" className="h3 text-secondary">Other Services</Link>
               <div className="mt-4 d-flex flex-column help-link">
                 {footerData?.footer_other_services?.map((service) => (
@@ -79,7 +79,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="col-lg-3 col-md-3">
+            <div className="col-lg-3 col-md-2">
               <Link to="" className="h3 text-secondary">Contact Us</Link>
               <div className="text-white mt-4 d-flex flex-column contact-link">
                 <Link to="" className="pb-3 text-light border-bottom border-primary">
