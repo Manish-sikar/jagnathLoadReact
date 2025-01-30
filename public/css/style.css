@@ -693,3 +693,22 @@
 
 
  
+.h3.text-secondary {
+    border-bottom:   solid red; /* Red line */
+    padding-bottom: 4px; /* Optional: to add some spacing between the text and the line */
+  }
+
+  .h3.text-secondary {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .h3.text-secondary::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;  
+    left: 0;
+    width: 100%;
+    height: 2px; 
+    background-color: red; 
+  }
