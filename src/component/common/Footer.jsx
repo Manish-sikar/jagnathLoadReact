@@ -46,7 +46,7 @@ const Footer = () => {
             </div>
 
             <div className="col-lg-2 col-md-2">
-              <Link to="" className="h3 text-secondary">Our Services</Link>
+              <Link to="" className="h3 text-secondary text-white">Our Services</Link>
               <div className="mt-4 d-flex flex-column help-link">
                 {footerData?.footer_our_services?.map((service) => (
                   <Link to={`/${service.service_name}`} className="mb-2 text-white" key={service._id}>
@@ -57,7 +57,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-lg-2 col-md-2">
-              <Link to="" className="h3 text-secondary">Banking Services</Link>
+              <Link to="" className="h3 text-secondary text-white">Banking Services</Link>
               <div className="mt-4 d-flex flex-column help-link">
                 {footerData?.footer_banking_services?.map((service) => (
                   <Link to={`/${service.service_name}`} className="mb-2 text-white" key={service._id}>
@@ -68,7 +68,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-lg-2 col-md-2">
-              <Link to="" className="h3 text-secondary">Other Services</Link>
+              <Link to="" className="h3 text-secondary text-white">Other Services</Link>
               <div className="mt-4 d-flex flex-column help-link">
                 {footerData?.footer_other_services?.map((service) => (
                   <Link to={`/${service.service_name}`} className="mb-2 text-white" key={service._id}>
@@ -80,7 +80,7 @@ const Footer = () => {
             </div>
 
             <div className="col-lg-3 col-md-2">
-              <Link to="" className="h3 text-secondary">Contact Us</Link>
+              <Link to="" className="h3 text-secondary text-white">Contact Us</Link>
               <div className="text-white mt-4 d-flex flex-column contact-link">
                 <Link to="" className="pb-3 text-light border-bottom border-primary">
                   <i className="fas fa-map-marker-alt text-secondary me-2"></i>
