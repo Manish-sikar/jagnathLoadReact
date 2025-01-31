@@ -239,6 +239,16 @@ const AdminSideBar = () => {
                   <p>Partner's Data </p>
                 </NavLink>
               </li>
+                <li class="nav-item">
+                <NavLink
+                  to="/admin/loanProduct"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i class="fas fa-desktop"></i>
+                  <p>Loan Product's Data </p>
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
