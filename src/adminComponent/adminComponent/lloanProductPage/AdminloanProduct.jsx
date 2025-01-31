@@ -57,7 +57,11 @@ const LoanServicesPage = () => {
       fetchLoanData();
       setIsModalOpen(false);
     } catch (error) {
-      Swal.fire("Error!", "Failed to add loan service. Please try again.", "error");
+      Swal.fire(
+        "Error!",
+        "Failed to add loan service. Please try again.",
+        "error"
+      );
     }
   };
 
@@ -81,16 +85,33 @@ const LoanServicesPage = () => {
       Swal.fire("Success!", "Status changed successfully!", "success");
       fetchLoanData();
     } catch (error) {
-      Swal.fire("Error!", "Failed to change status. Please try again.", "error");
+      Swal.fire(
+        "Error!",
+        "Failed to change status. Please try again.",
+        "error"
+      );
     }
   };
+
+  const category = [
+    "insurance",
+    "book_new_vehicle",
+    "investment",
+    "account_opening",
+    "cards",
+    "our_service",
+    "loan_product",
+  ];
 
   return (
     <div className="container mt-4">
       <div className="card">
         <div className="card-header d-flex justify-content-between">
           <h4>Loan Services</h4>
-          <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setIsModalOpen(true)}
+          >
             <i className="fa fa-plus"></i> Add Loan Service
           </button>
         </div>
@@ -102,33 +123,80 @@ const LoanServicesPage = () => {
                 <div className="modal-content">
                   <div className="modal-header">
                     <h5>Add Loan Service</h5>
-                    <button className="close" onClick={() => setIsModalOpen(false)}>&times;</button>
+                    <button
+                      className="close"
+                      onClick={() => setIsModalOpen(false)}
+                    >
+                      &times;
+                    </button>
                   </div>
                   <div className="modal-body">
                     <form onSubmit={handleSubmit}>
                       <div className="form-group">
                         <label>Category Name</label>
-                        <input type="text" name="category_name" className="form-control" onChange={handleChange} />
+                        <input
+                          type="text"
+                          name="category_name"
+                          className="form-control"
+                          onChange={handleChange}
+                        />
                       </div>
                       <div className="form-group">
                         <label>Sub Category Name</label>
-                        <input type="text" name="sub_category_name" className="form-control" onChange={handleChange} />
+                        <input
+                          type="text"
+                          name="sub_category_name"
+                          className="form-control"
+                          onChange={handleChange}
+                        />
                       </div>
                       <div className="form-group">
-                        <label>Category</label>
-                        <input type="text" name="category" className="form-control" onChange={handleChange} />
+                        <div className="form-group">
+                          <label>Category</label>
+                          <select
+                            name="category"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={formData.category}
+                          >
+                            <option value="">Select Category</option>
+                            {category.map((category) => (
+                              <option key={category} value={category}>
+                                {category}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
                       <div className="form-group">
                         <label>Link</label>
-                        <input type="text" name="link" className="form-control" onChange={handleChange} />
+                        <input
+                          type="text"
+                          name="link"
+                          className="form-control"
+                          onChange={handleChange}
+                        />
                       </div>
                       <div className="form-group">
                         <label>Icon Image</label>
-                        <input type="file" name="loanimg" className="form-control" onChange={handleFileChange} />
+                        <input
+                          type="file"
+                          name="loanimg"
+                          className="form-control"
+                          onChange={handleFileChange}
+                        />
                       </div>
                       <div className="modal-footer">
-                        <button type="submit" className="btn btn-primary">Add</button>
-                        <button type="button" className="btn btn-danger" onClick={() => setIsModalOpen(false)}>Close</button>
+                        <button type="submit" className="btn btn-primary">
+                          Add
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-danger"
+                          onClick={() => setIsModalOpen(false)}
+                        >
+                          Close
+                        </button>
                       </div>
                     </form>
                   </div>
@@ -162,19 +230,36 @@ const LoanServicesPage = () => {
                       <td>{item.category}</td>
                       <td>{item.link}</td>
                       <td>
-                        <button className={`btn ${item.status === 1 ? "btn-success" : "btn-danger"}`} onClick={() => handleStatus(item)}>
+                        <button
+                          className={`btn ${
+                            item.status === 1 ? "btn-success" : "btn-danger"
+                          }`}
+                          onClick={() => handleStatus(item)}
+                        >
                           {item.status === 1 ? "Active" : "Inactive"}
                         </button>
                       </td>
                       <td>
-                        <button className="btn btn-primary" onClick={() => handleEditClick(item)}>Edit</button>
-                        <button className="btn btn-danger" onClick={() => handleDeleteClick(item._id)}>Delete</button>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => handleEditClick(item)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => handleDeleteClick(item._id)}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="7" className="text-center">No data available</td>
+                    <td colSpan="7" className="text-center">
+                      No data available
+                    </td>
                   </tr>
                 )}
               </tbody>
