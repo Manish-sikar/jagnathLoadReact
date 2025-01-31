@@ -21,7 +21,7 @@ import Row from "react-bootstrap/Row";
 import LoginBanner from "./bannerPages/loginBanner";
 import { Carousel, Card } from "react-bootstrap";
 import Service from "./Service";
-import BankServices from "./bankicons"
+import BankServices from "./bankicon"
 
 const Home = () => {
   const [serviceState, setServiceState] = useState([]);
