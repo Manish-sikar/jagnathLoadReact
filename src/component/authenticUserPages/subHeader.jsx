@@ -5,13 +5,13 @@ const SubHeaderUser = ({ onCategorySelect }) => {
   const navigate = useNavigate();
 
   const dropdownData = [
-    { title: "Loan Products", category: "Loan Products" },
-    { title: "Our Services", category: "Our Services" },
-    { title: "Cards", category: "Cards" },
-    { title: "Account Opening", category: "Account Opening" },
-    { title: "Investment", category: "Investment" },
-    { title: "Insurance", category: "Insurance" },
-    { title: "Book New Vehicle", category: "Book New Vehicle" },
+    { title: "Loan Products", category: "loan_product" },
+    { title: "Our Services", category: "our_service" },
+    { title: "Cards", category: "cards" },
+    { title: "Account Opening", category: "account_opening" },
+    { title: "Investment", category: "investment" },
+    { title: "Insurance", category: "insurance" },
+    { title: "Book New Vehicle", category: "book_new_vehicle" },
   ];
 
   return (
