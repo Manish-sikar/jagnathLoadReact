@@ -342,7 +342,7 @@ const Home = () => {
                     <i class="fas fa-map-marker-alt text-white"></i>
                   </div>
                   <div class="ms-3">
-                    <h4 class="text-primary">Address</h4>
+                    <h4 class="text-add">Address</h4>
                     <Link
                       to={`${contactState?.address_link}`}
                       target="_blank"
@@ -362,7 +362,7 @@ const Home = () => {
                     <i class="fa fa-phone text-white"></i>
                   </div>
                   <div class="ms-3">
-                    <h4 class="text-primary">Call Us</h4>
+                    <h4 class="text-add">Call Us</h4>
                     <Link
                       class="h5"
                       href={`tel:${contactState?.mob_no}`}
@@ -382,7 +382,7 @@ const Home = () => {
                     <i class="fa fa-envelope text-white"></i>
                   </div>
                   <div class="ms-3">
-                    <h4 class="text-primary">Email Us</h4>
+                    <h4 class="text-add">Email Us</h4>
                     <Link
                       class="h5"
                       href={`mailto:${contactState?.email}`}
