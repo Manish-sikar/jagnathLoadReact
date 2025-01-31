@@ -137,7 +137,7 @@ export default Header;
     socialIcon: {
       fontSize: "1.5rem",
       marginRight: "10px",
-      color: "#fff",
+      color: "#09122C",
     },
     socialIconHover: {
       color: "#ff5a5f",
