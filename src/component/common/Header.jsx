@@ -106,7 +106,7 @@ export default Header;
   // Inline style object for the Navbar and other components
   const style = {
     navbar: {
-      backgroundColor: "#1c7bda",
+      backgroundColor: "rgb(232, 249, 255)",
       borderBottom: "3px solid #f1f1f1",
     },
     navbarBrand: {
