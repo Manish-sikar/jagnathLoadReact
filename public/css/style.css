@@ -634,9 +634,11 @@
 }
 
 .contact-map {
-    background: #26d48c;
+    background: #000612;
 }
-
+.text-add{
+     background: rgb(206, 200, 200);
+}
 .contact-form {
     background: #26d48c;
 }
