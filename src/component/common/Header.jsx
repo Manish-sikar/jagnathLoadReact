@@ -112,18 +112,18 @@ export default Header;
     navbarBrand: {
       fontSize: "1.8rem",
       fontWeight: "bold",
-      color: "#fff",
+      color: "#1D1616",
     },
     navLink: {
-      color: "#fff",
+      color: "#1D1616",
       fontSize: "1.1rem",
     },
     navLinkHover: {
-      color: "#ff5a5f",
+      color: "#8E1616",
       textDecoration: "underline",
     },
     subNavbar: {
-      backgroundColor: "#A64D79",
+      backgroundColor: "#DAD2FF",
       borderTop: "3px solid #f1f1f1",
       padding: "1px 0",
       maxHeight: "100px", // Limit height
