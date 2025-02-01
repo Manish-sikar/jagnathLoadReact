@@ -106,16 +106,16 @@ export default Header;
   // Inline style object for the Navbar and other components
   const style = {
     navbar: {
-      backgroundColor: "rgb(232, 249, 255)",
+      backgroundColor: "#006BFF",
       borderBottom: "3px solid #f1f1f1",
     },
     navbarBrand: {
       fontSize: "1.8rem",
       fontWeight: "bold",
-      color: "#1D1616",
+      color: "#f1f1f1",
     },
     navLink: {
-      color: "#1D1616",
+      color: "#f1f1f1",
       fontSize: "1.1rem",
     },
     navLinkHover: {
@@ -137,7 +137,7 @@ export default Header;
     socialIcon: {
       fontSize: "1.5rem",
       marginRight: "10px",
-      color: "#09122C",
+      color: "#f1f1f1",
     },
     socialIconHover: {
       color: "#ff5a5f",
