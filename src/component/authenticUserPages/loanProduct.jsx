@@ -29,40 +29,87 @@ const LoanProductList = ({ products }) => {
         {products.map((product, index) => (
           <div
             key={index}
-            className="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
+            className={`d-flex justify-content-center mb-4`}
             style={{
-              width: index % 2 === 0 ? "20%" : "20%", // 20% for both left and right
-              marginLeft: index % 2 === 0 ? "10%" : "40%", // First item: 10%, second item: 40%
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
-            <div
-              className="card shadow-sm p-2"
-              onClick={() => product.link && handleClick(product.link)}
-              style={{
-                cursor: product.link ? "pointer" : "default",
-                width: "100%",
-              }}
-            >
+            {/* Empty Space - 10% */}
+            <div style={{ width: "10%" }}></div>
+
+            {/* First Image Card - 35% */}
+            <div style={{ width: "35%" }}>
               <div
-                className="d-flex justify-content-center align-items-center"
-                style={{ height: "50px" }}
+                className="card shadow-sm p-2"
+                onClick={() => product.link && handleClick(product.link)}
+                style={{
+                  cursor: product.link ? "pointer" : "default",
+                  width: "100%",
+                }}
               >
-                <img
-                  src={product.icon_pic}
-                  alt={product.category_name}
-                  className="card-img-top"
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                    objectFit: "contain",
-                  }}
-                />
-              </div>
-              <div className="card-body text-center">
-                <h5 className="card-title">{product.category_name}</h5>
-                <p className="card-text">{product.sub_category_name}</p>
+                <div
+                  className="d-flex justify-content-center align-items-center"
+                  style={{ height: "50px" }}
+                >
+                  <img
+                    src={product.icon_pic}
+                    alt={product.category_name}
+                    className="card-img-top"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+                <div className="card-body text-center">
+                  <h5 className="card-title">{product.category_name}</h5>
+                  <p className="card-text">{product.sub_category_name}</p>
+                </div>
               </div>
             </div>
+
+            {/* Empty Space - 10% */}
+            <div style={{ width: "10%" }}></div>
+
+            {/* Second Image Card - 35% */}
+            {products[index + 1] && (
+              <div style={{ width: "35%" }}>
+                <div
+                  className="card shadow-sm p-2"
+                  onClick={() => products[index + 1].link && handleClick(products[index + 1].link)}
+                  style={{
+                    cursor: products[index + 1].link ? "pointer" : "default",
+                    width: "100%",
+                  }}
+                >
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{ height: "50px" }}
+                  >
+                    <img
+                      src={products[index + 1].icon_pic}
+                      alt={products[index + 1].category_name}
+                      className="card-img-top"
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
+                  <div className="card-body text-center">
+                    <h5 className="card-title">{products[index + 1].category_name}</h5>
+                    <p className="card-text">{products[index + 1].sub_category_name}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Empty Space - 10% */}
+            <div style={{ width: "10%" }}></div>
           </div>
         ))}
       </div>
