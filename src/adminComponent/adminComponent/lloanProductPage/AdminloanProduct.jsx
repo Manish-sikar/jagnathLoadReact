@@ -101,6 +101,8 @@ const LoanServicesPage = () => {
     "cards",
     "our_service",
     "loan_product",
+    "report" ,
+    "support"
   ];
 
   return (
