@@ -12,7 +12,7 @@ const SubHeaderUser = ({ onCategorySelect }) => {
     { title: "Investment", category: "investment" },
     { title: "Insurance", category: "insurance" },
     { title: "Book New Vehicle", category: "book_new_vehicle" },
-      { title: "Report", category: "report" },
+    { title: "Report", category: "report" },
     { title: "Support", category: "support" },
   ];
 
@@ -25,7 +25,8 @@ const SubHeaderUser = ({ onCategorySelect }) => {
             <Offcanvas.Title id="offcanvasNavbarLabel">Categories</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <Nav className="me-auto">
+          <Nav className="d-flex justify-content-center w-100">
+
               {dropdownData.map((dropdown, index) => (
                 <Nav.Link key={index} onClick={() => onCategorySelect(dropdown.category)}>
                   {dropdown.title}
