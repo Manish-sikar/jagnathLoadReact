@@ -20,8 +20,10 @@ const UserFormFillPage = () => {
     { title: "Report", items: report },
     { title: "Support", items: support },
   ];
+const partnerEmail = localStorage.getItem("partnerEmail")
 
   const [formData, setFormData] = useState({
+    partnerEmail,
     fullName: "",
     email: "",
     phone: "",
