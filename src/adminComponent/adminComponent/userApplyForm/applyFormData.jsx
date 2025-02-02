@@ -1,27 +1,23 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { GetnewUserApplyForm } from "../../../services/applyNewUserForm";
+import {
+  GetnewUserApplyForm,
+  deleteUserApplyForm,
+} from "../../../services/applyNewUserForm";
+import { Link, useNavigate } from "react-router-dom";
+import EditUserApplyForm from "./editUserApplyForm";
 
 const ApplyFormData = () => {
   const [tableData, setTableData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
+  const navigate = useNavigate();
   const fetchTableData = async () => {
-    setLoading(true);
-    setError(null);
     try {
       const response = await GetnewUserApplyForm();
-      if (response?.userForm_Data) {
-        setTableData(response.userForm_Data);
-      } else {
-        setTableData([]);
-      }
-    } catch (err) {
-      console.error("Error fetching table data:", err);
-      setError("Failed to load data. Please try again later.");
-    } finally {
-      setLoading(false);
+      setTableData(response.userForm_Data);
+    } catch (error) {
+      console.error("Error fetching table data:", error);
     }
   };
 
@@ -29,26 +25,46 @@ const ApplyFormData = () => {
     fetchTableData();
   }, []);
 
+  const handleEdit = (user) => {
+    setSelectedUser(user);
+    setShowEditModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedUser(null);
+    setShowEditModal(false);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await deleteUserApplyForm(id);
+        alert("User deleted successfully!");
+        fetchTableData(); // Refresh data
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
+    }
+  };
+
   return (
-    <div className="col-md-12 mt-5">
-      <div className="card">
-         <div className="card-header">
+    <>
+      <div className="col-md-12 mt-5">
+        <div className="card">
+          <div className="card-header">
             <div className="d-flex align-items-center">
               <h4 className="card-title">Apply Form User's Data</h4>
             </div>
           </div>
-        <div className="card-body">
-          <div className="table-responsive">
-            {loading ? (
-              <div className="text-center p-3">
-                <span className="spinner-border text-primary"></span> Loading data...
-              </div>
-            ) : error ? (
-              <div className="alert alert-danger text-center">{error}</div>
-            ) : tableData.length === 0 ? (
-              <div className="text-center p-3">No records found.</div>
-            ) : (
-              <table id="multi-filter-select" className="display table table-striped table-hover">
+          <div className="card-header">
+            <h4 className="card-title">Multi Filter Table</h4>
+          </div>
+          <div className="card-body">
+            <div className="table-responsive">
+              <table
+                id="multi-filter-select"
+                className="display table table-striped table-hover"
+              >
                 <thead>
                   <tr>
                     <th>Full Name</th>
@@ -75,7 +91,7 @@ const ApplyFormData = () => {
                 </tfoot>
                 <tbody>
                   {tableData.map((item) => (
-                    <tr key={item._id || item.email}>
+                    <tr key={item._id}>
                       <td>{item.fullName}</td>
                       <td>{item.email}</td>
                       <td>{item.phone}</td>
@@ -84,15 +100,67 @@ const ApplyFormData = () => {
                       <td>{item.district}</td>
                       <td>{item.category}</td>
                       <td>{item.subCategory}</td>
+                      <td>
+                        {item.document1 && (
+                          <img
+                            src={item.document1}
+                            alt="Doc 1"
+                            width="50"
+                            height="50"
+                          />
+                        )}
+                      </td>
+                      <td>
+                        {item.document2 && (
+                          <img
+                            src={item.document2}
+                            alt="Doc 2"
+                            width="50"
+                            height="50"
+                          />
+                        )}
+                      </td>
+                      <td>
+                        {item.document3 && (
+                          <img
+                            src={item.document3}
+                            alt="Doc 3"
+                            width="50"
+                            height="50"
+                          />
+                        )}
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-warning btn-sm me-2"
+                          onClick={() => handleEdit(item)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDelete(item._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-            )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {showEditModal && (
+        <EditUserApplyForm
+          user={selectedUser}
+          onClose={handleCloseModal}
+          onUpdate={fetchTableData}
+        />
+      )}
+    </>
   );
 };
 
