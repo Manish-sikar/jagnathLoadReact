@@ -29,6 +29,9 @@ export const AuthProviderUser = ({ children }) => {
         localStorage.setItem('userDataUser', JSON.stringify(data));
         setUserDataUserState(data);
     };
+       const setuserEmail = (data) => {
+        localStorage.setItem('partnerEmail', JSON.stringify(data));
+    };
 
     // Check if the user is authenticated
     const isAuthenticatedUser = !!authTokenUser;
@@ -38,6 +41,7 @@ export const AuthProviderUser = ({ children }) => {
         setTokenUser,
         userDataUser,
         setDataUser,
+        setuserEmail,
         logoutUser,
         isAuthenticatedUser,
     }), [authTokenUser, userDataUser]);
