@@ -4,105 +4,133 @@ import { AddnewUserApplyForm } from "../../services/applyNewUserForm";
 import { useNavigate } from "react-router-dom";
 
 const UserFormFillPage = () => {
-    const [statesData, setStatesData] = useState([]); // Store states and districts data
-    const [selectedState, setSelectedState] = useState("");
-    const [districts, setDistricts] = useState([]); // Districts of selected state
-    const navigate = useNavigate();
-    const dropdownCategories = [
-        { title: "Loan Products", items: loanProducts },
-        { title: "Our Services", items: ourServices },
-        { title: "Cards", items: cards },
-        { title: "Account Opening", items: accountOpening },
-        { title: "Investment", items: investment },
-        { title: "Insurance", items: insurance },
-        { title: "Book for New Vehicle", items: bookForVehicle },
-        { title: "Report", items: report },
-        { title: "Support", items: support },
-      ];
-    
-      const [formData, setFormData] = useState({
-        fullName: "",
-        email: "",
-        phone: "",
-        panCard: "",
-        state: "",
-        district: "",
-        fullAddress: "",
-        category: "",
-        subCategory: "",
-      });
-    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
-      };
-      useEffect(() => {
-        // Fetch the JSON file
-        const fetchStatesData = async () => {
-          try {
-            const response = await fetch("/assets/json/states-and-districts.json");
-            const data = await response.json();
-            setStatesData(data.states); // Set states data
-          } catch (error) {
-            Swal.fire("Error!", "Failed to load states and districts data.", "error");
-          }
-        };
-    
-        fetchStatesData();
-      }, []);
-    
-      const handleStateChange = (e) => {
-        const selectedState = e.target.value;
-        setSelectedState(selectedState);
-    
-        // Find districts for the selected state
-        const stateData = statesData.find((state) => state.state === selectedState);
-        setDistricts(stateData ? stateData.districts : []); // Set districts
-        setFormData((prev) => ({ ...prev, state: selectedState, district: "" })); // Reset district
-      };
+  const [statesData, setStatesData] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
+  const [districts, setDistricts] = useState([]);
+  const navigate = useNavigate();
 
-      const handleCategoryChange = (e) => {
-        const [category, subCategory] = e.target.value.split("||");
-        setFormData((prev) => ({
-          ...prev,
-          category,
-          subCategory,
-        }));
-      };
-    
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(formData);
-    
-        try {
-          const response = await AddnewUserApplyForm(formData)
-          if (response.status===201) {
-            Swal.fire("Success!", "Form submitted successfully!", "success");
-            setFormData({
-              fullName: "",
-              email: "",
-              phone: "",
-              panCard: "",
-              state: "",
-              district: "",
-              fullAddress: "",
-              category: "",
-              subCategory: "",
-            });
-            setSelectedState("");
-            setDistricts([]);
-              navigate("/dashboard")
-          } else {
-            throw new Error("Failed to submit form");
-          }
-        } catch (error) {
-          Swal.fire("Error!", "Failed to submit the form. Try again.", "error");
-        }
-      };
-    
+  const dropdownCategories = [
+    { title: "Loan Products", items: loanProducts },
+    { title: "Our Services", items: ourServices },
+    { title: "Cards", items: cards },
+    { title: "Account Opening", items: accountOpening },
+    { title: "Investment", items: investment },
+    { title: "Insurance", items: insurance },
+    { title: "Book for New Vehicle", items: bookForVehicle },
+    { title: "Report", items: report },
+    { title: "Support", items: support },
+  ];
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    panCard: "",
+    state: "",
+    district: "",
+    fullAddress: "",
+    category: "",
+    subCategory: "",
+    document1: null,
+    document2: null,
+    document3: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    if (files.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: files[0],
+      }));
+    }
+  };
+
+  useEffect(() => {
+    const fetchStatesData = async () => {
+      try {
+        const response = await fetch("/assets/json/states-and-districts.json");
+        const data = await response.json();
+        setStatesData(data.states);
+      } catch (error) {
+        Swal.fire(
+          "Error!",
+          "Failed to load states and districts data.",
+          "error"
+        );
+      }
+    };
+    fetchStatesData();
+  }, []);
+
+  const handleStateChange = (e) => {
+    const selectedState = e.target.value;
+    setSelectedState(selectedState);
+    const stateData = statesData.find((state) => state.state === selectedState);
+    setDistricts(stateData ? stateData.districts : []);
+    setFormData((prev) => ({ ...prev, state: selectedState, district: "" }));
+  };
+
+  const handleCategoryChange = (e) => {
+    const [category, subCategory] = e.target.value.split("||");
+    setFormData((prev) => ({
+      ...prev,
+      category,
+      subCategory,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formDataToSubmit = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value) {
+        formDataToSubmit.append(key, value);
+      }
+    });
+
+    console.log("📦 FormData Before Submission:");
+    for (let pair of formDataToSubmit.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    try {
+      const response = await AddnewUserApplyForm(formDataToSubmit);
+      if (response.status === 201) {
+        Swal.fire("Success!", "Form submitted successfully!", "success");
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          panCard: "",
+          state: "",
+          district: "",
+          fullAddress: "",
+          category: "",
+          subCategory: "",
+          document1: null,
+          document2: null,
+          document3: null,
+        });
+        setSelectedState("");
+        setDistricts([]);
+        navigate("/dashboard");
+      } else {
+        throw new Error("Failed to submit form");
+      }
+    } catch (error) {
+      Swal.fire("Error!", "Failed to submit the form. Try again.", "error");
+    }
+  };
 
   return (
     <>
@@ -169,50 +197,49 @@ const UserFormFillPage = () => {
             />
           </div>
 
-     
-        {/* State */}
-        <div className="form-group mb-3">
-          <label htmlFor="state">State</label>
-          <select
-            className="form-control"
-            id="state"
-            name="state"
-            value={formData.state}
-            onChange={handleStateChange}
-            required
-          >
-            <option value="" disabled>
-              Choose your state...
-            </option>
-            {statesData.map((state, index) => (
-              <option key={index} value={state.state}>
-                {state.state}
+          {/* State */}
+          <div className="form-group mb-3">
+            <label htmlFor="state">State</label>
+            <select
+              className="form-control"
+              id="state"
+              name="state"
+              value={formData.state}
+              onChange={handleStateChange}
+              required
+            >
+              <option value="" disabled>
+                Choose your state...
               </option>
-            ))}
-          </select>
-        </div>
+              {statesData.map((state, index) => (
+                <option key={index} value={state.state}>
+                  {state.state}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* District */}
-        <div className="form-group mb-3">
-          <label htmlFor="district">District</label>
-          <select
-            className="form-control"
-            id="district"
-            name="district"
-            value={formData.district}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              Choose your district...
-            </option>
-            {districts.map((district, index) => (
-              <option key={index} value={district}>
-                {district}
+          {/* District */}
+          <div className="form-group mb-3">
+            <label htmlFor="district">District</label>
+            <select
+              className="form-control"
+              id="district"
+              name="district"
+              value={formData.district}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>
+                Choose your district...
               </option>
-            ))}
-          </select>
-        </div>
+              {districts.map((district, index) => (
+                <option key={index} value={district}>
+                  {district}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {/* Full Address */}
           <div className="form-group mb-3">
@@ -231,29 +258,58 @@ const UserFormFillPage = () => {
 
           {/* Category */}
           <div className="form-group mb-3">
-          <label htmlFor="category">Select a Category</label>
-          <select
-            className="form-control"
-            id="category"
-            name="category"
-            onChange={handleCategoryChange}
-            required
-          >
-            <option value="" disabled>
-              Choose a category...
-            </option>
-            {dropdownCategories.map((category, index) => (
-              <optgroup key={index} label={category.title}>
-                {category.items.map((item, i) => (
-                  <option key={i} value={`${category.title}||${item}`}>
-                    {item}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-        </div>
-
+            <label htmlFor="category">Select a Category</label>
+            <select
+              className="form-control"
+              id="category"
+              name="category"
+              onChange={handleCategoryChange}
+              required
+            >
+              <option value="" disabled>
+                Choose a category...
+              </option>
+              {dropdownCategories.map((category, index) => (
+                <optgroup key={index} label={category.title}>
+                  {category.items.map((item, i) => (
+                    <option key={i} value={`${category.title}||${item}`}>
+                      {item}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="document1">Upload Document 1 (Optional)</label>
+            <input
+              type="file"
+              className="form-control"
+              id="document1"
+              name="document1"
+              onChange={handleFileChange}
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="document2">Upload Document 2 (Optional)</label>
+            <input
+              type="file"
+              className="form-control"
+              id="document2"
+              name="document2"
+              onChange={handleFileChange}
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="document3">Upload Document 3 (Optional)</label>
+            <input
+              type="file"
+              className="form-control"
+              id="document3"
+              name="document3"
+              onChange={handleFileChange}
+            />
+          </div>
 
           {/* Submit */}
           <button type="submit" className="btn btn-primary w-100">
@@ -268,12 +324,32 @@ const UserFormFillPage = () => {
 export default UserFormFillPage;
 
 // Dropdown Data
-const loanProducts = ["Agri loan", "Home loan", "Auto loan", "Two-wheeler loan", "Three-wheeler loan"];
-const ourServices = ["ITR", "GST registration", "GST return", "New PAN card", "PAN card correction"];
-const cards = ["AU Bank credit card", "IndusInd Bank credit card", "Axis Bank credit card"];
+const loanProducts = [
+  "Agri loan",
+  "Home loan",
+  "Auto loan",
+  "Two-wheeler loan",
+  "Three-wheeler loan",
+];
+const ourServices = [
+  "ITR",
+  "GST registration",
+  "GST return",
+  "New PAN card",
+  "PAN card correction",
+];
+const cards = [
+  "AU Bank credit card",
+  "IndusInd Bank credit card",
+  "Axis Bank credit card",
+];
 const accountOpening = ["AU Bank", "IndusInd Bank", "Axis Bank"];
 const investment = ["RD", "FD"];
-const insurance = ["Car insurance", "Two-wheeler insurance", "Commercial insurance"];
+const insurance = [
+  "Car insurance",
+  "Two-wheeler insurance",
+  "Commercial insurance",
+];
 const bookForVehicle = ["Mahindra", "Kia", "Maruti Suzuki", "Tata"];
 const report = ["Lead data", "Lead commission"];
 const support = ["Contact number", "Gmail"];
