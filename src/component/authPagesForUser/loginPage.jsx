@@ -17,7 +17,7 @@ const LoginUser = () => {
   const [emailORphone, setEmailORPhone] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setTokenUser, setDataUser } = useAuthUser();
+  const { setTokenUser, setDataUser ,setuserEmail } = useAuthUser();
  
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,6 +35,7 @@ const LoginUser = () => {
         localStorage.setItem("authTokenUser", response.token);
         setTokenUser(response.token);
         setDataUser(response.user_name);
+          setuserEmail(response.email);
 
         Swal.fire("Success", "Login successful!", "success");
         navigate("/dashboard"); // Redirect to admin dashboard
