@@ -23,6 +23,10 @@ async function GetnewUserApplyForm() {
       throw error;
     }
   }
+
+ // parther data 
+
+
   async function GetnewpartnerData() {
     try {
       const response = await router.get("/User-reg" );
@@ -34,9 +38,44 @@ async function GetnewUserApplyForm() {
     }
   }
 
- 
+  async function ParthnerChangepass(data) {
+    try {
+      const response = await router.post("/change-pass-User-reg" , data );
+      return response.data;
+    } catch (error) {
+      // Handle error, e.g., log it or throw a custom error
+      console.error("Error in getting status:", error);
+      throw error;
+    }
+  }
+  async function deletePartner(id) {
+    try {
+      const response = await router.post(`/delete-User-reg/${id}` );
+      return response.data;
+    } catch (error) {
+      // Handle error, e.g., log it or throw a custom error
+      console.error("Error in getting status:", error);
+      throw error;
+    }
+  }
+  async function updatePartnerData(formDataToSubmit) {
+    try {
+      const response = await router.put(
+        `/update-User-reg`, 
+        formDataToSubmit, 
+        { 
+          headers: { "Content-Type": "application/json" } 
+        }
+      );
+      return response;
+    } catch (error) {
+      console.error("Error in updating partner data:", error);
+      throw error;
+    }
+  }
+  
 
 
 
-export {  AddnewUserApplyForm , GetnewUserApplyForm , GetnewpartnerData };
+export {  AddnewUserApplyForm , GetnewUserApplyForm ,GetnewpartnerData , deletePartner, ParthnerChangepass ,updatePartnerData };
  
