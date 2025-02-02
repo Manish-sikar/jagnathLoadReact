@@ -267,6 +267,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+                   <Route
+                path="/admin/partner/edit"
+                element={
+                  <ProtectedRoute>
+                    <EditPartnerPage />
+                  </ProtectedRoute>
+                }
+              />
           </Route>
 
         </Routes>
