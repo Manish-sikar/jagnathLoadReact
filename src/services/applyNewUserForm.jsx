@@ -4,10 +4,13 @@ import router, { setAuthToken } from "./apiService";
 
 async function AddnewUserApplyForm(formdata) {
   try {
-    const response = await router.post("/user_apply_form", formdata );
+    const response = await router.post("/user_apply_form", formdata, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Ensure correct content type for file uploads
+      },
+    });
     return response;
   } catch (error) {
-    // Handle error, e.g., log it or throw a custom error
     console.error("Error in adding status:", error);
     throw error;
   }
@@ -16,6 +19,36 @@ async function AddnewUserApplyForm(formdata) {
 async function GetnewUserApplyForm() {
     try {
       const response = await router.get("/user_apply_form" );
+      return response.data;
+    } catch (error) {
+      // Handle error, e.g., log it or throw a custom error
+      console.error("Error in getting status:", error);
+      throw error;
+    }
+  }
+
+
+  async function UpdateUserApplyForm(id ,formdata) {
+    try {
+      const response = await router.post(`/user_apply_form/${id}` ,
+        formdata, {
+          headers: {
+            "Content-Type": "multipart/form-data", // Ensure correct content type for file uploads
+          },
+        });
+      
+      return response;
+    } catch (error) {
+      // Handle error, e.g., log it or throw a custom error
+      console.error("Error in getting status:", error);
+      throw error;
+    }
+  }
+
+
+  async function deleteUserApplyForm(id) {
+    try {
+      const response = await router.delete(`/user_apply_form/${id}` );
       return response.data;
     } catch (error) {
       // Handle error, e.g., log it or throw a custom error
@@ -77,5 +110,8 @@ async function GetnewUserApplyForm() {
 
 
 
-export {  AddnewUserApplyForm , GetnewUserApplyForm ,GetnewpartnerData , deletePartner, ParthnerChangepass ,updatePartnerData };
+export {  AddnewUserApplyForm , GetnewUserApplyForm ,GetnewpartnerData ,
+   deletePartner, ParthnerChangepass ,updatePartnerData ,
+   UpdateUserApplyForm ,
+   deleteUserApplyForm };
  
