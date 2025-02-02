@@ -44,6 +44,7 @@ import PartnerPage from "./adminComponent/adminComponent/parthnerPage/parthnerPa
 import BecomePartnerForm from "./adminComponent/adminComponent/parthnerPage/becomePartner";
 import LoanDataEdit from "./adminComponent/adminComponent/lloanProductPage/AdminloanProductEdit";
 import LoanServicesPage from "./adminComponent/adminComponent/lloanProductPage/AdminloanProduct";
+import EditPartnerPage from "./adminComponent/adminComponent/parthnerPage/editPertherData";
 
 
 function App() {
