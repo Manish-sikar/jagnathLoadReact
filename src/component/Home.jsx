@@ -275,7 +275,7 @@ const Home = () => {
       </div>
 
       {/* <!-- About End --> */}
-      <BankServices></BankServices>
+      
       {/* <!-- Services Start --> */}
 
 
