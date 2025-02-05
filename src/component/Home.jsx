@@ -21,7 +21,7 @@ import Row from "react-bootstrap/Row";
 import LoginBanner from "./bannerPages/loginBanner";
 import { Carousel, Card } from "react-bootstrap";
 import Service from "./Service";
-import BankServices from "./bankicon"
+import BankServices from "./bankicon";
 
 const Home = () => {
   const [serviceState, setServiceState] = useState([]);
@@ -36,43 +36,43 @@ const Home = () => {
     institutionName: "",
     message: "",
   });
-  
+
   const validateForm = () => {
     const { fullName, designation, email, mobile, institutionName, message } = formData;
-  
+
     if (!fullName.trim()) {
       Swal.fire("Validation Error", "Full Name is required.", "warning");
       return false;
     }
-  
+
     if (!designation.trim()) {
       Swal.fire("Validation Error", "Designation is required.", "warning");
       return false;
     }
-  
+
     if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
       Swal.fire("Validation Error", "A valid Email is required.", "warning");
       return false;
     }
-  
+
     if (!mobile.trim() || !/^\d{10}$/.test(mobile)) {
       Swal.fire("Validation Error", "Mobile must be a 10-digit number.", "warning");
       return false;
     }
-  
+
     if (!institutionName.trim()) {
       Swal.fire("Validation Error", "Institution Name is required.", "warning");
       return false;
     }
-  
+
     if (!message.trim()) {
       Swal.fire("Validation Error", "Message is required.", "warning");
       return false;
     }
-  
+
     return true; // All fields are valid
   };
-  
+
   const iconMapping = {
     "fab fa-facebook": faFacebook,
     "fab fa-twitter": faXTwitter,
@@ -94,7 +94,7 @@ const Home = () => {
     const filteredServices = serviceData.filter(
       (service) => service.status === "1"
     );
-    setServiceState(filteredServices.slice(-6)); 
+    setServiceState(filteredServices.slice(-6));
   };
 
   const fetchProjectData = async () => {
@@ -124,20 +124,20 @@ const Home = () => {
       [name]: value, // Dynamically update the field by name
     }));
   };
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default browser form submission
-         // Validate form
-         if (!validateForm()) {
-          return;
-        }
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
     try {
       await AddNewContactForm(formData);
-  
+
       // Show success notification
       Swal.fire("Success!", "Contact form submitted successfully.", "success");
-  
+
       // Reset form fields
       setFormData({
         fullName: "",
@@ -157,16 +157,29 @@ const Home = () => {
       });
     }
   };
-  
+
 
   return (
     <>
       {/* <!-- Carousel Start --> */}
-  <LoginBanner />
+      <LoginBanner />
       {/* <!-- Carousel End --> */}
-    
-             <Service></Service>
-      
+      <div class="container-fluid">
+        <div class="container">
+          <div class="row">
+             <div class="col-2"></div>
+             <div class="col-8">
+      <Service />
+
+             </div>
+             <div class="col-2"></div>
+
+          </div>
+        </div>
+      </div>
+
+
+
       {/* <!-- Fact Start --> */}
       <div class="container-fluid bg-secondary py-5">
         <div class="container">
@@ -204,6 +217,7 @@ const Home = () => {
               </div>
             </div>
           </div>
+          <BankServices />
         </div>
       </div>
       {/* <!-- Fact End --> */}
@@ -261,7 +275,7 @@ const Home = () => {
       </div>
 
       {/* <!-- About End --> */}
-<BankServices></BankServices>
+      <BankServices></BankServices>
       {/* <!-- Services Start --> */}
 
 
@@ -396,7 +410,7 @@ const Home = () => {
               </div>
             </div>
             <div class="row g-5">
-              <div class="col-lg-6 wow fadeIn" data-wow-delay=".3s">
+              {/* <div class="col-lg-6 wow fadeIn" data-wow-delay=".3s">
                 <div class="p-3 h-100 rounded contact-map">
                   <iframe
                     class="rounded w-100 h-100"
@@ -407,41 +421,43 @@ const Home = () => {
                     referrerpolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
-              </div>
-<div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-  <div class="p-4 rounded contact-form shadow-lg border border-light bg-white">
-    <div class="mb-4">
-      <label for="fullName" class="form-label fw-bold">Full Name</label>
-      <input type="text" id="fullName" class="form-control border p-3" placeholder="Enter your full name" name="fullName" onChange={handleChange} />
+              </div> */}
+             <div class="container vh-50 d-flex justify-content-center align-items-center p-3">
+    <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
+        <div class="p-4 rounded contact-form shadow-lg border border-light bg-white">
+            <div class="mb-4">
+                <label for="fullName" class="form-label fw-bold">Full Name</label>
+                <input type="text" id="fullName" class="form-control border " placeholder="Enter your full name" name="fullName" />
+            </div>
+            <div class="mb-4">
+                <label for="designation" class="form-label fw-bold">Designation</label>
+                <input type="text" id="designation" class="form-control border" placeholder="Enter your designation" name="designation" />
+            </div>
+            <div class="mb-4">
+                <label for="email" class="form-label fw-bold">Email</label>
+                <input type="email" id="email" class="form-control border" placeholder="Enter your email" name="email" />
+            </div>
+            <div class="mb-4">
+                <label for="mobile" class="form-label fw-bold">Mobile</label>
+                <input type="tel" id="mobile" class="form-control border" placeholder="Enter your mobile number" name="mobile" />
+            </div>
+            <div class="mb-4">
+                <label for="institutionName" class="form-label fw-bold">Institution Name</label>
+                <input type="text" id="institutionName" class="form-control border" placeholder="Enter your institution name" name="institutionName" />
+            </div>
+            <div class="mb-4">
+                <label for="message" class="form-label fw-bold">Message</label>
+                <textarea id="message" class="w-100 form-control border" rows="6" placeholder="Enter your message" name="message"></textarea>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button">
+                    Send Message
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="mb-4">
-      <label for="designation" class="form-label fw-bold">Designation</label>
-      <input type="text" id="designation" class="form-control border p-3" placeholder="Enter your designation" name="designation" onChange={handleChange} />
-    </div>
-    <div class="mb-4">
-      <label for="email" class="form-label fw-bold">Email</label>
-      <input type="email" id="email" class="form-control border p-3" placeholder="Enter your email" name="email" onChange={handleChange} />
-    </div>
-    <div class="mb-4">
-      <label for="mobile" class="form-label fw-bold">Mobile</label>
-      <input type="tel" id="mobile" class="form-control border p-3" placeholder="Enter your mobile number" name="mobile" onChange={handleChange} />
-    </div>
-    <div class="mb-4">
-      <label for="institutionName" class="form-label fw-bold">Institution Name</label>
-      <input type="text" id="institutionName" class="form-control border p-3" placeholder="Enter your institution name" name="institutionName" onChange={handleChange} />
-    </div>
-    <div class="mb-4">
-      <label for="message" class="form-label fw-bold">Message</label>
-      <textarea id="message" class="w-100 form-control border p-3" rows="6" placeholder="Enter your message" name="message" onChange={handleChange}></textarea>
-    </div>
-    <div class="text-start">
-      <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button" onClick={handleSubmit}>
-        Send Message
-      </button>
-    </div>
-  </div>
+</div>
 
-              </div>
             </div>
           </div>
         </div>
