@@ -632,12 +632,12 @@
     border-radius: 10px;
     z-index: -1;
 }
-
+/* 
 .contact-map {
     background: #000612;
-}
+} */
 .text-add{
-     background: rgb(206, 200, 200);
+    color: rgba(3, 43, 243, 0.8);
 }
 .contact-form {
     background: #26d48c;
