@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const Footer = () => {
   const [footerData, setFooterData] = useState(null);
+  const [contactState, setContactState] = useState([]);
 
   useEffect(() => {
     fetchFooterData();
@@ -79,12 +80,23 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="col-lg-3 col-md-2">
+            <div class="col-lg-3 col-md-2 position-relative">
               <Link to="" className="h3 text-secondary text-white">Contact Us</Link>
               <div className="text-white mt-4 d-flex flex-column contact-link">
                 <Link to="" className="pb-3 text-light border-bottom border-primary">
-                  <i className="fas fa-map-marker-alt text-secondary me-2"></i>
-                  {footerData?.footer_address1}
+                  
+                  <div class="col-lg-6 wow fadeIn" data-wow-delay=".3s">
+    <div class=" h-100 rounded contact-map">
+        <iframe
+            class="rounded w-101 h-100 "
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d225.1839507334776!2d75.790472!3d26.850811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDUxJzAyLjkiTiA3NcKwNDcnMjUuNyJF!5e0!3m2!1sen!2sin!4v1707075441804!5m2!1sen!2sin"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</div>
+
                 </Link>
                 <Link
                   to="https://www.google.com/maps/search/?api=1&query=26.850811,75.790472"
