@@ -162,18 +162,16 @@ const Home = () => {
   return (
     <>
       {/* <!-- Carousel Start --> */}
-      <LoginBanner />
       {/* <!-- Carousel End --> */}
-      <div class="container-fluid">
-        <div class="container">
-          <div class="row">
-             <div class="col-2"></div>
-             <div class="col-8">
-      <Service />
-
-             </div>
-             <div class="col-2"></div>
-
+      <div className="container-fluid px-0">
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-md-12"></div>
+            <div className="col-12 col-md-12">
+              <LoginBanner />
+              <Service />
+            </div>
+            <div className="col-12 col-md-2"></div>
           </div>
         </div>
       </div>
@@ -184,7 +182,7 @@ const Home = () => {
       <div class="container-fluid bg-secondary py-5">
         <div class="container">
           <div class="row">
-            <div class="col-lg-3 wow fadeIn" data-wow-delay=".1s">
+            <div class="col-lg-4 wow fadeIn border-end" data-wow-delay=".1s">
               <div class="d-flex counter">
                 <h1 class="me-3 text-primary counter-value">99</h1>
                 <h5 class="text-white mt-1">
@@ -192,7 +190,7 @@ const Home = () => {
                 </h5>
               </div>
             </div>
-            <div class="col-lg-3 wow fadeIn" data-wow-delay=".3s">
+            <div class="col-lg-4 wow fadeIn border-end" data-wow-delay=".3s">
               <div class="d-flex counter">
                 <h1 class="me-3 text-primary counter-value">25</h1>
                 <h5 class="text-white mt-1">
@@ -200,15 +198,8 @@ const Home = () => {
                 </h5>
               </div>
             </div>
-            <div class="col-lg-3 wow fadeIn" data-wow-delay=".5s">
-              <div class="d-flex counter">
-                <h1 class="me-3 text-primary counter-value">120</h1>
-                <h5 class="text-white mt-1">
-                  Total clients who love JasnathFinance
-                </h5>
-              </div>
-            </div>
-            <div class="col-lg-3 wow fadeIn" data-wow-delay=".7s">
+           
+            <div class="col-lg-4 wow fadeIn" data-wow-delay=".7s">
               <div class="d-flex counter">
                 <h1 class="me-3 text-primary counter-value">5</h1>
                 <h5 class="text-white mt-1">
@@ -216,66 +207,15 @@ const Home = () => {
                 </h5>
               </div>
             </div>
+            <h3 class="p-3 text-center text-light">Jasnath Finance always with you.</h3>
           </div>
           <BankServices />
         </div>
       </div>
       {/* <!-- Fact End --> */}
 
-      {/* <!-- About Start --> */}
+  
 
-      <div className="about-finance-container">
-        {/* Page Header */}
-        <header className="text-center">
-          <h1 className="text-center p-3">About Finance</h1>
-          <p className="text-muted">
-            Learn more about our finance services and goals.
-          </p>
-        </header>
-
-        {/* Main Content */}
-        <main className="container">
-          <div className="row justify-content-center">
-            {/* Small Box 1 */}
-            <div className="col-12 col-md-4 mb-4">
-              <section className="small-box text-center p-3">
-                <h2>Our Mission</h2>
-                <p>
-                  Our mission is to empower individuals and businesses with the
-                  financial tools they need to succeed. From investments to
-                  loans, we provide comprehensive financial solutions tailored
-                  to your unique needs.
-                </p>
-              </section>
-            </div>
-
-            {/* Small Box 2 */}
-            <div className="col-12 col-md-4 mb-4">
-              <section className="small-box text-center p-3">
-                <h2>Why Choose Us?</h2>
-                <ul className="text-start">
-                  <li>Trusted by thousands of customers worldwide</li>
-                  <li>Transparent and ethical financial practices</li>
-                  <li>Expert advisors with years of experience</li>
-                </ul>
-              </section>
-            </div>
-            <div className="col-12 col-md-4 mb-4">
-              <section className="small-box text-center p-3">
-                <h2>Why Choose Us?</h2>
-                <ul className="text-start">
-                  <li>Trusted by thousands of customers worldwide</li>
-                  <li>Transparent and ethical financial practices</li>
-                  <li>Expert advisors with years of experience</li>
-                </ul>
-              </section>
-            </div>
-          </div>
-        </main>
-      </div>
-
-      {/* <!-- About End --> */}
-      
       {/* <!-- Services Start --> */}
 
 
@@ -338,24 +278,25 @@ const Home = () => {
             data-wow-delay=".3s"
             style={{ maxWidth: "600px" }}
           >
-            <h5 class="text-primary">Become a Partner</h5>
-            <h1 class="mb-3">Only For Few Financial Institutions.</h1>
-            <p class="mb-2">
+            {/* <h5 class="text-primary">Become a Partner</h5>
+            <h1>Only For Few Financial Institutions.</h1>
+            <p>
               "Get the financial support you need. Use our fast and reliable
               contact form, and start your loan journey with confidence."{" "}
-            </p>
+            </p> */}
           </div>
           <div class="contact-detail position-relative p-5">
-            <div class="row g-5 mb-5 justify-content-center">
-              <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".3s">
-                <div class="d-flex bg-light p-3 rounded">
-                  <div
+            <div class="row justify-content-center">
+              {/* <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".3s"> */}
+               
+                
+                  {/* <div
                     class="flex-shrink-0 btn-square bg-secondary rounded-circle"
                     style={{ width: "50px", height: "50px" }}
                   >
                     <i class="fas fa-map-marker-alt text-white"></i>
-                  </div>
-                  <div class="ms-3">
+                  </div> */}
+                  {/* <div class="ms-3">
                     <h4 class="text-add">Address</h4>
                     <Link
                       to={`${contactState?.address_link}`}
@@ -364,18 +305,18 @@ const Home = () => {
                     >
                       {contactState?.address_name}{" "}
                     </Link>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".5s">
-                <div class="d-flex bg-light p-3 rounded">
-                  <div
+                  </div> */}
+               
+              {/* </div> */}
+              {/* <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".5s">
+                <div class="d-flex bg-light p-3 rounded"> */}
+                  {/* <div
                     class="flex-shrink-0 btn-square bg-secondary rounded-circle"
                     style={{ width: "50px", height: "50px" }}
                   >
                     <i class="fa fa-phone text-white"></i>
-                  </div>
-                  <div class="ms-3">
+                  </div>  */}
+                  {/* <div class="ms-3">
                     <h4 class="text-add">Call Us</h4>
                     <Link
                       class="h5"
@@ -389,13 +330,13 @@ const Home = () => {
               </div>
               <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".7s">
                 <div class="d-flex bg-light p-3 rounded">
-                  <div
+                  {/* <div
                     class="flex-shrink-0 btn-square bg-secondary rounded-circle"
                     style={{ width: "50px", height: "50px" }}
                   >
                     <i class="fa fa-envelope text-white"></i>
-                  </div>
-                  <div class="ms-3">
+                  </div> */}
+                  {/* <div class="ms-3">
                     <h4 class="text-add">Email Us</h4>
                     <Link
                       class="h5"
@@ -405,9 +346,9 @@ const Home = () => {
                       {" "}
                       {contactState?.email}{" "}
                     </Link>
-                  </div>
-                </div>
-              </div>
+                  </div> */}
+                {/* </div>
+              </div> */}
             </div>
             <div class="row g-5">
               {/* <div class="col-lg-6 wow fadeIn" data-wow-delay=".3s">
@@ -422,41 +363,52 @@ const Home = () => {
                   ></iframe>
                 </div>
               </div> */}
-             <div class="container vh-50 d-flex justify-content-center align-items-center p-3">
-    <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-        <div class="p-4 rounded contact-form shadow-lg border border-light bg-white">
-            <div class="mb-4">
-                <label for="fullName" class="form-label fw-bold">Full Name</label>
-                <input type="text" id="fullName" class="form-control border " placeholder="Enter your full name" name="fullName" />
-            </div>
-            <div class="mb-4">
-                <label for="designation" class="form-label fw-bold">Designation</label>
-                <input type="text" id="designation" class="form-control border" placeholder="Enter your designation" name="designation" />
-            </div>
-            <div class="mb-4">
-                <label for="email" class="form-label fw-bold">Email</label>
-                <input type="email" id="email" class="form-control border" placeholder="Enter your email" name="email" />
-            </div>
-            <div class="mb-4">
-                <label for="mobile" class="form-label fw-bold">Mobile</label>
-                <input type="tel" id="mobile" class="form-control border" placeholder="Enter your mobile number" name="mobile" />
-            </div>
-            <div class="mb-4">
-                <label for="institutionName" class="form-label fw-bold">Institution Name</label>
-                <input type="text" id="institutionName" class="form-control border" placeholder="Enter your institution name" name="institutionName" />
-            </div>
-            <div class="mb-4">
-                <label for="message" class="form-label fw-bold">Message</label>
-                <textarea id="message" class="w-100 form-control border" rows="6" placeholder="Enter your message" name="message"></textarea>
-            </div>
-            <div class="text-center">
-                <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button">
-                    Send Message
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+              <div class="row container vh-50 d-flex justify-content-center align-items-center p-3">
+                 <div class="col-lg-6 wow fadeIn custom-box" data-wow-delay=".5s">
+                 
+                </div>
+                <div class="col-lg-8 wow fadeIn" data-wow-delay=".5s">
+                  <div class="p-4 rounded contact-form shadow-lg border border-light bg-white  mt-5">
+                    <h1 className="text-center">Become a partner</h1>
+                    <p className="text-center">Only for new financial institutions.</p>
+                    <div class="row mb-4">
+                      <div class="col-md-6">
+                        <label for="fullName" class="form-label fw-bold">Full Name</label>
+                        <input type="text" id="fullName" class="form-control border" placeholder="Enter your full name" name="fullName" />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="designation" class="form-label fw-bold">Designation</label>
+                        <input type="text" id="designation" class="form-control border" placeholder="Enter your designation" name="designation" />
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-md-6">
+                        <label for="fullName" class="form-label fw-bold">Email</label>
+                        <input type="email" id="email" class="form-control border" placeholder="Enter your email" name="email" />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="mobile" class="form-label fw-bold">Mobile</label>
+                        <input type="tel" id="mobile" class="form-control border" placeholder="Enter your mobile number" name="mobile" />
+                      </div>
+                    </div>
+                    <div class="mb-4">
+                      <label for="institutionName" class="form-label fw-bold">Institution Name</label>
+                      <input type="text" id="institutionName" class="form-control border" placeholder="Enter your institution name" name="institutionName" />
+                    </div>
+                    <div class="mb-4">
+                      <label for="message" class="form-label fw-bold">Message</label>
+                      <textarea id="message" class="w-100 form-control border" rows="6" placeholder="Enter your message" name="message"></textarea>
+                    </div>
+                    <div class="text-center">
+                      <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button">
+                        Send Message
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                 
+
+              </div>
 
             </div>
           </div>
