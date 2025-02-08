@@ -66,14 +66,15 @@ const Header = () => {
       {/* Main Navbar */}
       <Navbar collapseOnSelect expand="lg" style={style.navbar} >
         <Container>
-          <Navbar.Brand href="#home" style={style.navbarBrand}>
-          <img 
-        src={formData?.site_logo}
-        alt="Site Logo" 
-        className="rounded-circle" 
-        style={{ width: 'auto', height: '80px' }}  // Adjust size of the logo as needed
-      />
-          </Navbar.Brand>
+        <Navbar.Brand href="#home" className="ms-3" style={style.navbarBrand}>
+  <img 
+    src={formData?.site_logo}
+    alt="Site Logo" 
+    className="rounded-circle" 
+    style={{ width: 'auto', height: '80px' }} // Adjust size of the logo as needed
+  />
+</Navbar.Brand>
+
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -92,7 +93,10 @@ const Header = () => {
               <Nav.Link href="#ChooseUs" style={style.navLink}>Choose Us</Nav.Link>
               <Nav.Link href="/dashboard" style={style.navLink}>EMI Collection</Nav.Link>
              <Nav.Link href="/login-User" style={style.navLink}>Login</Nav.Link>
-              <Nav.Link href="#ContactUs" style={style.navLink}>Contact Us</Nav.Link>
+             <Nav.Link href="#ContactUs" className="me-4" style={style.navLink}>
+  Contact Us
+</Nav.Link>
+
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -106,16 +110,16 @@ export default Header;
   // Inline style object for the Navbar and other components
   const style = {
     navbar: {
-      backgroundColor: "#006BFF",
+      backgroundColor: "#FBFBFB",
       borderBottom: "3px solid #f1f1f1",
     },
     navbarBrand: {
       fontSize: "1.8rem",
       fontWeight: "bold",
-      color: "#f1f1f1",
+      color: "#212121",
     },
     navLink: {
-      color: "#f1f1f1",
+      color: "#212121",
       fontSize: "1.1rem",
     },
     navLinkHover: {
@@ -137,10 +141,10 @@ export default Header;
     socialIcon: {
       fontSize: "1.5rem",
       marginRight: "10px",
-      color: "#f1f1f1",
+      color: "#212121",
     },
     socialIconHover: {
-      color: "#ff5a5f",
+      color: "#727D73",
     },
     // Add media query inline styles for responsiveness
     "@media (max-width: 768px)": {
