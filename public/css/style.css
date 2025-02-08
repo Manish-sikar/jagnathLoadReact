@@ -122,7 +122,7 @@
 .navbar .dropdown-toggle::after {
     border: none;
     content: "\f107";
-    font-family: "font awesome 5 free";
+    font-family: "font awesome 5 free"; 
     font-weight: 900;
     vertical-align: middle;
     margin-left: 8px;
@@ -627,7 +627,7 @@
     width: 100%;
     top: 0;
     left: 0;
-    background: linear-gradient(rgb(210, 243, 235, 1), rgba(230, 250, 245, .3)), url(../img/background.jpg) center center no-repeat;
+   
     background-size: cover;
     border-radius: 10px;
     z-index: -1;
@@ -714,3 +714,52 @@
     height: 2px; 
     background-color: red; 
   }
+  .notification-box {
+    border: 2px solid #ebfceb; /* Green border */
+    border-radius: 10px;       /* Rounded corners */
+    padding: 15px;             /* Inner spacing */
+    background-color: #f9fff9; /* Light green background */
+    color: black;            /* Dark green text */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+    font-weight: bold;         /* Bold text */
+    margin: 10px 0;            /* Vertical margin */
+}
+.container-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.notification-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.form-control {
+    background: #f5f5f5;
+}
+.btn-custom {
+    background: #ff4d4d;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: bold;
+    border: none;
+}
+
+  
+  /* For Tablets */
+  @media (max-width: 768px) {
+    .banner-image {
+      max-height: 350px;
+    }
+  }
+  
+  /* For Mobile Devices */
+  @media (max-width: 480px) {
+    .banner-image {
+      max-height: 250px;
+    }
+  }
+  
