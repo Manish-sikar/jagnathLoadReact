@@ -6,7 +6,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { GetServiceData } from "../services/serviceAdmin";
-import { baseURL } from "../services/apiService";
 
 const Service = () => {
   const [servicesData, setServicesData] = useState([]);
@@ -26,72 +25,44 @@ const Service = () => {
   };
 
   return (
-    <div className="service-page-container">
-
+    <div className="service-page-container" style={{ width: "100%", overflow: "hidden" }}>
       {servicesData.length === 0 ? (
         <p className="text-center">No services available at the moment.</p>
       ) : (
         <Swiper
-          modules={[Navigation, Pagination, Autoplay]} // Include Autoplay module
-          spaceBetween={20}
-          slidesPerView={4}
-          loop={true} // Enables looping
-          autoplay={{
-            delay: 2000, // Delay in milliseconds between transitions
-            disableOnInteraction: false, // Keeps autoplay running even after user interaction
-          }}
-          navigation={{
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          }}
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={10}
+          slidesPerView={8} // Display 8 images per row
+          loop={true}
+          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          navigation
           pagination={{ clickable: true }}
           breakpoints={{
-             320: { slidesPerView: 1, spaceBetween: 10 }, // Mobile view
+            320: { slidesPerView: 1, spaceBetween: 10 },  // Mobile
             640: { slidesPerView: 3, spaceBetween: 15 }, // Small tablets
-            1024: { slidesPerView: 4, spaceBetween: 20 }, // Laptops
-            1280: { slidesPerView: 4, spaceBetween: 30 }, // Desktops
+            768: { slidesPerView: 4, spaceBetween: 20 }, // Tablets
+            1024: { slidesPerView: 6, spaceBetween: 20 }, // Laptops
+            1280: { slidesPerView: 8, spaceBetween: 15 }, // Desktops
           }}
+          style={{ width: "100%", padding: "0" }}
         >
           {servicesData.map((item, idx) => (
-            <SwiperSlide
-              key={idx}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Card
-                style={{ width: "100%", maxWidth: "150px" }}
-                className="p-3 shadow-sm border-0 rounded-3"
-              >
+            <SwiperSlide key={idx} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Card style={{ width: "100%", maxWidth: "150px" }} className="p-3 shadow-sm border-0 rounded-3">
                 <Card.Img
                   variant="top"
-                  src={
-                    item.card_logo
-                      ? item.card_logo
-                      : "https://via.placeholder.com/150"
-                  }
+                  src={item.card_logo ? item.card_logo : "https://via.placeholder.com/150"}
                   alt={item.card_title || `Card ${idx + 1}`}
                   className="card__img rounded-3 img-fluid"
-               
                 />
                 <Card.Body className="text-center">
-                  <Card.Title className="h6">
-                    {item.card_title || `Card ${idx + 1}`}
-                  </Card.Title>
+                  <Card.Title className="h6">{item.card_title || `Card ${idx + 1}`}</Card.Title>
                 </Card.Body>
               </Card>
             </SwiperSlide>
           ))}
-
-          <div className="swiper-button-next " />
-          <div className="swiper-button-prev" />
         </Swiper>
       )}
-
-      {/* Custom Styles */}
-    
     </div>
   );
 };
