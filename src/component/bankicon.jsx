@@ -22,21 +22,23 @@ const BankServices = () => {
 
   // Dummy Data (Replace with API data if available)
   const dummyProductData = [
-    { card_logo: "/img/download (1).jpg", title: "Muthoot Finance" },
-    { card_logo: "/img/download (2).jpg", title: "Northern Arc" },
-    { card_logo: "/img/download (3).jpg", title: "PNB Housing" },
-    { card_logo: "/img/download (3).png", title: "Tyger Home Finance" },
-    { card_logo: "/img/download (4).jpg", title: "Piramal Finance" },
-    { card_logo: "/img/download (5).jpg", title: "TATA Motors Finance" },
-    { card_logo: "/img/download (5).png", title: "TVS Credit" },
-    { card_logo: "/img/download (6).png", title: "Aavas Financiers" },
-    { card_logo: "/img/download (7).png", title: "Aavas Financiers" },
-    { card_logo: "/img/download (8).png", title: "Aavas Financiers" },
-    { card_logo: "/img/download (9).png", title: "Aavas Financiers" },
-    { card_logo: "/img/download (10).png", title: "Aavas Financiers" },
-    { card_logo: "/img/download (11).png", title: "Aavas Financiers" },
-    { card_logo: "/img/download (13).png", title: "Aavas Financiers" },
-    { card_logo: "/img/download__14_-removebg-preview.png", title: "Aavas Financiers" },
+    { card_logo: "/img/1200px-Aavas_Financiers_Logo.svg.png", title: "Muthoot Finance" },
+    { card_logo: "/img/2560px-Axis_Bank_logo.svg.png", title: "Northern Arc" },
+    { card_logo: "/img/2560px-HDFC_Bank_Logo.svg.png", title: "PNB Housing" },
+    { card_logo: "/img/2560px-ICICI_Bank_Logo.svg.png", title: "Tyger Home Finance" },
+    { card_logo: "/img/2560px-RBL_Bank_SVG_Logo.svg.png", title: "Piramal Finance" },
+    { card_logo: "/img/AU_SMALL_FINANCE_BANK_.png", title: "TVS Credit" },
+    { card_logo: "/img/Axis_Bank-Logo.wine.png", title: "Aavas Financiers" },
+    { card_logo: "/img/axis-bank-1623303816.jpg", title: "Aavas Financiers" },
+    { card_logo: "/img/cs-AU-Small-Finance-Bank.jpg", title: "Aavas Financiers" },
+    { card_logo: "/img/HDFC.webp", title: "Aavas Financiers" },
+    { card_logo: "/img/IDFC_First_Bank_Logo.png", title: "Aavas Financiers" },
+    { card_logo: "/img/images.jpg", title: "Aavas Financiers" },
+    { card_logo: "/img/Kotak_Mahindra_Group_logo.svg-1024x306.png", title: "Aavas Financiers" },
+    { card_logo: "/img/Mahindra-Finance-logo-Vector.png", title: "Aavas Financiers" },
+    { card_logo: "/img/download (1).jpg", title: "Aavas Financiers" },
+    { card_logo: "/img/png-clipart-yes-bank-private-sector-banks-in-india-finance-business-yes-blue-angle-thumbnail.png", title: "Aavas Financiers" },
+    
   ];
 
   return (
