@@ -35,11 +35,11 @@ const LoginBanner = () => {
         <div className="carousel-inner">
           {bannerData.map((item, index) => (
             <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-              <img
-                src={item.banner_img}
-                className="d-block w-100 img-fluid banner-image"
-                alt={`Slide ${index + 1}`}
-              />
+             <img
+  src={item.banner_img}
+  className="d-block w-100 img-fluid banner-image"
+  alt={`Slide ${index + 1}`}
+/>
               <div className="carousel-caption d-none d-md-block">
                 {/* Add any text or buttons here if needed */}
               </div>
