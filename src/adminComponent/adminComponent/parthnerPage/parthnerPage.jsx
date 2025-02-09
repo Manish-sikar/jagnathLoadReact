@@ -99,6 +99,7 @@ const PartnerPage = () => {
               <table className="table table-striped table-hover">
                 <thead>
                   <tr>
+                     <th>JN Id </th>
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -113,6 +114,7 @@ const PartnerPage = () => {
                 <tbody>
                   {tableData.map((item) => (
                     <tr key={item._id}>
+                        <td>{item.JN_Id}</td>
                       <td>{item.fullName}</td>
                       <td>{item.email}</td>
                       <td>{item.mobile}</td>
