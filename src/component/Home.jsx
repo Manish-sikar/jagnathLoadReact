@@ -179,9 +179,9 @@ const Home = () => {
 
 
       {/* <!-- Fact Start --> */}
-      <div class="container-fluid bg-secondary py-5">
+      <div class="container-fluid bg-secondary mt-5">
         <div class="container">
-          <div class="row">
+          <div class="row py-3">
             <div class="col-lg-4 wow fadeIn border-end" data-wow-delay=".1s">
               <div class="d-flex counter">
                 <h1 class="me-3 text-primary counter-value">99</h1>
@@ -271,7 +271,7 @@ const Home = () => {
       {/* <!-- Project End --> */}
 
       {/* <!-- Contact Start --> */}
-      <div class="container-fluid py-5 mb-5" id="#ContactUs">
+      <div class="container-fluid py-2 mb-5" id="#ContactUs">
         <div class="container">
           <div
             class="text-center mx-auto pb-5 wow fadeIn"
@@ -285,7 +285,7 @@ const Home = () => {
               contact form, and start your loan journey with confidence."{" "}
             </p> */}
           </div>
-          <div class="contact-detail position-relative p-5">
+          <div class="contact-detail position-relative">
             <div class="row justify-content-center">
               {/* <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".3s"> */}
                
@@ -363,44 +363,44 @@ const Home = () => {
                   ></iframe>
                 </div>
               </div> */}
-              <div class="row container vh-50 d-flex justify-content-center align-items-center p-3">
+              <div class="row container vh-50 d-flex justify-content-center align-items-center ">
                  <div class="col-lg-6 wow fadeIn custom-box" data-wow-delay=".5s">
                  
                 </div>
-                <div class="col-lg-8 wow fadeIn" data-wow-delay=".5s">
+                <div class="col-lg-12 wow fadeIn" data-wow-delay=".5s">
                   <div class="p-4 rounded contact-form shadow-lg border border-light bg-white  mt-5">
                     <h1 className="text-center">Become a partner</h1>
                     <p className="text-center">Only for new financial institutions.</p>
                     <div class="row mb-4">
                       <div class="col-md-6">
                         <label for="fullName" class="form-label fw-bold">Full Name</label>
-                        <input type="text" id="fullName" class="form-control border" placeholder="Enter your full name" name="fullName" onChange={handleChange} />
+                        <input type="text" id="fullName" class="form-control border" placeholder="Enter your full name" name="fullName" />
                       </div>
                       <div class="col-md-6">
                         <label for="designation" class="form-label fw-bold">Designation</label>
-                        <input type="text" id="designation" class="form-control border" placeholder="Enter your designation" name="designation" onChange={handleChange} />
+                        <input type="text" id="designation" class="form-control border" placeholder="Enter your designation" name="designation" />
                       </div>
                     </div>
                     <div class="row mb-4">
                       <div class="col-md-6">
                         <label for="fullName" class="form-label fw-bold">Email</label>
-                        <input type="email" id="email" class="form-control border" placeholder="Enter your email" name="email" onChange={handleChange} />
+                        <input type="email" id="email" class="form-control border" placeholder="Enter your email" name="email" />
                       </div>
                       <div class="col-md-6">
                         <label for="mobile" class="form-label fw-bold">Mobile</label>
-                        <input type="tel" id="mobile" class="form-control border" placeholder="Enter your mobile number" name="mobile" onChange={handleChange} />
+                        <input type="tel" id="mobile" class="form-control border" placeholder="Enter your mobile number" name="mobile" />
                       </div>
                     </div>
                     <div class="mb-4">
                       <label for="institutionName" class="form-label fw-bold">Institution Name</label>
-                      <input type="text" id="institutionName" class="form-control border" placeholder="Enter your institution name" name="institutionName" onChange={handleChange} />
+                      <input type="text" id="institutionName" class="form-control border" placeholder="Enter your institution name" name="institutionName" />
                     </div>
                     <div class="mb-4">
                       <label for="message" class="form-label fw-bold">Message</label>
-                      <textarea id="message" class="w-100 form-control border" rows="6" placeholder="Enter your message" name="message" onChange={handleChange} ></textarea>
+                      <textarea id="message" class="w-100 form-control border" rows="6" placeholder="Enter your message" name="message"></textarea>
                     </div>
                     <div class="text-center">
-                      <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button"  onClick={handleSubmit} >
+                      <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button">
                         Send Message
                       </button>
                     </div>
