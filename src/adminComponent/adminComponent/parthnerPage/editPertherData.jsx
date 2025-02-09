@@ -36,8 +36,6 @@ const EditPartnerPage = () => {
       }
     });
 
-   
-
     try {
       const response = await updatePartnerData(formDataToSubmit);
       if (response.status === 200) {
