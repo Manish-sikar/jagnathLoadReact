@@ -261,11 +261,11 @@
 
 @media (max-width: 992px) {
     .carousel-item {
-        min-height: 500px;
+        min-height: 385px;
     }
     
     .carousel-item img {
-        min-height: 500px;
+        min-height: 385px;
         object-fit: cover;
     }
 
@@ -280,11 +280,11 @@
 
 @media (max-width: 768px) {
     .carousel-item {
-        min-height: 400px;
+        min-height: 160px;
     }
     
     .carousel-item img {
-        min-height: 400px;
+        min-height: 160px;
         object-fit: cover;
     }
 
