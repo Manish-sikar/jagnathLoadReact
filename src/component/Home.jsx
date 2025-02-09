@@ -400,7 +400,7 @@ const Home = () => {
                       <textarea id="message" class="w-100 form-control border" rows="6" placeholder="Enter your message" name="message"></textarea>
                     </div>
                     <div class="text-center">
-                      <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button">
+                      <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button"  onClick={handleSubmit} >
                         Send Message
                       </button>
                     </div>
