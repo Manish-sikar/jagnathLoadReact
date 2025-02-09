@@ -27,7 +27,7 @@ const BankServices = () => {
     { card_logo: "/img/download (3).jpg", title: "PNB Housing" },
     { card_logo: "/img/download (3).png", title: "Tyger Home Finance" },
     { card_logo: "/img/download (4).jpg", title: "Piramal Finance" },
-    { card_logo: "/img/download (5).jpg", title: "TATA Motors Finance" },
+   { card_logo: "/img/download (5).jpg", title: "TATA Motors Finance" },
     { card_logo: "/img/download (5).png", title: "TVS Credit" },
     { card_logo: "/img/download (6).png", title: "Aavas Financiers" },
     { card_logo: "/img/download (7).png", title: "Aavas Financiers" },
