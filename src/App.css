@@ -48,21 +48,29 @@ a{
     height: auto;
   }
   
-  @media (max-width: 768px) {
-    .card {
-      max-width: 220px; /* Smaller cards on mobile */
-    }
-  }
-  @media  (max-width: 512px){
-    .banner_image{
-    /* Ensures image covers the entire space without stretching */
-      height: auto;
-      max-width: 220px;
-      object-fit: cover,
-    }
-  }
  
-  
+ /* For Tablets */
+ @media (max-width: 768px) {
+  .banner-image {
+    max-height: 350px;
+  }
+}
 
+/* For Mobile Devices */
+@media (max-width: 480px) {
+  .banner-image {
+    max-height: 250px;
+  }
+}
+
+  .bank-logos-carousel{
+    
+    position: relative;
+    top:40px;
+    box-shadow: 1px 1px 1px 0px rgb(225, 224, 224);
+    border-radius: 10px;
+    
+    
+  }
  
   
