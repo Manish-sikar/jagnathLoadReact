@@ -207,7 +207,7 @@ const Home = () => {
                 </h5>
               </div>
             </div>
-            <h3 class="p-3 text-center text-light">Jasnath Finance always with you.</h3>
+            <h3 class="p-0 mt-5 text-center text-light">Jasnath Finance always with you.</h3>
           </div>
           <BankServices />
         </div>
@@ -224,7 +224,7 @@ const Home = () => {
       <div className="container-fluid services py-5 mb-5">
         <div className="container">
           <div
-            className="text-center mx-auto pb-5 wow fadeIn"
+            className="text-center mx-auto pb-5 mt-3 wow fadeIn"
             data-wow-delay=".3s"
             style={{ maxWidth: "600px" }}
           >
