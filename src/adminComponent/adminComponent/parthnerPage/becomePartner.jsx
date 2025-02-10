@@ -82,7 +82,8 @@ const navigate = useNavigate()
         Swal.fire("Error", "Something went wrong. Please try again.", "error");
       }
     } catch (error) {
-      Swal.fire("Error", "Failed to submit the form. Try again later.", "error");
+        const errormessage = error.response.data.error
+      Swal.fire("Error", errormessage, "error");
     }
   };
   
