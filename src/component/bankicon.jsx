@@ -54,10 +54,10 @@ const BankServices = () => {
           autoplay={{ delay: 2000, disableOnInteraction: false }}
           navigation
           breakpoints={{
-            320: { slidesPerView: 1, spaceBetween: 10 }, 
-            640: { slidesPerView: 3, spaceBetween: 15 },
-            1024: { slidesPerView: 6, spaceBetween: 20 },
-            1280: { slidesPerView: 8, spaceBetween: 30 },
+            320: { slidesPerView: 2, spaceBetween: 5 }, 
+            640: { slidesPerView: 5, spaceBetween: 10 },
+            1024: { slidesPerView: 8, spaceBetween: 15 },
+            1280: { slidesPerView: 10, spaceBetween: 20 },
           }}
           style={{ width: "100%" }}
         >
@@ -70,7 +70,7 @@ const BankServices = () => {
                 className="bank-logo"
                 style={{
                   maxWidth: "100px",
-                  height: "auto",
+                  height: "55px",
                   objectFit: "contain",
                 }}
               />
