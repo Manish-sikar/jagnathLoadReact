@@ -92,7 +92,7 @@ const LoginUser = () => {
 
         <MDBCol col="4" md="6">
           <form onSubmit={handleLogin}>
-            <MDBInput label="Email or Phone" id="emailORphone" type="text" size="lg" value={emailORphone} onChange={(e) => setEmailORPhone(e.target.value)} className="mb-4" />
+            <MDBInput label="JN-Id or Phone" id="emailORphone" type="text" size="lg" value={emailORphone} onChange={(e) => setEmailORPhone(e.target.value)} className="mb-4" />
             <MDBInput label="Password" id="password" type="password" size="lg" value={password} onChange={(e) => setPassword(e.target.value)} className="mb-4" />
 
             <div className="d-flex justify-content-between mx-4 mb-4">
