@@ -75,6 +75,10 @@ const ApplyFormData = () => {
                     <th>District</th>
                     <th>Category</th>
                     <th>Sub-Category</th>
+                    <th>document1</th>
+                    <th>document2</th>
+                    <th>document3</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -87,6 +91,10 @@ const ApplyFormData = () => {
                     <th>District</th>
                     <th>Category</th>
                     <th>Sub-Category</th>
+                    <th>document1</th>
+                    <th>document2</th>
+                    <th>document3</th>
+                    <th>Action</th>
                   </tr>
                 </tfoot>
                 <tbody>
@@ -100,8 +108,20 @@ const ApplyFormData = () => {
                       <td>{item.district}</td>
                       <td>{item.category}</td>
                       <td>{item.subCategory}</td>
+                      
                       <td>
-                        {item.document1 && (
+                        {item.document1 &&
+                        (item.document1.endsWith(".pdf") ||
+                          item.document1.endsWith(".doc") ||
+                          item.document1.endsWith(".docx")) ? (
+                          <Link
+                            to={item.document1}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            View Document
+                          </Link>
+                        ) : (
                           <img
                             src={item.document1}
                             alt="Doc 1"
@@ -111,7 +131,18 @@ const ApplyFormData = () => {
                         )}
                       </td>
                       <td>
-                        {item.document2 && (
+                        {item.document2 &&
+                        (item.document2.endsWith(".pdf") ||
+                          item.document2.endsWith(".doc") ||
+                          item.document2.endsWith(".docx")) ? (
+                          <Link
+                            to={item.document2}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            View Document
+                          </Link>
+                        ) : (
                           <img
                             src={item.document2}
                             alt="Doc 2"
@@ -121,7 +152,18 @@ const ApplyFormData = () => {
                         )}
                       </td>
                       <td>
-                        {item.document3 && (
+                        {item.document3 &&
+                        (item.document3.endsWith(".pdf") ||
+                          item.document3.endsWith(".doc") ||
+                          item.document3.endsWith(".docx")) ? (
+                          <Link
+                            to={item.document3}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            View Document
+                          </Link>
+                        ) : (
                           <img
                             src={item.document3}
                             alt="Doc 3"
@@ -130,6 +172,7 @@ const ApplyFormData = () => {
                           />
                         )}
                       </td>
+                     
                       <td>
                         <button
                           className="btn btn-warning btn-sm me-2"
