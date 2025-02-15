@@ -178,6 +178,7 @@ const EditUserApplyForm = ({ user, onClose, onUpdate }) => {
                   className="form-control"
                   name="document1"
                   onChange={handleFileChange}
+                  accept="image/*,.pdf,.doc,.docx"
                 />
               </div>
 
@@ -199,6 +200,7 @@ const EditUserApplyForm = ({ user, onClose, onUpdate }) => {
                   className="form-control"
                   name="document2"
                   onChange={handleFileChange}
+                  accept="image/*,.pdf,.doc,.docx"
                 />
               </div>
 
@@ -220,6 +222,7 @@ const EditUserApplyForm = ({ user, onClose, onUpdate }) => {
                   className="form-control"
                   name="document3"
                   onChange={handleFileChange}
+                  accept="image/*,.pdf,.doc,.docx"
                 />
               </div>
 
