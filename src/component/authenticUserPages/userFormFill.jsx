@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { AddnewUserApplyForm } from "../../services/applyNewUserForm";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UserFormFillPage = () => {
   const [statesData, setStatesData] = useState([]);
   const [selectedState, setSelectedState] = useState("");
   const [districts, setDistricts] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const dropdownCategories = [
     { title: "Loan Products", items: loanProducts },
@@ -21,7 +22,6 @@ const UserFormFillPage = () => {
     { title: "Support", items: support },
   ];
 const partnerEmail = localStorage.getItem("partnerEmail")
-
   const [formData, setFormData] = useState({
     partnerEmail,
     fullName: "",
@@ -31,8 +31,8 @@ const partnerEmail = localStorage.getItem("partnerEmail")
     state: "",
     district: "",
     fullAddress: "",
-    category: "",
-    subCategory: "",
+  category: location.state?.category || "",
+    subCategory: location.state?.subcategory || "",
     document1: null,
     document2: null,
     document3: null,
@@ -258,30 +258,18 @@ const partnerEmail = localStorage.getItem("partnerEmail")
             ></textarea>
           </div>
 
-          {/* Category */}
-          <div className="form-group mb-3">
-            <label htmlFor="category">Select a Category</label>
-            <select
-              className="form-control"
-              id="category"
-              name="category"
-              onChange={handleCategoryChange}
-              required
-            >
-              <option value="" disabled>
-                Choose a category...
-              </option>
-              {dropdownCategories.map((category, index) => (
-                <optgroup key={index} label={category.title}>
-                  {category.items.map((item, i) => (
-                    <option key={i} value={`${category.title}||${item}`}>
-                      {item}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
-          </div>
+          
+              {/* Category Auto-Fill */}
+        <div className="form-group mb-3">
+          <label htmlFor="category">Category</label>
+          <input type="text" className="form-control" id="category" name="category" value={formData.category} readOnly />
+        </div>
+
+        {/* SubCategory Auto-Fill */}
+        <div className="form-group mb-3">
+          <label htmlFor="subCategory">SubCategory</label>
+          <input type="text" className="form-control" id="subCategory" name="subCategory" value={formData.subCategory} readOnly />
+        </div>
           <div className="form-group mb-3">
             <label htmlFor="document1">Upload Document 1 (Optional)</label>
             <input
@@ -290,6 +278,7 @@ const partnerEmail = localStorage.getItem("partnerEmail")
               id="document1"
               name="document1"
               onChange={handleFileChange}
+              accept="image/*,.pdf,.doc,.docx"
             />
           </div>
           <div className="form-group mb-3">
@@ -300,6 +289,7 @@ const partnerEmail = localStorage.getItem("partnerEmail")
               id="document2"
               name="document2"
               onChange={handleFileChange}
+              accept="image/*,.pdf,.doc,.docx"
             />
           </div>
           <div className="form-group mb-3">
@@ -310,6 +300,7 @@ const partnerEmail = localStorage.getItem("partnerEmail")
               id="document3"
               name="document3"
               onChange={handleFileChange}
+              accept="image/*,.pdf,.doc,.docx"
             />
           </div>
 
