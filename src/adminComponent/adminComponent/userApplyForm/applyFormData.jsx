@@ -67,6 +67,7 @@ const ApplyFormData = () => {
               >
                 <thead>
                   <tr>
+                      <th>Partner Id</th>
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -83,6 +84,7 @@ const ApplyFormData = () => {
                 </thead>
                 <tfoot>
                   <tr>
+                      <th>Partner Id</th>
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -100,6 +102,7 @@ const ApplyFormData = () => {
                 <tbody>
                   {tableData.map((item) => (
                     <tr key={item._id}>
+                       <td>{item.partnerEmail}</td>
                       <td>{item.fullName}</td>
                       <td>{item.email}</td>
                       <td>{item.phone}</td>
