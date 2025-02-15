@@ -10,17 +10,7 @@ const UserFormFillPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const dropdownCategories = [
-    { title: "Loan Products", items: loanProducts },
-    { title: "Our Services", items: ourServices },
-    { title: "Cards", items: cards },
-    { title: "Account Opening", items: accountOpening },
-    { title: "Investment", items: investment },
-    { title: "Insurance", items: insurance },
-    { title: "Book for New Vehicle", items: bookForVehicle },
-    { title: "Report", items: report },
-    { title: "Support", items: support },
-  ];
+ 
 const partnerEmail = localStorage.getItem("partnerEmail")
   const [formData, setFormData] = useState({
     partnerEmail,
@@ -315,34 +305,4 @@ const partnerEmail = localStorage.getItem("partnerEmail")
 };
 
 export default UserFormFillPage;
-
-// Dropdown Data
-const loanProducts = [
-  "Agri loan",
-  "Home loan",
-  "Auto loan",
-  "Two-wheeler loan",
-  "Three-wheeler loan",
-];
-const ourServices = [
-  "ITR",
-  "GST registration",
-  "GST return",
-  "New PAN card",
-  "PAN card correction",
-];
-const cards = [
-  "AU Bank credit card",
-  "IndusInd Bank credit card",
-  "Axis Bank credit card",
-];
-const accountOpening = ["AU Bank", "IndusInd Bank", "Axis Bank"];
-const investment = ["RD", "FD"];
-const insurance = [
-  "Car insurance",
-  "Two-wheeler insurance",
-  "Commercial insurance",
-];
-const bookForVehicle = ["Mahindra", "Kia", "Maruti Suzuki", "Tata"];
-const report = ["Lead data", "Lead commission"];
-const support = ["Contact number", "Gmail"];
+ 
