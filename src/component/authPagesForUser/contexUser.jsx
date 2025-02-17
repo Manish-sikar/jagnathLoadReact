@@ -20,6 +20,7 @@ export const AuthProviderUser = ({ children }) => {
     const logoutUser = () => {
         localStorage.removeItem('authTokenUser');
         localStorage.removeItem('userDataUser');
+         localStorage.removeItem('partnerEmail');
         setAuthTokenUserState(null);
         setUserDataUserState(null);
     };
