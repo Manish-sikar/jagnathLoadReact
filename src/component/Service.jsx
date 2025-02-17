@@ -31,8 +31,8 @@ const Service = () => {
       ) : (
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={8}
-          slidesPerView={6} // Display 6 images per row
+          spaceBetween={7}
+          slidesPerView={6} // Display 8 images per row
           loop={true}
           autoplay={{ delay: 2000, disableOnInteraction: false }}
           navigation
