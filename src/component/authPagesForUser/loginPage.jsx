@@ -7,42 +7,84 @@ import {
   MDBIcon,
   MDBInput,
   MDBCheckbox,
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
 } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2"; // Import Swal for alert messages
-import { UserLoginApi } from "../../services/authServices"; // Import API function
+import Swal from "sweetalert2";
+import {
+  UserLoginApi,
+  ForgotPasswordApi,
+  VerifyOtpApi,
+  ResetPasswordApi,
+} from "../../services/authServices";
 import { useAuthUser } from "./contexUser";
 
 const LoginUser = () => {
   const [emailORphone, setEmailORPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [step, setStep] = useState(1);
+
   const navigate = useNavigate();
-  const { setTokenUser, setDataUser } = useAuthUser();
- 
+  const { setTokenUser, setDataUser, setuserEmail } = useAuthUser();
+
   const handleLogin = async (e) => {
     e.preventDefault();
-
     if (!emailORphone || !password) {
       Swal.fire("Error", "All fields are required!", "error");
       return;
     }
-
     try {
       const response = await UserLoginApi({ emailORphone, password });
       if (response.token) {
-        // Save token and user data
-        // console.log(response.token , "token" ,response.user_name )
         localStorage.setItem("authTokenUser", response.token);
         setTokenUser(response.token);
         setDataUser(response.user_name);
-
+        setuserEmail(response.email);
         Swal.fire("Success", "Login successful!", "success");
-        navigate("/dashboard"); // Redirect to admin dashboard
+        navigate("/dashboard");
       }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.error || "Login failed. Please try again.";
-      Swal.fire("Error", errorMessage, "error");
+      Swal.fire("Error", "Login failed. Please try again.", "error");
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      await ForgotPasswordApi({ email });
+      Swal.fire("Success", "OTP sent to your email!", "success");
+      setStep(2);
+    } catch (error) {
+      Swal.fire("Error", "Failed to send OTP.", "error");
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    try {
+      await VerifyOtpApi({ email, otp });
+      setStep(3);
+    } catch (error) {
+      Swal.fire("Error", "Invalid OTP.", "error");
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (newPassword !== confirmPassword) {
+      Swal.fire("Error", "Passwords do not match!", "error");
+      return;
+    }
+    try {
+      await ResetPasswordApi({ email, newPassword });
+      Swal.fire("Success", "Password changed successfully!", "success");
+      setModalOpen(false);
+    } catch (error) {
+      Swal.fire("Error", "Failed to reset password.", "error");
     }
   };
 
@@ -57,38 +99,44 @@ const LoginUser = () => {
           />
         </MDBCol>
 
-        <MDBCol col="4">
+        <MDBCol col="4" md="6">
           <form onSubmit={handleLogin}>
-             
-             <label>UserName</label>
-            <MDBInput
-              wrapperClass="mb-4"
-              id="emailORphone"
-              type="text"
-              size="lg"
-              value={emailORphone}
-              onChange={(e) => setEmailORPhone(e.target.value)}
-            />
-            <label>Password</label>
-            <MDBInput
-             
-              wrapperClass="mb-4"
-             
-              id="password"
-              type="password"
-              size="lg"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            {/* <MDBInput label="Email or Phone" id="emailORphone" type="text" size="lg" value={emailORphone} onChange={(e) => setEmailORPhone(e.target.value)} className="mb-4"  labelPlacement="top" /> */}
+            <div className="mb-4">
+              <label htmlFor="User Name" className="form-label">
+                User Name
+              </label>
+              <MDBInput
+                id="emailORphone"
+                type="text"
+                size="lg"
+                value={emailORphone}
+                onChange={(e) => setEmailORPhone(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="Password" className="form-label">
+                Password
+              </label>
+              <MDBInput
+                id="password"
+                type="password"
+                size="lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {/* <MDBInput label="Password" id="password" type="password" size="lg" value={password} onChange={(e) => setPassword(e.target.value)} className="mb-4" /> */}
 
             <div className="d-flex justify-content-between mx-4 mb-4">
               <MDBCheckbox
                 name="flexCheck"
-                value=""
                 id="flexCheckDefault"
                 label="Remember me"
               />
-              <a href="!#">Forgot password?</a>
+              <a href="#!" onClick={() => setModalOpen(true)}>
+                Forgot password?
+              </a>
             </div>
 
             <MDBBtn className="mb-4 w-100" size="lg" type="submit">
@@ -96,29 +144,54 @@ const LoginUser = () => {
             </MDBBtn>
           </form>
 
-          <div className="divider d-flex align-items-center my-4">
-            <p className="text-center fw-bold mx-3 mb-0">OR</p>
-          </div>
-
-          <MDBBtn
-            className="mb-4 w-100"
-            size="lg"
-            style={{ backgroundColor: "#3b5998" }}
-          >
-            <MDBIcon fab icon="facebook-f" className="mx-2" />
-            Continue with Facebook
-          </MDBBtn>
-
-          <MDBBtn
-            className="mb-4 w-100"
-            size="lg"
-            style={{ backgroundColor: "#55acee" }}
-          >
-            <MDBIcon fab icon="twitter" className="mx-2" />
-            Continue with Twitter
-          </MDBBtn>
-
-         
+          <MDBModal open={modalOpen} tabIndex="-1" setOpen={setModalOpen}>
+            <MDBModalHeader>Forgot Password</MDBModalHeader>
+            <MDBModalBody>
+              {step === 1 && (
+                <>
+                  <MDBInput
+                    label="Enter your email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mb-3"
+                  />
+                  <MDBBtn onClick={handleForgotPassword}>Send OTP</MDBBtn>
+                </>
+              )}
+              {step === 2 && (
+                <>
+                  <MDBInput
+                    label="Enter OTP"
+                    type="text"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    className="mb-3"
+                  />
+                  <MDBBtn onClick={handleVerifyOtp}>Verify OTP</MDBBtn>
+                </>
+              )}
+              {step === 3 && (
+                <>
+                  <MDBInput
+                    label="New Password"
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    className="mb-3"
+                  />
+                  <MDBInput
+                    label="Confirm Password"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="mb-3"
+                  />
+                  <MDBBtn onClick={handleResetPassword}>Reset Password</MDBBtn>
+                </>
+              )}
+            </MDBModalBody>
+          </MDBModal>
         </MDBCol>
       </MDBRow>
     </MDBContainer>
