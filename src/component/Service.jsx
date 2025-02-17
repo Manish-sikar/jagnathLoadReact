@@ -25,7 +25,7 @@ const Service = () => {
   };
 
   return (
-    <div className="service-page-container" style={{ width: "100%", overflow: "hidden" }}>
+    <div className="service-page-container p-3" style={{ width: "100%", overflow: "hidden" }}>
       {servicesData.length === 0 ? (
         <p className="text-center">No services available at the moment.</p>
       ) : (
