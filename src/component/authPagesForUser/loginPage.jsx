@@ -104,7 +104,7 @@ const LoginUser = () => {
             {/* <MDBInput label="Email or Phone" id="emailORphone" type="text" size="lg" value={emailORphone} onChange={(e) => setEmailORPhone(e.target.value)} className="mb-4"  labelPlacement="top" /> */}
             <div className="mb-4">
               <label htmlFor="User Name" className="form-label">
-                User Name
+                Username
               </label>
               <MDBInput
                 id="emailORphone"
