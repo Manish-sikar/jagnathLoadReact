@@ -42,9 +42,6 @@ import UserFormFillPage from "./component/authenticUserPages/userFormFill";
 import ApplyFormData from "./adminComponent/adminComponent/userApplyForm/applyFormData";
 import PartnerPage from "./adminComponent/adminComponent/parthnerPage/parthnerPage";
 import BecomePartnerForm from "./adminComponent/adminComponent/parthnerPage/becomePartner";
-import LoanDataEdit from "./adminComponent/adminComponent/lloanProductPage/AdminloanProductEdit";
-import LoanServicesPage from "./adminComponent/adminComponent/lloanProductPage/AdminloanProduct";
-import EditPartnerPage from "./adminComponent/adminComponent/parthnerPage/editPertherData";
 
 
 function App() {
@@ -246,33 +243,6 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <PartnerPage />
-                  </ProtectedRoute>
-                }
-              />
-
-                
-<Route
-                path="/admin/loanProduct"
-                element={
-                  <ProtectedRoute>
-                    <LoanServicesPage />
-                  </ProtectedRoute>
-                }
-              />
-
-<Route
-                path="/admin/loanProduct/edit"
-                element={
-                  <ProtectedRoute>
-                    <LoanDataEdit />
-                  </ProtectedRoute>
-                }
-              />
-                   <Route
-                path="/admin/partner/edit"
-                element={
-                  <ProtectedRoute>
-                    <EditPartnerPage />
                   </ProtectedRoute>
                 }
               />
