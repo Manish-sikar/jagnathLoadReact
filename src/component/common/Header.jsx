@@ -88,12 +88,12 @@ const Header = () => {
             <Nav className="ms-auto">
               {/* Navigation Links */}
               <Nav.Link href="/dashboard" style={style.navLink}>Dashboard</Nav.Link>
-              <Nav.Link href="#AboutUs" style={style.navLink}>About Us</Nav.Link>
-              <Nav.Link href="#Services" style={style.navLink}>Services</Nav.Link>
-              <Nav.Link href="#ChooseUs" style={style.navLink}>Choose Us</Nav.Link>
+              <Nav.Link href="/about" style={style.navLink}>About Us</Nav.Link>
+              <Nav.Link href="/service" style={style.navLink}>Services</Nav.Link>
+              <Nav.Link href="/project" style={style.navLink}>Project</Nav.Link>
               <Nav.Link href="/dashboard" style={style.navLink}>EMI Collection</Nav.Link>
              <Nav.Link href="/login-User" style={style.navLink}>Login</Nav.Link>
-             <Nav.Link href="#ContactUs" className="me-4" style={style.navLink}>
+             <Nav.Link href="/contact" className="me-4" style={style.navLink}>
   Contact Us
 </Nav.Link>
 
