@@ -56,7 +56,7 @@ const Service = () => {
                   className="card__img rounded-3 img-fluid"
                 />
                 <Card.Body className="text-center">
-                  <Card.Title className="fs-2">{item.card_title || `Card ${idx + 1}`}</Card.Title>
+                  <Card.Title className="h6">{item.card_title || `Card ${idx + 1}`}</Card.Title>
                 </Card.Body>
               </Card>
             </SwiperSlide>
