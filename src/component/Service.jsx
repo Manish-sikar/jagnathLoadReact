@@ -59,7 +59,6 @@ const Service = () => {
   {item.card_title || `Card ${idx + 1}`}
 </Card.Title>
               </Card>
-              </Card>
             </SwiperSlide>
           ))}
         </Swiper>
