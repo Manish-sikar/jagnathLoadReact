@@ -55,9 +55,10 @@ const Service = () => {
                   alt={item.card_title || `Card ${idx + 1}`}
                   className="card__img rounded-3 img-fluid"
                 />
-                <Card.Body className="text-center">
-                  <Card.Title className="h6">{item.card_title || `Card ${idx + 1}`}</Card.Title>
-                </Card.Body>
+                 <Card.Title className="small-card-title text-center">
+  {item.card_title || `Card ${idx + 1}`}
+</Card.Title>
+              </Card>
               </Card>
             </SwiperSlide>
           ))}
