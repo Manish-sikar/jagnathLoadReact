@@ -9,6 +9,10 @@ export const AuthProviderUser = ({ children }) => {
         const userData = localStorage.getItem('userDataUser');
         return userData ? JSON.parse(userData) : null;
     });
+    const [userBalance, setUserBalanceUserState] = useState(() => {
+        const userData = localStorage.getItem('userBalance');
+        return userData ? JSON.parse(userData) : null;
+    });
 
     // Set token in localStorage and state
     const setTokenUser = (token) => {
@@ -20,7 +24,7 @@ export const AuthProviderUser = ({ children }) => {
     const logoutUser = () => {
         localStorage.removeItem('authTokenUser');
         localStorage.removeItem('userDataUser');
-         localStorage.removeItem('partnerEmail');
+        localStorage.removeItem('partnerEmail');
         setAuthTokenUserState(null);
         setUserDataUserState(null);
     };
@@ -30,7 +34,13 @@ export const AuthProviderUser = ({ children }) => {
         localStorage.setItem('userDataUser', JSON.stringify(data));
         setUserDataUserState(data);
     };
-       const setuserEmail = (data) => {
+
+    const setuserBalance = (data) => {
+        localStorage.setItem('userBalance', JSON.stringify(data));
+        setUserBalanceUserState(data);
+    };
+
+    const setuserEmail = (data) => {
         localStorage.setItem('partnerEmail', JSON.stringify(data));
     };
 
@@ -41,6 +51,8 @@ export const AuthProviderUser = ({ children }) => {
         authTokenUser,
         setTokenUser,
         userDataUser,
+        setuserBalance,
+        userBalance,
         setDataUser,
         setuserEmail,
         logoutUser,
