@@ -13,6 +13,7 @@ const EditPartnerPage = () => {
     fullName: partner?.fullName || "",
     email: partner?.email || "",
     mobile: partner?.mobile || "",
+    balance: partner?.balance || "",
     designation: partner?.designation || "",
     institutionName: partner?.institutionName || "",
     message: partner?.message || "",
@@ -35,6 +36,8 @@ const EditPartnerPage = () => {
         formDataToSubmit.append(key, formData[key]);
       }
     });
+
+   
 
     try {
       const response = await updatePartnerData(formDataToSubmit);
@@ -75,6 +78,10 @@ const EditPartnerPage = () => {
         <div className="form-group">
           <label>Phone</label>
           <input id="mobile" type="text" className="form-control" value={formData.mobile} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Wallet Balance</label>
+          <input id="balance" type="number" className="form-control" value={formData.balance} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Designation</label>
