@@ -99,10 +99,11 @@ const PartnerPage = () => {
               <table className="table table-striped table-hover">
                 <thead>
                   <tr>
-                     <th>JN Id </th>
+                    <th>JN Id </th>
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Wallet Balance</th>
                     <th>Designation</th>
                     <th>Institution</th>
                     <th>Message</th>
@@ -114,10 +115,11 @@ const PartnerPage = () => {
                 <tbody>
                   {tableData.map((item) => (
                     <tr key={item._id}>
-                        <td>{item.JN_Id}</td>
+                      <td>{item.JN_Id}</td>
                       <td>{item.fullName}</td>
                       <td>{item.email}</td>
                       <td>{item.mobile}</td>
+                      <td>{item.balance}</td>
                       <td>{item.designation}</td>
                       <td>{item.institutionName}</td>
                       <td>{item.message}</td>
