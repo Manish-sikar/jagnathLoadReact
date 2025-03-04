@@ -81,7 +81,6 @@ const LoanProductList = ({ products }) => {
                   </div>
                 </div>
               )}
-
               <div style={{ width: "10%" }}></div>
             </div>
           );
