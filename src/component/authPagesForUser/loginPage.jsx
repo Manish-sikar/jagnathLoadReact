@@ -32,7 +32,7 @@ const LoginUser = () => {
   const [step, setStep] = useState(1);
 
   const navigate = useNavigate();
-  const { setTokenUser, setDataUser, setuserEmail } = useAuthUser();
+  const { setTokenUser, setDataUser, setuserEmail , setuserBalance } = useAuthUser();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -46,6 +46,7 @@ const LoginUser = () => {
         localStorage.setItem("authTokenUser", response.token);
         setTokenUser(response.token);
         setDataUser(response.user_name);
+        setuserBalance(response.user_balance);
         setuserEmail(response.email);
         Swal.fire("Success", "Login successful!", "success");
         navigate("/dashboard");
@@ -104,7 +105,7 @@ const LoginUser = () => {
             {/* <MDBInput label="Email or Phone" id="emailORphone" type="text" size="lg" value={emailORphone} onChange={(e) => setEmailORPhone(e.target.value)} className="mb-4"  labelPlacement="top" /> */}
             <div className="mb-4">
               <label htmlFor="User Name" className="form-label">
-                Username
+                User Name
               </label>
               <MDBInput
                 id="emailORphone"
