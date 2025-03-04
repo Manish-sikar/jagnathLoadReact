@@ -11,7 +11,7 @@ const SubHeaderUser = ({ onCategorySelect }) => {
     { title: "Account Opening", category: "account_opening" },
     { title: "Investment", category: "investment" },
     { title: "Insurance", category: "insurance" },
-    { title: "Book New Vehicle", category: "book_new_vehicle" },
+    { title: "Estore", category: "book_new_vehicle" },
     { title: "Report", category: "report" },
     { title: "Support", category: "support" },
   ];
