@@ -95,7 +95,7 @@ const LoanServicesPage = () => {
 
   const category = [
     "insurance",
-    "book_new_vehicle",
+    "e_store",
     "investment",
     "account_opening",
     "cards",
