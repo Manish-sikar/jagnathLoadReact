@@ -5,13 +5,13 @@ import Service from "../Service";
 const LoanProductList = ({ products }) => {
   const navigate = useNavigate();
 
-  const handleClick = (link,  category ,subcategory,) => {
+  const handleClick = (link,  category ,subcategory,amount) => {
     if (!link) return;
 
     if (typeof link === "string" && link.startsWith("http")) {
       window.location.href = link;
     } else {
-      navigate(link, { state: { subcategory, category } });
+      navigate(link, { state: { subcategory, category , amount } });
     }
   };
 
@@ -38,7 +38,7 @@ const LoanProductList = ({ products }) => {
               <div style={{ width: "35%" }}>
                 <div
                   className="card shadow-sm p-2"
-                  onClick={() => product.link && handleClick(product.link, product.category, product.category_name)}
+                  onClick={() => product.link && handleClick(product.link, product.category, product.category_name ,  product.amount)}
                   style={{ cursor: product.link ? "pointer" : "default", width: "100%" }}
                 >
                   <div className="d-flex justify-content-center align-items-center" style={{ height: "50px" }}>
