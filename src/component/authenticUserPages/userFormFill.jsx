@@ -23,6 +23,7 @@ const partnerEmail = localStorage.getItem("partnerEmail")
     fullAddress: "",
   category: location.state?.category || "",
     subCategory: location.state?.subcategory || "",
+    amount: location.state?.amount || "",
     document1: null,
     document2: null,
     document3: null,
