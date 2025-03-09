@@ -15,6 +15,7 @@ const LoanServicesPage = () => {
     category_name: "",
     sub_category_name: "",
     category: "",
+        amount: "",
     link: "",
     loanimg: null,
   });
@@ -170,6 +171,15 @@ const LoanServicesPage = () => {
                           </select>
                         </div>
                       </div>
+                        <div className="form-group">
+                        <label>Amount</label>
+                        <input
+                          type="text"
+                          name="amount"
+                          className="form-control"
+                          onChange={handleChange}
+                        />
+                      </div>
                       <div className="form-group">
                         <label>Link</label>
                         <input
@@ -215,6 +225,7 @@ const LoanServicesPage = () => {
                   <th>Category Name</th>
                   <th>Sub Category</th>
                   <th>Category</th>
+                   <th>amount</th>
                   <th>Link</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -230,6 +241,7 @@ const LoanServicesPage = () => {
                       <td>{item.category_name}</td>
                       <td>{item.sub_category_name}</td>
                       <td>{item.category}</td>
+                         <td>{item?.amount || 0} </td>
                       <td>{item.link}</td>
                       <td>
                         <button
