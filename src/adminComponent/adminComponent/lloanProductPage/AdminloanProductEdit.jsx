@@ -14,6 +14,7 @@ const LoanDataEdit = () => {
     category_name: item?.category_name || "",
     sub_category_name: item?.sub_category_name || "",
     category: item?.category || "",
+        amount: item?.amount || "",
     link: item?.link || "",
   });
 
@@ -110,6 +111,17 @@ const LoanDataEdit = () => {
             className="form-control"
             placeholder="Category"
             value={formData.category}
+            onChange={handleChange}
+          />
+        </div>
+           <div className="form-group">
+          <label>Amount</label>
+          <input
+            id="amount"
+            type="text"
+            className="form-control"
+            placeholder="Amount"
+            value={formData.amount}
             onChange={handleChange}
           />
         </div>
