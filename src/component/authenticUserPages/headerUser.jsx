@@ -10,7 +10,6 @@ import { PaytmPaynow } from "../../services/paytmService";
  import { GetSpecialpartnerData } from "../../services/applyNewUserForm";
 import { io } from "socket.io-client"; // Import socket.io-client
 
-
 const AuthUserHeader = () => {
   const [formData, setFormData] = useState({});
   const [socialLinks, setSocialLinks] = useState([]);
