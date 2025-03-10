@@ -7,22 +7,57 @@ import Navbar from "react-bootstrap/Navbar";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useAuthUser } from "../authPagesForUser/contexUser";
 import { PaytmPaynow } from "../../services/paytmService";
-import { GetnewpartnerData } from "../../services/applyNewUserForm";
+ import { GetSpecialpartnerData } from "../../services/applyNewUserForm";
+import { io } from "socket.io-client"; // Import socket.io-client
+
 
 const AuthUserHeader = () => {
   const [formData, setFormData] = useState({});
   const [socialLinks, setSocialLinks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [addAmount, setAddAmount] = useState("");
-  const { userDataUser, logoutUser , userBalance } = useAuthUser();
+  const { userDataUser, logoutUser  } = useAuthUser();
   const [walletBalance, setWalletBalance] = useState( 0);
+ const [JN_Id, setJN_Id] = useState(localStorage.getItem("partnerEmail") || "");
+ 
+  
 
   useEffect(() => {
     fetchData();
     fetchSocialLinks();
-    // fetchWalletBalance();
-    // console.log(userDataUser)
+    fetchWalletBalance();
+     
   }, []);
+
+
+  
+  useEffect(() => {
+    const socket = io("http://localhost:4040", {
+      transports: ["websocket"], // Use WebSocket transport
+      reconnection: true, // Enable reconnection
+    });
+
+    socket.on("connect", () => {
+      console.log("Connected to Socket.IO server");
+    });
+
+    socket.on("fetchWalletBalance", (data) => {
+      fetchWalletBalance(); // Fetch updated wallet balance
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from Socket.IO server");
+    });
+
+    socket.on("connect_error", (err) => {
+      console.error("Socket connection error:", err);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
 
   // Fetch site data
   const fetchData = async () => {
@@ -102,22 +137,21 @@ const AuthUserHeader = () => {
   };
 
 
-  // const fetchWalletBalance = async () => {
-  //   try {
-  //     const response = await GetnewpartnerData();
-  //     if (response && Array.isArray(response.partner_Data)) {
-  //       setTableData(response.partner_Data);
-  //       setMessage(response.message);
-  //     } else {
-  //       throw new Error("Invalid response format");
-  //     }
-  //   } catch (err) {
-  //     console.error("Error fetching table data:", err);
-  //     setError("Failed to load partner data. Please try again later.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const fetchWalletBalance = async () => {
+    try {
+      
+      const response = await GetSpecialpartnerData(JN_Id);
+      if (response && Array.isArray(response.partner_Data)) {
+        const balance = response.partner_Data[0]?.balance
+        setWalletBalance(balance)
+      } else {
+        throw new Error("Invalid response format");
+      }
+    } catch (err) {
+      console.error("Error fetching table data:", err);
+      // setError("Failed to load partner data. Please try again later.");
+    }  
+  };
 
   return (
     <>
@@ -146,7 +180,7 @@ const AuthUserHeader = () => {
               {/* Wallet Section */}
               <div className="wallet-section" style={style.wallet}>
                 <span style={style.walletText}>
-                  <i className="fas fa-wallet"></i> Wallet: ₹{userBalance || 0} 
+                  <i className="fas fa-wallet"></i> Wallet: ₹{walletBalance || 0} 
                 </span>
                 <button className="btn btn-sm btn-primary" onClick={handleShow}>
                   Add Balance
