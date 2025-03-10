@@ -106,12 +106,24 @@ async function GetnewUserApplyForm() {
       throw error;
     }
   }
-  
+
+
+  async function GetSpecialpartnerData(JN_Id) {
+    try {
+      console.log(JN_Id)
+      const response = await router.post(`/getSpeacialParthner` ,{JN_Id}  );
+      return response.data;
+    } catch (error) {
+      // Handle error, e.g., log it or throw a custom error
+      console.error("Error in getting status:", error);
+      throw error;
+    }
+  }
 
 
 
 export {  AddnewUserApplyForm , GetnewUserApplyForm ,GetnewpartnerData ,
    deletePartner, ParthnerChangepass ,updatePartnerData ,
    UpdateUserApplyForm ,
-   deleteUserApplyForm };
+   deleteUserApplyForm ,GetSpecialpartnerData };
  
