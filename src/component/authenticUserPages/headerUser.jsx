@@ -31,10 +31,10 @@ const AuthUserHeader = () => {
 
   
   useEffect(() => {
-    const socket = io("https://jagannathnode.onrender.com:4040", {
-      transports: ["websocket"], // Use WebSocket transport
-      reconnection: true, // Enable reconnection
-    });
+   const socket = io('https://jagannathnode.onrender.com', {
+  transports: ['websocket'],
+  withCredentials: true
+});
 
     socket.on("connect", () => {
       console.log("Connected to Socket.IO server");
