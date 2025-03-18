@@ -31,7 +31,7 @@ const AuthUserHeader = () => {
 
   
   useEffect(() => {
-    const socket = io("http://localhost:4040", {
+    const socket = io("https://jagannathnode.onrender.com:4040", {
       transports: ["websocket"], // Use WebSocket transport
       reconnection: true, // Enable reconnection
     });
