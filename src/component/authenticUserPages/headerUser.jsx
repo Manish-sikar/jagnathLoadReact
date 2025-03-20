@@ -155,7 +155,17 @@ const AuthUserHeader = () => {
   return (
     <>
       {/* Main Navbar */}
-      <Navbar collapseOnSelect expand="lg" style={style.navbar} variant="dark">
+      <div collapseOnSelect expand="lg"style={{ height: "40px", backgroundColor: "#EB5B00",}}>
+       <div className="text-center p-2 text-light">
+          
+       Jasnath Finance - Your Trusted Financial Partner!
+         </div>
+      </div>
+     
+
+
+
+      <Navbar collapseOnSelect expand="lg" style={style.navbar } variant="dark">
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
             <img
@@ -179,7 +189,7 @@ const AuthUserHeader = () => {
               {/* Wallet Section */}
               <div className="wallet-section" style={style.wallet}>
                 <span style={style.walletText}>
-                  <i className="fas fa-wallet"></i> Wallet: ₹{walletBalance || 0} 
+                  <i className="fas fa-wallet"></i> Wallet: ₹{userBalance || 0} 
                 </span>
                 <button className="btn btn-sm btn-primary" onClick={handleShow}>
                   Add Balance
@@ -193,7 +203,7 @@ const AuthUserHeader = () => {
 
               {/* Welcome Message */}
               <p
-                className="welcome-text text-white m-0"
+                className="welcome-text  m-0"
                 style={style.welcomeText}
               >
                 <i
