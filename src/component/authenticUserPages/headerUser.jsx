@@ -15,15 +15,13 @@ const AuthUserHeader = () => {
   const [socialLinks, setSocialLinks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [addAmount, setAddAmount] = useState("");
-  const { userDataUser, logoutUser  } = useAuthUser();
-  const [walletBalance, setWalletBalance] = useState( 0);
+  const { userDataUser, logoutUser , userBalance  } = useAuthUser();
   const [JN_Id, setJN_Id] = useState(JSON.parse(localStorage.getItem("partnerEmail") || '""'))
 
 
   useEffect(() => {
     fetchData();
     fetchSocialLinks();
-    fetchWalletBalance();
      
   }, []);
 
@@ -96,21 +94,7 @@ const AuthUserHeader = () => {
   };
 
 
-  const fetchWalletBalance = async () => {
-    try {
-      
-      const response = await GetSpecialpartnerData(JN_Id);
-      if (response && Array.isArray(response.partner_Data)) {
-        const balance = response.partner_Data[0]?.balance
-        setWalletBalance(balance)
-      } else {
-        throw new Error("Invalid response format");
-      }
-    } catch (err) {
-      console.error("Error fetching table data:", err);
-      // setError("Failed to load partner data. Please try again later.");
-    }  
-  };
+ 
 
   return (
     <>
@@ -140,7 +124,7 @@ const AuthUserHeader = () => {
               {/* Wallet Section */}
               <div className="wallet-section" style={style.wallet}>
                 <span style={style.walletText}>
-                  <i className="fas fa-wallet"></i> Wallet: ₹{walletBalance || 0}
+                  <i className="fas fa-wallet"></i> Wallet: ₹{userBalance || 0}
                 </span>
                 <button className="btn btn-sm btn-primary" onClick={handleShow}>
                   Add Balance
