@@ -28,35 +28,6 @@ const AuthUserHeader = () => {
   }, []);
 
 
-  
-  useEffect(() => {
-   const socket = io('https://jagannathnode.onrender.com', {
-  transports: ['websocket'],
-  withCredentials: true
-});
-
-    socket.on("connect", () => {
-      console.log("Connected to Socket.IO server");
-    });
-
-    socket.on("fetchWalletBalance", (data) => {
-      fetchWalletBalance(); // Fetch updated wallet balance
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from Socket.IO server");
-    });
-
-    socket.on("connect_error", (err) => {
-      console.error("Socket connection error:", err);
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
-
   // Fetch site data
   const fetchData = async () => {
     try {
@@ -83,17 +54,7 @@ const AuthUserHeader = () => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  // Handle adding wallet balance
-  // const handleAddBalance = () => {
-  //   const amount = parseFloat(addAmount);
-  //   if (!isNaN(amount) && amount > 0) {
-  //     setWalletBalance(walletBalance + amount);
-  //     setAddAmount("");
-  //     handleClose();
-  //   } else {
-  //     alert("Enter a valid amount");
-  //   }
-  // };
+ 
 
   // 1️⃣ Initiate Paytm Payment
   const handleAddBalance = async () => {
