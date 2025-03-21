@@ -220,6 +220,8 @@ const AuthUserHeader = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+     
       {/* Wallet Modal */}
       {/* Wallet Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
