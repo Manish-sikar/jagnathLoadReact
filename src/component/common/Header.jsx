@@ -85,19 +85,23 @@ const Header = () => {
                 </Nav.Link>
               ))}
             </Nav>
-            <Nav className="ms-auto">
-              {/* Navigation Links */}
-              <Nav.Link href="/dashboard" style={style.navLink}>Home</Nav.Link>
-              <Nav.Link href="/about" style={style.navLink}>About Us</Nav.Link>
-              <Nav.Link href="/service" style={style.navLink}>Services</Nav.Link>
-              <Nav.Link href="/project" style={style.navLink}>Project</Nav.Link>
-              <Nav.Link href="/dashboard" style={style.navLink}>EMI Collection</Nav.Link>
-             <Nav.Link href="/login-User" style={style.navLink}>Login</Nav.Link>
-             <Nav.Link href="/contact" className="me-4" style={style.navLink}>
-  Contact Us
-</Nav.Link>
+           <Nav className="ms-auto d-flex align-items-center gap-3">
+  {/* Home Icon & Link */}
+  <div className="d-flex align-items-center">
+    <img 
+      src="/img/homeicons.png" 
+      alt="Home Icon" 
+      style={{ width: "30px", height: "30px", marginRight: "8px" }}
+    />
+    <Nav.Link href="/dashboard" style={style.navLink}>Home</Nav.Link>
+  </div>
 
-            </Nav>
+  <Nav.Link href="/about" style={style.navLink}>About Us</Nav.Link>
+  <Nav.Link href="/service" style={style.navLink}>Services</Nav.Link>
+  <Nav.Link href="/project" style={style.navLink}>Project</Nav.Link>
+  <Nav.Link href="/login-User" style={style.navLink}>Login</Nav.Link>
+  <Nav.Link href="/contact" className="me-4" style={style.navLink}>Contact Us</Nav.Link>
+</Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>          
