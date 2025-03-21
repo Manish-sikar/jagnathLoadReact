@@ -12,7 +12,7 @@ const UserFormFillPage = () => {
 
  
 const partnerEmail = localStorage.getItem("partnerEmail")
-  partnerEmail=JSON.parse(partnerEmail)
+  partnerEmail = JSON.parse(partnerEmail)
   const [formData, setFormData] = useState({
     partnerEmail,
     fullName: "",
