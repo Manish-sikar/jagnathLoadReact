@@ -154,7 +154,16 @@ const AuthUserHeader = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" style={style.navbar } variant="dark">
+      {/* Main Navbar */}
+    
+      <div collapseOnSelect expand="lg"style={{ height: "40px", backgroundColor: "#EB5B00",}}>
+       <div className="text-center p-2 text-light"> 
+       Jasnath Finance - Your Trusted Financial Partner!
+         </div>
+      </div>
+
+     
+     <Navbar collapseOnSelect expand="lg" style={style.navbar } variant="dark">
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
             <img
@@ -167,18 +176,13 @@ const AuthUserHeader = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              {/* Social Media Icons */}
-              {socialLinks.map((item, index) => (
-                <Nav.Link href={item.icon_url} target="_blank" key={index}>
-                  <i className={item.icon_class} style={style.socialIcon}></i>
-                </Nav.Link>
-              ))}
+             
             </Nav>
             <Nav className="ms-auto d-flex align-items-center gap-3">
               {/* Wallet Section */}
               <div className="wallet-section" style={style.wallet}>
                 <span style={style.walletText}>
-                  <i className="fas fa-wallet"></i> Wallet: ₹{walletBalance || 0} 
+                  <i className="fas fa-wallet"></i> Wallet: ₹{userBalance || 0} 
                 </span>
                 <button className="btn btn-sm btn-primary" onClick={handleShow}>
                   Add Balance
@@ -216,7 +220,6 @@ const AuthUserHeader = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
       {/* Wallet Modal */}
       {/* Wallet Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
