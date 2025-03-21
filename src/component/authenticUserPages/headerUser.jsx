@@ -17,9 +17,8 @@ const AuthUserHeader = () => {
   const [addAmount, setAddAmount] = useState("");
   const { userDataUser, logoutUser  } = useAuthUser();
   const [walletBalance, setWalletBalance] = useState( 0);
- const [JN_Id, setJN_Id] = useState(localStorage.getItem("partnerEmail") || "");
- 
-  
+  const [JN_Id, setJN_Id] = useState(JSON.parse(localStorage.getItem("partnerEmail") || '""'))
+
 
   useEffect(() => {
     fetchData();
