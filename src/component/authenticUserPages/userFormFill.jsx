@@ -9,6 +9,7 @@ const UserFormFillPage = () => {
   const [districts, setDistricts] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+    const {setuserBalance} = useAuthUser();
 
  
 const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
@@ -118,6 +119,7 @@ const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
         });
         setSelectedState("");
         setDistricts([]);
+        setuserBalance(response.data.user_balance);
         navigate("/dashboard");
       } else {
         throw new Error("Failed to submit form");
