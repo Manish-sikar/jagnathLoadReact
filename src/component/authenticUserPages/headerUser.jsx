@@ -180,7 +180,7 @@ const AuthUserHeader = () => {
               {/* Wallet Section */}
               <div className="wallet-section" style={style.wallet}>
                 <span style={style.walletText}>
-                  <i className="fas fa-wallet"></i> Wallet: ₹{walletBalance}
+                  <i className="fas fa-wallet"></i> Wallet: ₹{walletBalance || 0}
                 </span>
                 <button className="btn btn-sm btn-primary" onClick={handleShow}>
                   Add Balance
