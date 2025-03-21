@@ -154,17 +154,6 @@ const AuthUserHeader = () => {
 
   return (
     <>
-      {/* Main Navbar */}
-      <div collapseOnSelect expand="lg"style={{ height: "40px", backgroundColor: "#EB5B00",}}>
-       <div className="text-center p-2 text-light">
-          
-       Jasnath Finance - Your Trusted Financial Partner!
-         </div>
-      </div>
-     
-
-
-
       <Navbar collapseOnSelect expand="lg" style={style.navbar } variant="dark">
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
