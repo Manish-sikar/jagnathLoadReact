@@ -11,8 +11,9 @@ const UserFormFillPage = () => {
   const location = useLocation();
 
  
-const partnerEmail = localStorage.getItem("partnerEmail")
-  partnerEmail = JSON.parse(partnerEmail)
+let partnerEmail = localStorage.getItem("partnerEmail"); // Use 'let' if you plan to modify it
+partnerEmail = JSON.parse(partnerEmail);
+
   const [formData, setFormData] = useState({
     partnerEmail,
     fullName: "",
