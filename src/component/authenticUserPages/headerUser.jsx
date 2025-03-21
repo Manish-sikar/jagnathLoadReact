@@ -246,23 +246,23 @@ export default AuthUserHeader;
 
 const style = {
   navbar: {
-    backgroundColor: "#3B1C32",
+    backgroundColor: "#fff",
     borderBottom: "3px solid #f1f1f1",
   },
   navbarBrand: {
     fontSize: "1.8rem",
     fontWeight: "bold",
-    color: "#fff",
+    color: "#000000",
   },
   socialIcon: {
     fontSize: "1.5rem",
     marginRight: "10px",
-    color: "#fff",
+    color: "#000000",
   },
   welcomeText: {
     fontSize: "1.2rem",
     fontWeight: "bold",
-    color: "#fff",
+    color: "#000000",
     display: "flex",
     alignItems: "center",
     gap: "10px",
@@ -270,7 +270,7 @@ const style = {
   btnGradient: {
     background: "linear-gradient(90deg, #ff416c, #ff4b2b)",
     border: "none",
-    color: "white",
+    color: "#000000",
     fontWeight: "bold",
     borderRadius: "8px",
     padding: "10px 20px",
