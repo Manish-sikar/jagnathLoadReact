@@ -156,14 +156,14 @@ const AuthUserHeader = () => {
     <>
       {/* Main Navbar */}
     
-      <div collapseOnSelect expand="lg"style={{ height: "40px", backgroundColor: "#EB5B00",}}>
-       <div className="text-center p-2 text-light"> 
-       Jasnath Finance - Your Trusted Financial Partner!
-         </div>
+     <div style={{ height: "40px", backgroundColor: "#EB5B00" }}>
+        <div className="text-center p-2 text-light">
+          Jasnath Finance - Your Trusted Financial Partner!
+        </div>
       </div>
 
-     
-     <Navbar collapseOnSelect expand="lg" style={style.navbar } variant="dark">
+      {/* Navbar */}
+      <Navbar collapseOnSelect expand="lg" style={style.navbar} variant="dark">
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
             <img
@@ -175,34 +175,21 @@ const AuthUserHeader = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-             
-            </Nav>
+            <Nav className="me-auto"></Nav>
             <Nav className="ms-auto d-flex align-items-center gap-3">
               {/* Wallet Section */}
               <div className="wallet-section" style={style.wallet}>
                 <span style={style.walletText}>
-                  <i className="fas fa-wallet"></i> Wallet: ₹{userBalance || 0} 
+                  <i className="fas fa-wallet"></i> Wallet: ₹{userBalance}
                 </span>
                 <button className="btn btn-sm btn-primary" onClick={handleShow}>
                   Add Balance
                 </button>
               </div>
 
-              {/* <div className="wallet-section">
-        <span>Wallet: ₹{walletBalance || 0 }</span>
-        <button onClick={handleShow}>Add Balance</button>
-      </div> */}
-
               {/* Welcome Message */}
-              <p
-                className="welcome-text  m-0"
-                style={style.welcomeText}
-              >
-                <i
-                  className="fas fa-user-circle"
-                  style={{ fontSize: "1.5rem" }}
-                ></i>
+              <p className="welcome-text m-0" style={style.welcomeText}>
+                <i className="fas fa-user-circle" style={{ fontSize: "1.5rem" }}></i>
                 Welcome, {userDataUser}!
               </p>
 
@@ -220,6 +207,7 @@ const AuthUserHeader = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
 
      
       {/* Wallet Modal */}
