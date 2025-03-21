@@ -17,7 +17,7 @@ const SubHeaderUser = ({ onCategorySelect }) => {
   ];
 
   return (
-    <Navbar expand="lg" className="bg-dark navbar-dark">
+    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "#3674B5", height: "40px" }} variant="dark">
       <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
         <Navbar.Offcanvas id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="end">
