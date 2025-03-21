@@ -57,7 +57,7 @@ export const AuthProviderUser = ({ children }) => {
         setuserEmail,
         logoutUser,
         isAuthenticatedUser,
-    }), [authTokenUser, userDataUser]);
+    }), [authTokenUser, userDataUser , userBalance]);
 
     return (
         <AuthContext.Provider value={contextValue}>
