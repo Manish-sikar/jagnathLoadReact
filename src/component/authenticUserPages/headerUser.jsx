@@ -8,7 +8,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useAuthUser } from "../authPagesForUser/contexUser";
 import { PaytmPaynow } from "../../services/paytmService";
  import { GetSpecialpartnerData } from "../../services/applyNewUserForm";
-import { io } from "socket.io-client"; // Import socket.io-client
+ 
 
 const AuthUserHeader = () => {
   const [formData, setFormData] = useState({});
