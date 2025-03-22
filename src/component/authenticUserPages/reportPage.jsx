@@ -10,6 +10,7 @@ const ReportPage = () => {
   
   const partnerEmail = localStorage.getItem("partnerEmail")
 
+ 
   const fetchProductsByCategory = async () => {
     const response = await GetReportData(partnerEmail);
     const productsData = response?.userForm_Data || [];
