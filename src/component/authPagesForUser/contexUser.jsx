@@ -14,6 +14,7 @@ export const AuthProviderUser = ({ children }) => {
         return userData ? JSON.parse(userData) : null;
     });
 
+
     // Set token in localStorage and state
     const setTokenUser = (token) => {
         localStorage.setItem('authTokenUser', token);
