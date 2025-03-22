@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import { GetReportData } from "../../services/reportServices";
+ import { GetReportData } from "../../services/applyNewUserForm";
 
 const ReportPage = () => {
   const [selectedTab, setSelectedTab] = useState("your_order");
