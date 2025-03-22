@@ -1,6 +1,5 @@
 import router, { setAuthToken } from "./apiService";
 
- 
 
 async function AddnewUserApplyForm(formdata) {
   try {
