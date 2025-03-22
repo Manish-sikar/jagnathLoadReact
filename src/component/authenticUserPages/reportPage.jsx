@@ -8,7 +8,7 @@ const ReportPage = () => {
   const [confirmOrderData, setConfirmOrderData ] = useState([]);
   const [closeOrderData, setCloseOrderData ] = useState([]);
   
-  const partnerEmail = localStorage.getItem("partnerEmail")
+  const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
 
  
   const fetchProductsByCategory = async () => {
