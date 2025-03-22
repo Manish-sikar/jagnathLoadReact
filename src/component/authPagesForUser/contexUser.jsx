@@ -2,6 +2,7 @@ import React, { createContext, useState, useMemo, useContext, useEffect } from '
 
 const AuthContext = createContext();
 
+
 export const AuthProviderUser = ({ children }) => {
     // Initialize state from localStorage if the token exists
     const [authTokenUser, setAuthTokenUserState] = useState(() => localStorage.getItem('authTokenUser') || null);
