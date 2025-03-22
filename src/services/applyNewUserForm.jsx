@@ -131,10 +131,7 @@ async function GetnewUserApplyForm() {
     }
   }
 
-
-  export { 
-    GetReportData
-    };
+ 
 
 
 
