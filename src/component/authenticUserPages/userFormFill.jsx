@@ -4,7 +4,6 @@ import { AddnewUserApplyForm } from "../../services/applyNewUserForm";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthUser } from "../authPagesForUser/contexUser";
 
-
 const UserFormFillPage = () => {
   const [statesData, setStatesData] = useState([]);
   const [selectedState, setSelectedState] = useState("");
