@@ -88,6 +88,7 @@ const LoginUser = () => {
       Swal.fire("Error", "Failed to reset password.", "error");
     }
   };
+  
 
   return (
     <MDBContainer fluid className="p-3 my-5">
