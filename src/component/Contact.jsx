@@ -9,17 +9,92 @@ const Contact = () => {
 
   const [contactState, setContactState] = useState([]);
   const [formData, setFormData] = useState({
-    contact_name: "",
-   contact_mobile: "",
-    contact_project: "",
-    contact_message: "",
+    fullName: "", 
+    designation: "not Available",
+    email: "not Available",
+    mobile: "",
+    institutionName: "",
+    message: "",
   });
+
+  const validateForm = () => {
+    const { fullName, mobile, institutionName, message } =
+      formData;
+
+    if (!fullName.trim()) {
+      Swal.fire("Validation Error", "Full Name is required.", "warning");
+      return false;
+    }
+
+    
+
+
+    if (!mobile.trim() || !/^\d{10}$/.test(mobile)) {
+      Swal.fire(
+        "Validation Error",
+        "Mobile must be a 10-digit number.",
+        "warning"
+      );
+      return false;
+    }
+
+    if (!institutionName.trim()) {
+      Swal.fire("Validation Error", "Institution Name is required.", "warning");
+      return false;
+    }
+
+    if (!message.trim()) {
+      Swal.fire("Validation Error", "Message is required.", "warning");
+      return false;
+    }
+
+    return true; // All fields are valid
+  };
+ 
+  
+ 
 
 useEffect(()=>{
   fetchcontactData()
 },[])
 
+const handleChange = (e) => {
+  const { name, value } = e.target; // Extract name and value from the event
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: value, // Dynamically update the field by name
+  }));
+};
 
+const handleSubmit = async (e) => {
+  e.preventDefault(); // Prevent default browser form submission
+  // Validate form
+  if (!validateForm()) {
+    return;
+  }
+  try {
+   const response =  await AddNewContactForm(formData);
+   console.log(response)
+    // Show success notification
+    Swal.fire("Success!", "Contact form submitted successfully.", "success");
+    // Reset form fields
+    setFormData({
+      fullName: "",
+      mobile: "",
+      institutionName: "",
+      message: "",
+    });
+  } catch (error) {
+    // Show error notification
+    const errMessage = error?.response?.data?.err || "Something went wrong!";
+    Swal.fire({
+      title: "Error!",
+      text: errMessage,
+      icon: "error",
+      confirmButtonText: "Retry",
+    });
+  }
+};
 
 
   const fetchcontactData = async () => {
@@ -29,44 +104,70 @@ useEffect(()=>{
   };
 
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await AddNewContactForm(formData);
-      Swal.fire("Success!", "Contact form submitted successfully.", "success");
-      setFormData({
-        contact_name: "",
-        contact_email: "",
-        contact_project: "",
-        contact_message: "",
-      });
-    } catch (error) {
-      Swal.fire({
-        title: "Error!",
-        text: "An error occurred while submitting the form. Please try again.",
-        icon: "error",
-        confirmButtonText: "Retry",
-      });
-    }
-  };
-
-
 
 
   return (
     <>
-  
-      
+      {/* <!-- Page Header Start --> */}
+      <div class="container-fluid page-header py-5">
+        <div class="container text-center py-5">
+          <h1 class="display-2 text-white mb-4 animated slideInDown">
+            Contact Us
+          </h1>
+          <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+              <li class="breadcrumb-item">
+                <Link to="/">Home</Link>
+              </li>
+              <li class="breadcrumb-item">
+                <Link to="/contact">Pages</Link>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                Contact
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
       {/* <!-- Page Header End --> */}
-     
+      {/* <!-- Fact Start --> */}
+      <div class="container-fluid bg-secondary py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 wow fadeIn" data-wow-delay=".1s">
+              <div class="d-flex counter">
+                <h1 class="me-3 text-primary counter-value">99</h1>
+                <h5 class="text-white mt-1">
+                  Success in getting happy customer
+                </h5>
+              </div>
+            </div>
+            <div class="col-lg-3 wow fadeIn" data-wow-delay=".3s">
+              <div class="d-flex counter">
+                <h1 class="me-3 text-primary counter-value">25</h1>
+                <h5 class="text-white mt-1">
+                  Thousands of successful business
+                </h5>
+              </div>
+            </div>
+            <div class="col-lg-3 wow fadeIn" data-wow-delay=".5s">
+              <div class="d-flex counter">
+                <h1 class="me-3 text-primary counter-value">120</h1>
+                <h5 class="text-white mt-1">Total clients who love Diditaladdworldtech</h5>
+              </div>
+            </div>
+            <div class="col-lg-3 wow fadeIn" data-wow-delay=".7s">
+              <div class="d-flex counter">
+                <h1 class="me-3 text-primary counter-value">5</h1>
+                <h5 class="text-white mt-1">
+                  Stars reviews given by satisfied clients
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <!-- Fact End --> */}
 
       {/* <!-- Contact Start --> */}
       <div class="container-fluid py-5 mb-5">
@@ -158,57 +259,59 @@ useEffect(()=>{
                 </div>
               </div>
               <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-                <div class="p-3 rounded contact-form">
-                  <div class="mb-4">
+              <div className="p-3 rounded contact-form">
+                  <div className="mb-4">
                     <input
+                       id="fullName"
                       type="text"
-                      class="form-control border-0 py-3"
+                      className="form-control border-0 py-3"
                       placeholder="Your Name"
-                      name="contact_name"
+                      name="fullName"
                       onChange={handleChange}
+                      value={formData.fullName} 
                     />
                   </div>
                   <div className="mb-4">
-  <input
-    type="tel"  // Use "tel" for mobile numbers
-    className="form-control border-0 py-3"
-    placeholder="Mobile Number"
-    name="contact_mobile"  // Corrected name
-    value={formData.contact_mobile}  // Corrected value
-    onChange={handleChange}
-    maxLength={10} // Optional: Restrict input to 10 digits
-  />
-</div>
-                  <div class="mb-4">
                     <input
-                      type="text"
-                      class="form-control border-0 py-3"
-                      placeholder="Project"
-                      name="contact_project"
+                       id="mobile"
+                      type="tel"
+                      className="form-control border-0 py-3"
+                      placeholder="Your Phone"
+                      name="mobile"
                       onChange={handleChange}
+                      value={formData.mobile}
                     />
                   </div>
-                  <div class="mb-4">
-                    <textarea
-                      class="w-100 form-control border-0 py-3"
-                      rows="6"
-                      cols="10"
-                      placeholder="Message"
-                      name="contact_message"
+                  <div className="mb-4">
+                    <input
+                       id="institutionName"
+                      type="text"
+                      className="form-control border-0 py-3"
+                      placeholder="institutionName"
+                      name="institutionName"
                       onChange={handleChange}
+                      value={formData.institutionName}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <textarea
+                       id="message"
+                      className="form-control border-0 py-3"
+                      rows="6"
+                      placeholder="Message"
+                      name="message"
+                      onChange={handleChange}
+                      value={formData.message} 
                     ></textarea>
                   </div>
-                  <div class="text-start">
-                    <button
-                      class="btn bg-primary text-white py-3 px-3"
-                      type="button"
-
-                      onClick={handleSubmit}
-                    >
-                      Send Message
-                    </button>
-                  </div>
+                  <button
+                    className="btn bg-primary text-white py-3 px-3"
+                    onClick={handleSubmit}
+                  >
+                    Send Message
+                  </button>
                 </div>
+              
               </div>
             </div>
           </div>
