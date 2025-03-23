@@ -101,10 +101,10 @@ const AuthUserHeader = () => {
       {/* Main Navbar */}
     
      <div style={{ height: "40px", backgroundColor: "#EB5B00" }}>
-        <div className="text-center p-2 text-light">
-          Jasnath Finance - Your Trusted Financial Partner!
-        </div>
-      </div>
+  <marquee className="text-light p-2">
+    FOR ANY INFORMATION OR DETAILS KINDLY MAIL US AT JASNATHFINANCE@GMAIL .COM
+  </marquee>
+</div>
 
       {/* Navbar */}
       <Navbar collapseOnSelect expand="lg" style={style.navbar} variant="dark">
@@ -233,5 +233,12 @@ const style = {
   },
   walletText: {
     fontSize: "1rem",
+  },
+  marquee: {
+    display: "inline-block",
+    whiteSpace: "nowrap",
+    color: "white",
+    padding: "10px",
+    animation: "marquee 5s linear infinite",
   },
 };
