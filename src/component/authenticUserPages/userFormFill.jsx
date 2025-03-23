@@ -94,11 +94,7 @@ const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
         formDataToSubmit.append(key, value);
       }
     });
-
-    console.log("📦 FormData Before Submission:");
-    for (let pair of formDataToSubmit.entries()) {
-      console.log(pair[0], pair[1]);
-    }
+ 
 
     try {
       const response = await AddnewUserApplyForm(formDataToSubmit);
@@ -126,7 +122,8 @@ const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
         throw new Error("Failed to submit form");
       }
     } catch (error) {
-      Swal.fire("Error!", "Failed to submit the form. Try again.", "error");
+        const errMessage = error.response.data.err
+      Swal.fire("Error!", errMessage, "error");
     }
   };
 
