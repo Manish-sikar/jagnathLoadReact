@@ -375,30 +375,30 @@ const Home = () => {
                     <div class="row mb-4">
                       <div class="col-md-6">
                         <label for="fullName" class="form-label fw-bold">Full Name</label>
-                        <input type="text" id="fullName" class="form-control border" placeholder="Enter your full name" name="fullName"   onChange={handleChange} />
+                        <input type="text" id="fullName" class="form-control border" placeholder="Enter your full name" name="fullName"   onChange={handleChange}   value={formData.fullName} />
                       </div>
                       <div class="col-md-6">
                         <label for="designation" class="form-label fw-bold">Designation</label>
-                        <input type="text" id="designation" class="form-control border" placeholder="Enter your designation" name="designation"   onChange={handleChange} />
+                        <input type="text" id="designation" class="form-control border" placeholder="Enter your designation" name="designation"   onChange={handleChange}  value={formData.designation}  />
                       </div>
                     </div>
                     <div class="row mb-4">
                       <div class="col-md-6">
                         <label for="fullName" class="form-label fw-bold">Email</label>
-                        <input type="email" id="email" class="form-control border" placeholder="Enter your email" name="email"   onChange={handleChange} />
+                        <input type="email" id="email" class="form-control border" placeholder="Enter your email" name="email"   onChange={handleChange}  value={formData.email}  />
                       </div>
                       <div class="col-md-6">
                         <label for="mobile" class="form-label fw-bold">Mobile</label>
-                        <input type="tel" id="mobile" class="form-control border" placeholder="Enter your mobile number" name="mobile"   onChange={handleChange} />
+                        <input type="tel" id="mobile" class="form-control border" placeholder="Enter your mobile number" name="mobile"   onChange={handleChange}  value={formData.mobile}  />
                       </div>
                     </div>
                     <div class="mb-4">
                       <label for="institutionName" class="form-label fw-bold">Institution Name</label>
-                      <input type="text" id="institutionName" class="form-control border" placeholder="Enter your institution name" name="institutionName"   onChange={handleChange} />
+                      <input type="text" id="institutionName" class="form-control border" placeholder="Enter your institution name" name="institutionName"   onChange={handleChange}  value={formData.institutionName}  />
                     </div>
                     <div class="mb-4">
                       <label for="message" class="form-label fw-bold">Message</label>
-                      <textarea id="message" class="w-100 form-control border" rows="6" placeholder="Enter your message" name="message"   onChange={handleChange} ></textarea>
+                      <textarea id="message" class="w-100 form-control border" rows="6" placeholder="Enter your message" name="message"   onChange={handleChange}  value={formData.message}  ></textarea>
                     </div>
                     <div class="text-center">
                       <button class="btn btn-primary text-white py-3 px-4 fw-bold shadow-sm" type="button"   onClick={handleSubmit}>
