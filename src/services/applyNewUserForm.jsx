@@ -1,5 +1,6 @@
 import router, { setAuthToken } from "./apiService";
 
+ 
 
 async function AddnewUserApplyForm(formdata) {
   try {
@@ -105,11 +106,11 @@ async function GetnewUserApplyForm() {
       throw error;
     }
   }
+  
 
-
+  
   async function GetSpecialpartnerData(JN_Id) {
     try {
-      console.log(JN_Id)
       const response = await router.post(`/getSpeacialParthner` ,{JN_Id}  );
       return response.data;
     } catch (error) {
@@ -119,10 +120,10 @@ async function GetnewUserApplyForm() {
     }
   }
 
- async function GetReportData(partnerEmail) {
+ 
+  async function ChangeStatusConfirmOrder(formData) {
     try {
-      const response = await router.post(`/reportStatus`,
-        {"partnerEmail":partnerEmail});
+      const response = await router.post("/user_apply_form-change-status" ,formData  );
       return response.data;
     } catch (error) {
       // Handle error, e.g., log it or throw a custom error
@@ -131,12 +132,22 @@ async function GetnewUserApplyForm() {
     }
   }
 
- 
-
+  async function ChangeStatusCloseOrder(formData) {
+    try {
+      const response = await router.post("/user_apply_form-status" ,formData  );
+      return response.data;
+    } catch (error) {
+      // Handle error, e.g., log it or throw a custom error
+      console.error("Error in getting status:", error);
+      throw error;
+    }
+  }
 
 
 export {  AddnewUserApplyForm , GetnewUserApplyForm ,GetnewpartnerData ,
    deletePartner, ParthnerChangepass ,updatePartnerData ,
    UpdateUserApplyForm ,
-   deleteUserApplyForm ,GetSpecialpartnerData , GetReportData };
+   deleteUserApplyForm  , GetSpecialpartnerData ,
+   ChangeStatusConfirmOrder , ChangeStatusCloseOrder
+  };
  
