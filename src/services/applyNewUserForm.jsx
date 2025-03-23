@@ -124,7 +124,7 @@ async function GetnewUserApplyForm() {
   async function ChangeStatusConfirmOrder(formData) {
     try {
       const response = await router.post("/user_apply_form-change-status" ,formData  );
-      return response.data;
+      return response;
     } catch (error) {
       // Handle error, e.g., log it or throw a custom error
       console.error("Error in getting status:", error);
@@ -135,7 +135,7 @@ async function GetnewUserApplyForm() {
   async function ChangeStatusCloseOrder(formData) {
     try {
       const response = await router.post("/user_apply_form-status" ,formData  );
-      return response.data;
+      return response;
     } catch (error) {
       // Handle error, e.g., log it or throw a custom error
       console.error("Error in getting status:", error);
