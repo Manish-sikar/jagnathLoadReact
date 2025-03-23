@@ -8,6 +8,7 @@ import {
 } from "../../../services/applyNewUserForm";
 import EditUserApplyForm from "./editUserApplyForm";
 
+
 const ApplyFormData = () => {
   const [tableData, setTableData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
