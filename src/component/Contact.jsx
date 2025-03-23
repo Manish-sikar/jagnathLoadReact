@@ -10,7 +10,7 @@ const Contact = () => {
   const [contactState, setContactState] = useState([]);
   const [formData, setFormData] = useState({
     contact_name: "",
-    contact_email: "",
+   contact_mobile: "",
     contact_project: "",
     contact_message: "",
   });
@@ -168,15 +168,17 @@ useEffect(()=>{
                       onChange={handleChange}
                     />
                   </div>
-                  <div class="mb-4">
-                    <input
-                      type="email"
-                      class="form-control border-0 py-3"
-                      placeholder="Your Email"
-                      name="contact_email"
-                      onChange={handleChange}
-                    />
-                  </div>
+                  <div className="mb-4">
+  <input
+    type="tel"  // Use "tel" for mobile numbers
+    className="form-control border-0 py-3"
+    placeholder="Mobile Number"
+    name="contact_mobile"  // Corrected name
+    value={formData.contact_mobile}  // Corrected value
+    onChange={handleChange}
+    maxLength={10} // Optional: Restrict input to 10 digits
+  />
+</div>
                   <div class="mb-4">
                     <input
                       type="text"
