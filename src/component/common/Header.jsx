@@ -61,6 +61,32 @@ const Header = () => {
   };
 
 
+    const getIconStyle = (iconClass) => {
+    switch (iconClass) {
+      case "bi bi-facebook":
+        return { color: "#0868f0" }; // Facebook Blue
+      case "bi bi-x":
+        return {
+          color: "#ffffff",
+          backgroundColor: "#000000",
+          padding: "8px",
+          borderRadius: "50%",
+        }; // X (Twitter) with black background
+      case "bi bi-instagram":
+        return {
+          background:
+            "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)",
+          color: "#fff",
+          padding: "8px",
+          borderRadius: "50%",
+        }; // Instagram gradient
+      case "bi bi-youtube":
+        return { color: "#FF0000" }; // YouTube Red
+      default:
+        return { color: "#000" }; // Default black color
+    }
+  };
+
 
   return (
     <>
@@ -78,11 +104,16 @@ const Header = () => {
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              {/* Social Media Icons */}
+         <Nav className="me-auto" style={{ display: "flex", gap: "10px" }}>
               {socialLinks.map((item, index) => (
                 <Nav.Link href={item.icon_url} target="_blank" key={index}>
-                  <i className={item.icon_class} style={style.socialIcon}></i>
+                  <i
+                    className={item.icon_class}
+                    style={{
+                      ...getIconStyle(item.icon_class),
+                      fontSize: "32px",
+                    }}
+                  ></i>
                 </Nav.Link>
               ))}
             </Nav>
