@@ -156,10 +156,21 @@ async function GetnewUserApplyForm() {
   }
 
 
+  async function GetTransHistroyData(id) {
+    try {
+      const response = await router.get(`/get-transition-data/${id}`);
+      return response.data;
+    } catch (error) {
+      // Handle error, e.g., log it or throw a custom error
+      console.error("Error in getting status:", error);
+      throw error;
+    }
+  }
+
 export {  AddnewUserApplyForm , GetnewUserApplyForm ,GetnewpartnerData ,
    deletePartner, ParthnerChangepass ,updatePartnerData ,
    UpdateUserApplyForm ,
    deleteUserApplyForm  , GetSpecialpartnerData ,
-   ChangeStatusConfirmOrder , ChangeStatusCloseOrder , GetReportData
+   ChangeStatusConfirmOrder , ChangeStatusCloseOrder , GetReportData ,GetTransHistroyData
   };
  
