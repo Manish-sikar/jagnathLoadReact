@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container } from "react-bootstrap";
-import { GetTransHistroyData , GetReportData } from "../../services/applyNewUserForm";
+import { Button, Container, Table } from "react-bootstrap";
+import { GetTransHistroyData, GetReportData } from "../../services/applyNewUserForm";
 
 const ReportPage = () => {
   const [selectedTab, setSelectedTab] = useState("new_order");
@@ -50,84 +50,132 @@ const ReportPage = () => {
       </div>
 
       <div>
-        {/* Your Orders */}
+        {/* Orders Table */}
         {selectedTab === "new_order" && (
           <>
             <h4>Your Order Details</h4>
             {ourOrderData.length > 0 ? (
-              <ul>
-                {ourOrderData.map((order, index) => (
-                  <li key={index}>
-                    <strong>Name:</strong> {order.fullName}, 
-                    <strong> Email:</strong> {order.email}, 
-                    <strong> Phone:</strong> {order.phone}, 
-                    <strong> Status:</strong> {order.status}
-                  </li>
-                ))}
-              </ul>
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ourOrderData.map((order, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{order.fullName}</td>
+                      <td>{order.email}</td>
+                      <td>{order.phone}</td>
+                      <td>{order.status}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             ) : (
               <p>No Orders Found</p>
             )}
           </>
         )}
 
-        {/* Confirm Orders */}
+        {/* Confirmed Orders Table */}
         {selectedTab === "confirm_order" && (
           <>
-            <h4>Confirm Order Details</h4>
+            <h4>Confirmed Order Details</h4>
             {confirmOrderData.length > 0 ? (
-              <ul>
-                {confirmOrderData.map((order, index) => (
-                  <li key={index}>
-                    <strong>Name:</strong> {order.fullName}, 
-                    <strong> Email:</strong> {order.email}, 
-                    <strong> Phone:</strong> {order.phone}, 
-                    <strong> Status:</strong> {order.status}
-                  </li>
-                ))}
-              </ul>
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {confirmOrderData.map((order, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{order.fullName}</td>
+                      <td>{order.email}</td>
+                      <td>{order.phone}</td>
+                      <td>{order.status}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             ) : (
-              <p>No Confirm Orders Found</p>
+              <p>No Confirmed Orders Found</p>
             )}
           </>
         )}
 
-        {/* Close Orders */}
+        {/* Closed Orders Table */}
         {selectedTab === "close_order" && (
           <>
-            <h4>Close Order Details</h4>
+            <h4>Closed Order Details</h4>
             {closeOrderData.length > 0 ? (
-              <ul>
-                {closeOrderData.map((order, index) => (
-                  <li key={index}>
-                    <strong>Name:</strong> {order.fullName}, 
-                    <strong> Email:</strong> {order.email}, 
-                    <strong> Phone:</strong> {order.phone}, 
-                    <strong> Status:</strong> {order.status}
-                  </li>
-                ))}
-              </ul>
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {closeOrderData.map((order, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{order.fullName}</td>
+                      <td>{order.email}</td>
+                      <td>{order.phone}</td>
+                      <td>{order.status}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             ) : (
-              <p>No Close Orders Found</p>
+              <p>No Closed Orders Found</p>
             )}
           </>
         )}
 
-        {/* Transaction History */}
+        {/* Transaction History Table */}
         {selectedTab === "trans_history" && (
           <>
             <h4>Transaction History</h4>
             {transHistoryData.length > 0 ? (
-              <ul>
-                {transHistoryData.map((transaction, index) => (
-                  <li key={index}>
-                    <strong>Amount Deducted:</strong> ₹{transaction.amountDeducted}, 
-                    <strong> Available Balance After:</strong> ₹{transaction.availableBalanceAfter}, 
-                    <strong> Purpose:</strong> {transaction.purpose}, 
-                    <strong> Date:</strong> {new Date(transaction.timestamp).toLocaleString()}
-                  </li>
-                ))}
-              </ul>
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Amount Deducted</th>
+                    <th>Available Balance After</th>
+                    <th>Purpose</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transHistoryData.map((transaction, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>₹{transaction.amountDeducted}</td>
+                      <td>₹{transaction.availableBalanceAfter}</td>
+                      <td>{transaction.purpose}</td>
+                      <td>{new Date(transaction.timestamp).toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             ) : (
               <p>No Transaction History Found</p>
             )}
