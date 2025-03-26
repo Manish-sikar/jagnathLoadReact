@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { AddnewUserApplyForm } from "../../services/applyNewUserForm";
-import { useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { useAuthUser } from "../authPagesForUser/contexUser";
 
 const UserFormFillPage = () => {
   const [statesData, setStatesData] = useState([]);
   const [selectedState, setSelectedState] = useState("");
   const [districts, setDistricts] = useState([]);
+  const [receiptData, setReceiptData] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-    const {setuserBalance} = useAuthUser();
-
+  const {setuserBalance} = useAuthUser();
  
-const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
-
+  const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
 
   const [formData, setFormData] = useState({
     partnerEmail,
@@ -27,7 +26,7 @@ const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
     fullAddress: "",
   category: location.state?.category || "",
     subCategory: location.state?.subcategory || "",
-    amount: location.state?.amount || "",
+    amount: location.state?.amount || 0,
     document1: null,
     document2: null,
     document3: null,
@@ -85,6 +84,15 @@ const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
     }));
   };
 
+
+  useEffect(() => {
+    if (receiptData) {
+      handlePrint()
+    }
+  }, [receiptData]);
+
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -99,7 +107,15 @@ const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
     try {
       const response = await AddnewUserApplyForm(formDataToSubmit);
       if (response.status === 201) {
-        Swal.fire("Success!", "Form submitted successfully!", "success");
+        setReceiptData({
+          companyName: "JASNATH FINANCE",
+          customerName: formData.fullName,
+          category: formData.subCategory,
+          price: formData.amount,
+          orderDate: new Date().toLocaleDateString(),
+          userId: response.data.form_user_id,
+          paymentStatus: "PAID",
+        });
         setFormData({
           fullName: "",
           email: "",
@@ -117,19 +133,54 @@ const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
         setSelectedState("");
         setDistricts([]);
         setuserBalance(response.data.user_balance);
-        navigate("/dashboard");
       } else {
         throw new Error("Failed to submit form");
       }
     } catch (error) {
-        const errMessage = error.response.data.err
+      console.log(error.response.data.err)
+      const errMessage = error.response.data.err
       Swal.fire("Error!", errMessage, "error");
     }
+  };
+
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
     <>
       <div className="container mt-5">
+      {receiptData ? (
+       <div className="receipt card shadow-lg p-4 mt-4" style={{ maxWidth: "500px", margin: "auto" }}>
+       <h2 className="text-center mb-4 text-primary">🟢 JASNATH FINANCE</h2>
+     
+       <div className="mb-3">
+         <strong>Customer Name:</strong> <span>{receiptData.customerName}</span>
+       </div>
+       <div className="mb-3">
+         <strong>Category:</strong> <span>{receiptData.category}</span>
+       </div>
+       <div className="mb-3">
+         <strong>Price:</strong> <span>₹{receiptData.price}</span>
+       </div>
+       <div className="mb-3">
+         <strong>Order Date:</strong> <span>{receiptData.orderDate}</span>
+       </div>
+       <div className="mb-3">
+         <strong>User ID:</strong> <span>{receiptData.userId}</span>
+       </div>
+       <div className={`mb-4 fw-bold ${receiptData.paymentStatus === 'PAID' ? 'text-success' : 'text-danger'}`}>
+         Payment Status: {receiptData.paymentStatus}
+       </div>
+     
+       <div className="d-flex justify-content-center gap-3">
+         <button className="btn btn-primary" onClick={handlePrint}>🖨️ Print Receipt</button>
+         <button className="btn btn-danger" onClick={() => navigate("/dashboard")}>❌ Cancel</button>
+       </div>
+     </div>
+     
+      ) : (
+        <>
         <h2 className="text-center mb-4">User Form</h2>
         <form onSubmit={handleSubmit}>
           {/* Full Name */}
@@ -302,6 +353,9 @@ const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
             Submit
           </button>
         </form>
+
+        </>
+      )}
       </div>
     </>
   );
