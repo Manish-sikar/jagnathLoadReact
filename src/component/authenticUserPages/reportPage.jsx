@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Table } from "react-bootstrap";
-import { GetTransHistroyData, GetReportData } from "../../services/applyNewUserForm";
+import {
+  GetTransHistroyData,
+  GetReportData,
+} from "../../services/applyNewUserForm";
 
 const ReportPage = () => {
   const [selectedTab, setSelectedTab] = useState("new_order");
@@ -37,16 +40,18 @@ const ReportPage = () => {
     <Container className="mt-5">
       <h2>Reports</h2>
       <div className="d-flex mb-4">
-        {["new_order", "confirm_order", "close_order", "Wallet_history"].map((tab) => (
-          <Button
-            key={tab}
-            variant={selectedTab === tab ? "primary" : "secondary"}
-            onClick={() => setSelectedTab(tab)}
-            className="me-2"
-          >
-            {tab.replace("_", " ").toUpperCase()}
-          </Button>
-        ))}
+        {["new_order", "confirm_order", "close_order", "Wallet_history"].map(
+          (tab) => (
+            <Button
+              key={tab}
+              variant={selectedTab === tab ? "primary" : "secondary"}
+              onClick={() => setSelectedTab(tab)}
+              className="me-2"
+            >
+              {tab.replace("_", " ").toUpperCase()}
+            </Button>
+          )
+        )}
       </div>
 
       <div>
@@ -93,7 +98,7 @@ const ReportPage = () => {
               <Table striped bordered hover responsive>
                 <thead>
                   <tr>
-                  <th>#</th>
+                    <th>#</th>
                     <th>Token No</th>
                     <th>Name</th>
                     <th>Phone</th>
@@ -104,7 +109,7 @@ const ReportPage = () => {
                 <tbody>
                   {confirmOrderData.map((order, index) => (
                     <tr key={index}>
-                        <td>{index + 1}</td>
+                      <td>{index + 1}</td>
                       <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
                       <td>{order.phone}</td>
@@ -128,29 +133,104 @@ const ReportPage = () => {
               <Table striped bordered hover responsive>
                 <thead>
                   <tr>
-                  <th>#</th>
+                    <th>#</th>
                     <th>Token No</th>
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Message</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {closeOrderData.map((order, index) => (
-                    <tr key={index}>
-                 <td>{index + 1}</td>
-                      <td>{order?.token_No || "Not Availabe"}</td>
-                      <td>{order.fullName}</td>
-                      <td>{order.phone}</td>
-                      <td>{order.updatedAt}</td>
-                      <td>Close Order</td>
-                    </tr>
-                  ))}
+                  {closeOrderData.map((order, index) => {
+                    const hasDocuments =
+                      order.document4 ||
+                      order.document5 ||
+                      order.document6 ||
+                      order.document7;
+
+                    return (
+                      <React.Fragment key={index}>
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{order?.token_No || "Not Available"}</td>
+                          <td>{order.fullName}</td>
+                          <td>{order.phone}</td>
+                          <td>
+                            {new Date(order.updatedAt).toLocaleDateString()}
+                          </td>
+                          <td>Close Order</td>
+                          <td>{order?.message || "Not Available"}</td>
+                        </tr>
+
+                        {/* Show Document Headers and Links if Documents Exist */}
+                        {hasDocuments && (
+                          <>
+                            <tr>
+                              {order.document4 && <th>Document 1</th>}
+                              {order.document5 && <th>Document 2</th>}
+                              {order.document6 && <th>Document 3</th>}
+                              {order.document7 && <th>Document 4</th>}
+                            </tr>
+                            <tr>
+                              {order.document4 ? (
+                                <td>
+                                  <a
+                                    href={order.document4}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    View Document 1
+                                  </a>
+                                </td>
+                              ) : null}
+
+                              {order.document5 ? (
+                                <td>
+                                  <a
+                                    href={order.document5}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    View Document 2
+                                  </a>
+                                </td>
+                              ) : null}
+
+                              {order.document6 ? (
+                                <td>
+                                  <a
+                                    href={order.document6}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    View Document 3
+                                  </a>
+                                </td>
+                              ) : null}
+
+                              {order.document7 ? (
+                                <td>
+                                  <a
+                                    href={order.document7}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    View Document 4
+                                  </a>
+                                </td>
+                              ) : null}
+                            </tr>
+                          </>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
                 </tbody>
               </Table>
             ) : (
-              <p>No Closed Orders Found</p>
+              <p>No Closed Orders Available</p>
             )}
           </>
         )}
@@ -177,7 +257,9 @@ const ReportPage = () => {
                       <td>₹{transaction.amountDeducted}</td>
                       <td>₹{transaction.availableBalanceAfter}</td>
                       <td>{transaction.purpose}</td>
-                      <td>{new Date(transaction.timestamp).toLocaleString()}</td>
+                      <td>
+                        {new Date(transaction.timestamp).toLocaleString()}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
