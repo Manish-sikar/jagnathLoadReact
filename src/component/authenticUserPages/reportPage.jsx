@@ -37,7 +37,7 @@ const ReportPage = () => {
     <Container className="mt-5">
       <h2>Reports</h2>
       <div className="d-flex mb-4">
-        {["new_order", "confirm_order", "close_order", "trans_history"].map((tab) => (
+        {["new_order", "confirm_order", "close_order", "Wallet_history"].map((tab) => (
           <Button
             key={tab}
             variant={selectedTab === tab ? "primary" : "secondary"}
@@ -59,9 +59,10 @@ const ReportPage = () => {
                 <thead>
                   <tr>
                     <th>#</th>
+                    <th>Token No</th>
                     <th>Name</th>
-                    <th>Email</th>
                     <th>Phone</th>
+                    <th>Date</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -69,10 +70,11 @@ const ReportPage = () => {
                   {ourOrderData.map((order, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
+                      <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
-                      <td>{order.email}</td>
                       <td>{order.phone}</td>
-                      <td>{order.status}</td>
+                      <td>{order.createdAt}</td>
+                      <td>Pending</td>
                     </tr>
                   ))}
                 </tbody>
@@ -91,21 +93,23 @@ const ReportPage = () => {
               <Table striped bordered hover responsive>
                 <thead>
                   <tr>
-                    <th>#</th>
+                  <th>#</th>
+                    <th>Token No</th>
                     <th>Name</th>
-                    <th>Email</th>
                     <th>Phone</th>
+                    <th>Date</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {confirmOrderData.map((order, index) => (
                     <tr key={index}>
-                      <td>{index + 1}</td>
+                        <td>{index + 1}</td>
+                      <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
-                      <td>{order.email}</td>
                       <td>{order.phone}</td>
-                      <td>{order.status}</td>
+                      <td>{order.updatedAt}</td>
+                      <td>Confirm Order</td>
                     </tr>
                   ))}
                 </tbody>
@@ -124,21 +128,23 @@ const ReportPage = () => {
               <Table striped bordered hover responsive>
                 <thead>
                   <tr>
-                    <th>#</th>
+                  <th>#</th>
+                    <th>Token No</th>
                     <th>Name</th>
-                    <th>Email</th>
                     <th>Phone</th>
+                    <th>Date</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {closeOrderData.map((order, index) => (
                     <tr key={index}>
-                      <td>{index + 1}</td>
+                 <td>{index + 1}</td>
+                      <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
-                      <td>{order.email}</td>
                       <td>{order.phone}</td>
-                      <td>{order.status}</td>
+                      <td>{order.updatedAt}</td>
+                      <td>Close Order</td>
                     </tr>
                   ))}
                 </tbody>
@@ -150,9 +156,9 @@ const ReportPage = () => {
         )}
 
         {/* Transaction History Table */}
-        {selectedTab === "trans_history" && (
+        {selectedTab === "Wallet_history" && (
           <>
-            <h4>Transaction History</h4>
+            <h4>Wallet History</h4>
             {transHistoryData.length > 0 ? (
               <Table striped bordered hover responsive>
                 <thead>
@@ -177,7 +183,7 @@ const ReportPage = () => {
                 </tbody>
               </Table>
             ) : (
-              <p>No Transaction History Found</p>
+              <p>No Wallet History Found</p>
             )}
           </>
         )}
