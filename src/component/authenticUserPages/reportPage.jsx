@@ -67,6 +67,7 @@ const ReportPage = () => {
                     <th>Token No</th>
                     <th>Name</th>
                     <th>Phone</th>
+                    <th>Service</th>
                     <th>Date</th>
                     <th>Status</th>
                   </tr>
@@ -77,6 +78,7 @@ const ReportPage = () => {
                       <td>{index + 1}</td>
                       <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
+                      <td>{order.subCategory}</td>
                       <td>{order.phone}</td>
                       <td>{order.createdAt}</td>
                       <td>Pending</td>
@@ -101,6 +103,7 @@ const ReportPage = () => {
                     <th>#</th>
                     <th>Token No</th>
                     <th>Name</th>
+                       <th>Service</th>
                     <th>Phone</th>
                     <th>Date</th>
                     <th>Status</th>
@@ -112,6 +115,7 @@ const ReportPage = () => {
                       <td>{index + 1}</td>
                       <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
+                         <td>{order.subCategory}</td>
                       <td>{order.phone}</td>
                       <td>{order.updatedAt}</td>
                       <td>Confirm Order</td>
@@ -136,6 +140,7 @@ const ReportPage = () => {
                     <th>#</th>
                     <th>Token No</th>
                     <th>Name</th>
+                       <th>Service</th>
                     <th>Phone</th>
                     <th>Date</th>
                     <th>Status</th>
@@ -157,6 +162,7 @@ const ReportPage = () => {
                           <td>{order?.token_No || "Not Available"}</td>
                           <td>{order.fullName}</td>
                           <td>{order.phone}</td>
+                             <td>{order.subCategory}</td>
                           <td>
                             {new Date(order.updatedAt).toLocaleDateString()}
                           </td>
