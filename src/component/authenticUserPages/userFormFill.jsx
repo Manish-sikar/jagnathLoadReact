@@ -151,33 +151,52 @@ const UserFormFillPage = () => {
     <>
       <div className="container mt-5">
       {receiptData ? (
-       <div className="receipt card shadow-lg p-4 mt-4" style={{ maxWidth: "500px", margin: "auto" }}>
-       <h2 className="text-center mb-4 text-primary">🟢 JASNATH FINANCE</h2>
-     
-       <div className="mb-3">
-         <strong>Customer Name:</strong> <span>{receiptData.customerName}</span>
-       </div>
-       <div className="mb-3">
-         <strong>Category:</strong> <span>{receiptData.category}</span>
-       </div>
-       <div className="mb-3">
-         <strong>Price:</strong> <span>₹{receiptData.price}</span>
-       </div>
-       <div className="mb-3">
-         <strong>Order Date:</strong> <span>{receiptData.orderDate}</span>
-       </div>
-       <div className="mb-3">
-         <strong>User ID:</strong> <span>{receiptData.userId}</span>
-       </div>
-       <div className={`mb-4 fw-bold ${receiptData.paymentStatus === 'PAID' ? 'text-success' : 'text-danger'}`}>
-         Payment Status: {receiptData.paymentStatus}
-       </div>
-     
-       <div className="d-flex justify-content-center gap-3">
-         <button className="btn btn-primary" onClick={handlePrint}>🖨️ Print Receipt</button>
-         <button className="btn btn-danger" onClick={() => navigate("/dashboard")}>❌ Cancel</button>
-       </div>
-     </div>
+       <div className="receipt card shadow-lg p-4 mt-4" style={{ maxWidth: '600px', margin: 'auto' }}>
+      {/* Data Table with Logo */}
+      <table className="table table-bordered" border={2}>
+        <thead>
+          <tr>
+            <th colSpan={2} className="text-center">
+              <img src="./img/jasnath ptint icon.jpg" alt="JASNATH FINANCE Logo" style={{ height: '320px' }} />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Customer Name</th>
+            <td>{receiptData.customerName}</td>
+          </tr>
+          <tr>
+            <th>Category</th>
+            <td>{receiptData.category}</td>
+          </tr>
+          <tr>
+            <th>Price</th>
+            <td>₹{receiptData.price}</td>
+          </tr>
+          <tr>
+            <th>Order Date</th>
+            <td>{receiptData.orderDate}</td>
+          </tr>
+          <tr>
+            <th>User ID</th>
+            <td>{receiptData.userId}</td>
+          </tr>
+          <tr>
+            <th>Payment Status</th>
+            <td className={receiptData.paymentStatus === 'PAID' ? 'text-success fw-bold' : 'text-danger fw-bold'}>
+              {receiptData.paymentStatus}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* Action Buttons (Hide During Print) */}
+      <div className="d-flex justify-content-center gap-3 mt-4 d-print-none">
+        <button className="btn btn-primary" onClick={handlePrint}>🖨️ Print Receipt</button>
+        <button className="btn btn-danger" onClick={() => navigate('/dashboard')}>❌ Cancel</button>
+      </div>
+    </div>
      
       ) : (
         <>
