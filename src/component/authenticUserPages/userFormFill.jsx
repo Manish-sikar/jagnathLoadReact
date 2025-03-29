@@ -151,7 +151,7 @@ const UserFormFillPage = () => {
     <>
       <div className="container mt-5">
       {receiptData ? (
-       <div className="receipt card shadow-lg p-4 mt-4" style={{ maxWidth: '600px', margin: 'auto' }}>
+      <div className="receipt card shadow-lg p-4 mt-4" style={{ maxWidth: '600px', margin: 'auto' }}>
       {/* Data Table with Logo */}
       <table className="table table-bordered" border={2}>
         <thead>
@@ -167,6 +167,10 @@ const UserFormFillPage = () => {
             <td>{receiptData.customerName}</td>
           </tr>
           <tr>
+            <th>User Id</th>
+            <td>{partnerEmail}</td>
+          </tr>
+          <tr>
             <th>Category</th>
             <td>{receiptData.category}</td>
           </tr>
@@ -179,7 +183,7 @@ const UserFormFillPage = () => {
             <td>{receiptData.orderDate}</td>
           </tr>
           <tr>
-            <th>User ID</th>
+            <th>Order Id</th>
             <td>{receiptData.userId}</td>
           </tr>
           <tr>
@@ -197,7 +201,6 @@ const UserFormFillPage = () => {
         <button className="btn btn-danger" onClick={() => navigate('/dashboard')}>❌ Cancel</button>
       </div>
     </div>
-     
       ) : (
         <>
         <h2 className="text-center mb-4">User Form</h2>
