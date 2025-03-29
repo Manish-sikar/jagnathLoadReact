@@ -88,23 +88,24 @@ const LoginUser = () => {
       Swal.fire("Error", "Failed to reset password.", "error");
     }
   };
-  
 
   return (
     <MDBContainer fluid className="p-3 my-5">
       <MDBRow>
         <MDBCol col="10" md="6">
           <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+            src="./img/jsnathLoginImage.png"
             className="img-fluid"
             alt="Phone illustration"
           />
         </MDBCol>
 
-        <MDBCol col="4" md="6">
+        <MDBCol col="4" md="6" className="border-2" >
+
+          <span style={{fontFamily: "ui-monospace !important"}}> <h1>Partner Login</h1></span>
           <form onSubmit={handleLogin}>
             {/* <MDBInput label="Email or Phone" id="emailORphone" type="text" size="lg" value={emailORphone} onChange={(e) => setEmailORPhone(e.target.value)} className="mb-4"  labelPlacement="top" /> */}
-            <div className="mb-4">
+            <div className="mb-4 mt-5">
               <label htmlFor="User Name" className="form-label">
                 User Name
               </label>
@@ -141,7 +142,10 @@ const LoginUser = () => {
               </a>
             </div>
 
-              <button className="mb-4 w-100 btn btn-success" size="lg" type="submit" > Sign in </button>
+            {/* <MDBBtn className="mb-4 w-100" size="lg" type="submit">
+              Sign in
+            </MDBBtn> */}
+            <button className="mb-4 w-100 btn btn-success" size="lg" type="submit" > Sign in </button>
           </form>
 
           <MDBModal open={modalOpen} tabIndex="-1" setOpen={setModalOpen}>
