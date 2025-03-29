@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { GetnewpartnerData, deletePartner, ParthnerChangepass, ParthnerAddAmount } from "../../../services/applyNewUserForm";
+import { GetnewpartnerData, deletePartner, ParthnerChangepass } from "../../../services/applyNewUserForm";
 import { baseURL } from "../../../services/apiService";
 
 const PartnerPage = () => {
