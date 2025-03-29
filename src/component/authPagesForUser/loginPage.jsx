@@ -141,9 +141,7 @@ const LoginUser = () => {
               </a>
             </div>
 
-            <MDBBtn className="mb-4 w-100" size="lg" type="submit">
-              Sign in
-            </MDBBtn>
+              <button className="mb-4 w-100 btn btn-success" size="lg" type="submit" > Sign in </button>
           </form>
 
           <MDBModal open={modalOpen} tabIndex="-1" setOpen={setModalOpen}>
