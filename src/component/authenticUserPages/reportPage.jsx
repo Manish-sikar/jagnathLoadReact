@@ -260,7 +260,7 @@ const ReportPage = () => {
                   {transHistoryData.map((transaction, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>₹{transaction.amountDeducted}</td>
+                      <td>₹{transaction.amountDeducted} ({transaction?.amountType || "debit"})</td>
                       <td>₹{transaction.availableBalanceAfter}</td>
                       <td>{transaction.purpose}</td>
                       <td>
