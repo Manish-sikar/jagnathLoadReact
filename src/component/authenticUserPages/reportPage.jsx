@@ -78,8 +78,8 @@ const ReportPage = () => {
                       <td>{index + 1}</td>
                       <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
-                      <td>{order.subCategory}</td>
                       <td>{order.phone}</td>
+                      <td>{order.subCategory}</td>
                       <td>{order.createdAt}</td>
                       <td>Pending</td>
                     </tr>
@@ -103,8 +103,8 @@ const ReportPage = () => {
                     <th>#</th>
                     <th>Token No</th>
                     <th>Name</th>
-                       <th>Service</th>
                     <th>Phone</th>
+                       <th>Service</th>
                     <th>Date</th>
                     <th>Status</th>
                   </tr>
@@ -115,8 +115,8 @@ const ReportPage = () => {
                       <td>{index + 1}</td>
                       <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
-                         <td>{order.subCategory}</td>
                       <td>{order.phone}</td>
+                         <td>{order.subCategory}</td>
                       <td>{order.updatedAt}</td>
                       <td>Confirm Order</td>
                     </tr>
@@ -140,8 +140,8 @@ const ReportPage = () => {
                     <th>#</th>
                     <th>Token No</th>
                     <th>Name</th>
-                       <th>Service</th>
                     <th>Phone</th>
+                       <th>Service</th>
                     <th>Date</th>
                     <th>Status</th>
                     <th>Message</th>
