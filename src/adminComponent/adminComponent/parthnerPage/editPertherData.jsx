@@ -12,8 +12,7 @@ const EditPartnerPage = () => {
     _id: partner?._id,
     fullName: partner?.fullName || "",
     email: partner?.email || "",
-    mobile: partner?.mobile || "",
-    balance: partner?.balance || "",
+    mobile: partner?.mobile || "",  
     designation: partner?.designation || "",
     institutionName: partner?.institutionName || "",
     message: partner?.message || "",
@@ -78,10 +77,6 @@ const EditPartnerPage = () => {
         <div className="form-group">
           <label>Phone</label>
           <input id="mobile" type="text" className="form-control" value={formData.mobile} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Wallet Balance</label>
-          <input id="balance" type="number" className="form-control" value={formData.balance} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Designation</label>
