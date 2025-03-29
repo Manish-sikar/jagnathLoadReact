@@ -94,7 +94,7 @@ const LoginUser = () => {
       <MDBRow>
         <MDBCol col="10" md="6">
           <img
-            src="./img/jsnathLoginImage.png"
+            src="./img/jsnathPdfIcon.png"
             className="img-fluid"
             alt="Phone illustration"
           />
