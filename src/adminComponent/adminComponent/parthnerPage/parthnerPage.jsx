@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { GetnewpartnerData, deletePartner, ParthnerChangepass } from "../../../services/applyNewUserForm";
+import { GetnewpartnerData, deletePartner, ParthnerChangepass, ParthnerAddAmount } from "../../../services/applyNewUserForm";
+import { baseURL } from "../../../services/apiService";
 
 const PartnerPage = () => {
   const [tableData, setTableData] = useState([]);
@@ -78,6 +79,42 @@ const PartnerPage = () => {
     }
   };
 
+
+  const handleAddAmount = async (JN_Id) => {
+    const amount = prompt("Enter the amount to add:");
+    const remark = prompt("Enter the remark for this transaction:");
+    
+    if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
+      return alert("Please enter a valid amount.");
+    }
+  
+    try {
+      const response = await fetch(`${baseURL}/addAmountByAdmin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          amount: Number(amount), 
+          partnerEmail: JN_Id, 
+          remark 
+        }),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        alert(`Amount added successfully! Updated Balance: ₹${result.updatedBalance}`);
+        fetchTableData();
+      } else {
+        alert(result.error || "Failed to add amount.");
+      }
+    } catch (error) {
+      console.error("Error adding amount:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+  
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="alert alert-danger">{error}</div>;
 
@@ -109,6 +146,7 @@ const PartnerPage = () => {
                     <th>Message</th>
                     <th>Pan No</th>
                     <th>Aadhar No</th>
+                    <th>Add Amount</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -125,6 +163,9 @@ const PartnerPage = () => {
                       <td>{item.message}</td>
                       <td>{item.panNo}</td>
                       <td>{item.aadharNo}</td>
+                      <td>   <button className="btn btn-sm btn-success" onClick={() => handleAddAmount(item.JN_Id)}>
+                          Add Amount 
+                        </button></td>
                       <td>
                         <button className="btn btn-sm btn-primary me-2" onClick={() => handleEdit(item)}>
                           <i className="fa fa-edit"></i>
