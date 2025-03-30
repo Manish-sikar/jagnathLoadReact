@@ -157,7 +157,7 @@ const UserFormFillPage = () => {
         <thead>
           <tr>
             <th colSpan={2} className="text-center">
-              <img src="./img/pdfIconImage.pdf" alt="JASNATH FINANCE Logo" style={{ height: '320px' }} />
+              <img src="./img/printoutIcon.png" alt="JASNATH FINANCE Logo" style={{ height: '320px' }} />
             </th>
           </tr>
         </thead>
