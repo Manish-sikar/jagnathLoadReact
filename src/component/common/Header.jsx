@@ -125,7 +125,7 @@ const Header = () => {
       alt="Home Icon" 
       style={{ width: "30px", height: "30px", marginRight: "8px" }}
     />
-    <Nav.Link href="/home" style={style.navLink}>Home</Nav.Link>
+    <Nav.Link href="#home" style={style.navLink}>Home</Nav.Link>
   </div>
 
   <Nav.Link href="/about" style={style.navLink}>About Us</Nav.Link>
