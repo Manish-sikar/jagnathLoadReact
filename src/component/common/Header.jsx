@@ -60,33 +60,35 @@ const Header = () => {
     );
   };
 
-
-    const getIconStyle = (iconClass) => {
+  const getIconStyle = (iconClass) => {
+    const baseStyle = {
+      width: "25px",
+      height: "25px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: "20%", // Makes icons circular
+      fontSize: "15px", // Ensures equal size
+    };
+  
     switch (iconClass) {
       case "bi bi-facebook":
-        return { color: "#0868f0" }; // Facebook Blue
+        return { ...baseStyle, color: "#0868f0", backgroundColor: "#e6eaf0" }; // Facebook
       case "bi bi-x":
-        return {
-          color: "#ffffff",
-          backgroundColor: "#000000",
-          padding: "8px",
-          borderRadius: "50%",
-        }; // X (Twitter) with black background
+        return { ...baseStyle, color: "#fff", backgroundColor: "#000" }; // X (Twitter)
       case "bi bi-instagram":
         return {
+          ...baseStyle,
           background:
             "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)",
           color: "#fff",
-          padding: "8px",
-          borderRadius: "50%",
-        }; // Instagram gradient
+        }; // Instagram
       case "bi bi-youtube":
-        return { color: "#FF0000" }; // YouTube Red
+        return { ...baseStyle, color: "#fff", backgroundColor: "#FF0000" }; // YouTube
       default:
-        return { color: "#000" }; // Default black color
+        return { ...baseStyle, color: "#000" }; // Default
     }
   };
-
 
   return (
     <>
@@ -104,19 +106,21 @@ const Header = () => {
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-         <Nav className="me-auto" style={{ display: "flex", gap: "10px" }}>
-              {socialLinks.map((item, index) => (
-                <Nav.Link href={item.icon_url} target="_blank" key={index}>
-                  <i
-                    className={item.icon_class}
-                    style={{
-                      ...getIconStyle(item.icon_class),
-                      fontSize: "32px",
-                    }}
-                  ></i>
-                </Nav.Link>
-              ))}
-            </Nav>
+    <Nav className="me-auto" style={{ display: "flex", gap: "10px" }}>
+  {socialLinks.map((item, index) => (
+    <Nav.Link
+      href={item.icon_url}
+      target="_blank"
+      key={index}
+      style={{ textDecoration: "none" }}
+    >
+      <span
+        style={getIconStyle(item.icon_class)}
+        className={item.icon_class}
+      ></span>
+    </Nav.Link>
+  ))}
+</Nav>
            <Nav className="ms-auto d-flex align-items-center gap-3">
   {/* Home Icon & Link */}
   <div className="d-flex align-items-center">
