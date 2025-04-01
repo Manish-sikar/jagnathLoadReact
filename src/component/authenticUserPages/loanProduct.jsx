@@ -163,12 +163,12 @@ const LoanProductList = ({ products, refreshBalance }) => {
       <style>
         {`
           @media (max-width: 768px) {
-            .card-title { font-size: 0.7rem !important; } /* Smaller on tablets */
-            .card-text { font-size: 0.7rem !important; }
+            .card-title { font-size: 0.6rem !important; } /* Smaller on tablets */
+            .card-text { font-size: 0.6rem !important; }
           }
           @media (max-width: 480px) {
-            .card-title { font-size: 0.6rem !important; } /* Even smaller on mobile */
-            .card-text { font-size: 0.6rem !important; }
+            .card-title { font-size: 0.5rem !important; } /* Even smaller on mobile */
+            .card-text { font-size: 0.5rem !important; }
           }
           @media (max-width: 360px) {
             .card-title { font-size: x-small !important; } /* Extra small for very small screens */
