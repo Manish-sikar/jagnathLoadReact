@@ -98,7 +98,7 @@ import { useNavigate } from "react-router-dom";
 import LoginBanner from "../bannerPages/loginBanner";
 import Service from "../Service";
 
-const LoanProductList = ({ products }) => {
+const LoanProductList = ({ products, refreshBalance }) => {
   const navigate = useNavigate();
 
   const handleClick = (link, category, subcategory, amount) => {
@@ -107,7 +107,7 @@ const LoanProductList = ({ products }) => {
     if (typeof link === "string" && link.startsWith("http")) {
       window.location.href = link;
     } else {
-      navigate(link, { state: { subcategory, category, amount } });
+      navigate(link, { state: { subcategory, category, amount, refreshBalance } });
     }
   };
 
@@ -141,15 +141,44 @@ const LoanProductList = ({ products }) => {
                 />
               </div>
               <div className="card-body text-center">
-                <h5 className="card-title">{product.category_name}</h5>
-                <p className="card-text">{product.sub_category_name}</p>
+                <h5
+                  className="card-title"
+                  style={{ fontSize: "1rem" }} // Default font size
+                >
+                  {product.category_name}
+                </h5>
+                <p
+                  className="card-text"
+                  style={{ fontSize: "0.9rem" }} // Slightly smaller
+                >
+                  {product.sub_category_name}
+                </p>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Responsive Font Size for Mobile */}
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .card-title { font-size: 0.9rem !important; } /* Smaller on tablets */
+            .card-text { font-size: 0.8rem !important; }
+          }
+          @media (max-width: 480px) {
+            .card-title { font-size: 0.8rem !important; } /* Even smaller on mobile */
+            .card-text { font-size: 0.7rem !important; }
+          }
+          @media (max-width: 360px) {
+            .card-title { font-size: x-small !important; } /* Extra small for very small screens */
+            .card-text { font-size: x-small !important; }
+          }
+        `}
+      </style>
     </div>
   );
 };
 
 export default LoanProductList;
+
