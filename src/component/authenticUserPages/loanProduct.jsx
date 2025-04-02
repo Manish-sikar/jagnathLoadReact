@@ -124,7 +124,7 @@ const LoanProductList = ({ products, refreshBalance }) => {
     <div className="container">
       <div className="row justify-content-center">
         {products.map((product, index) => (
-          <div key={index} className="col-md-2 col-sm-6 mb-3 d-flex justify-content-center">
+          <div key={index} className="col-md-3 col-sm-6 mb-3 d-flex justify-content-center">
             <div
               className="card shadow-sm p-2"
               onClick={() =>
