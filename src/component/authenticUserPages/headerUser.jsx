@@ -118,7 +118,7 @@ const AuthUserHeader = () => {
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
+         
             <Nav className="me-auto"></Nav>
             <Nav className="ms-auto d-flex align-items-center gap-3">
               {/* Wallet Section */}
@@ -148,7 +148,7 @@ const AuthUserHeader = () => {
                 <i className="fas fa-sign-out-alt me-2"></i> Logout
               </button>
             </Nav>
-          </Navbar.Collapse>
+         
         </Container>
       </Navbar>
 
