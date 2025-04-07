@@ -241,4 +241,32 @@ const style = {
     padding: "10px",
     animation: "marquee 5s linear infinite",
   },
+ .wallet-section,
+.welcome-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.wallet-section {
+  flex-direction: column;
+}
+
+.welcome-text {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .wallet-section,
+  .welcome-text {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .wallet-section button {
+    margin-top: 10px; /* Add some space between the wallet and the button */
+  }
+}
 };
