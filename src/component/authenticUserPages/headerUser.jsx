@@ -269,4 +269,17 @@ const style = {
     margin-top: 10px; /* Add some space between the wallet and the button */
   }
 }
-};
+
+/* Ensure buttons are aligned properly */
+@media (max-width: 576px) {
+  .wallet-section,
+  .welcome-text {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .wallet-section span {
+    margin-bottom: 10px;
+  }
+}
+
