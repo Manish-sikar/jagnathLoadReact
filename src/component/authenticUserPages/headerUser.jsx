@@ -155,39 +155,63 @@ const AuthUserHeader = () => {
 
      
       {/* Wallet Modal */}
-      {/* Wallet Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Add Wallet Balance</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>Enter Amount</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter amount"
-                value={addAmount}
-                onChange={(e) => setAddAmount(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="success" onClick={handleAddBalance}>
-            Pay with Paytm
-          </Button>
-        </Modal.Footer>
-      </Modal>
+  <Modal.Header closeButton style={{ backgroundColor: "#f8f9fa" }}>
+    <Modal.Title className="w-100 text-center fw-bold">
+      💰 Add Wallet Balance
+    </Modal.Title>
+  </Modal.Header>
+
+  <Modal.Body>
+    <div className="d-flex flex-column gap-4">
+
+      {/* QR Code Section */}
+      <div className="p-3 rounded shadow-sm bg-light text-center">
+        <h5 className="fw-bold text-primary mb-3">📷 Scan & Pay (QR Code)</h5>
+        <img
+          src="./img/jasnathQRCode.jpg" // Replace with actual path
+          alt="QR Code"
+          style={{
+            width: "200px",
+            height: "200px",
+            borderRadius: "8px",
+            border: "2px solid #eee",
+          }}
+        />
+      </div>
+
+      {/* Bank Transfer Section */}
+      <div className="p-3 rounded shadow-sm bg-light">
+        <h5 className="fw-bold text-success mb-3">🏦 Bank Transfer Details</h5>
+        <p><strong>Account Name:</strong> PEMA RAM</p>
+        <p><strong>Account Number:</strong> 153101512494</p>
+        <p><strong>IFSC Code:</strong> ICIC0001531</p>
+        <p><strong>Bank Name:</strong> ICICI BANK</p>
+        <p><strong>Mobile Number:</strong> 9166396662</p>
+      </div>
+
+      {/* UPI Section */}
+      <div className="p-3 rounded shadow-sm bg-light">
+        <h5 className="fw-bold text-danger mb-3">💸 UPI Payment</h5>
+        <p><strong>UPI ID:</strong> NOT AVAILABLE</p>
+      </div>
+
+    </div>
+  </Modal.Body>
+
+  <Modal.Footer className="d-flex justify-content-center">
+    <Button variant="outline-secondary" onClick={handleClose}>
+      ❌ Close
+    </Button>
+  </Modal.Footer>
+</Modal>
+
+
     </>
   );
 };
 
 export default AuthUserHeader;
-
 const style = {
   navbar: {
     backgroundColor: "#fff",
@@ -241,45 +265,4 @@ const style = {
     padding: "10px",
     animation: "marquee 5s linear infinite",
   },
- .wallet-section,
-.welcome-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.wallet-section {
-  flex-direction: column;
-}
-
-.welcome-text {
-  margin-top: 0;
-}
-
-@media (max-width: 768px) {
-  .wallet-section,
-  .welcome-text {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .wallet-section button {
-    margin-top: 10px; /* Add some space between the wallet and the button */
-  }
-}
-
-/* Ensure buttons are aligned properly */
-@media (max-width: 576px) {
-  .wallet-section,
-  .welcome-text {
-    padding: 10px;
-    width: 100%;
-  }
-
-  .wallet-section span {
-    margin-bottom: 10px;
-  }
-}
-
+};
