@@ -187,7 +187,6 @@ const AuthUserHeader = () => {
         <p><strong>Account Number:</strong> 153101512494</p>
         <p><strong>IFSC Code:</strong> ICIC0001531</p>
         <p><strong>Bank Name:</strong> ICICI BANK</p>
-        <p><strong>Mobile Number:</strong> 9166396662</p>
       </div>
 
       {/* UPI Section */}
