@@ -17,7 +17,7 @@ const AuthUserHeader = () => {
   const [addAmount, setAddAmount] = useState("");
   const { userDataUser, logoutUser , userBalance  } = useAuthUser();
   const [JN_Id, setJN_Id] = useState(JSON.parse(localStorage.getItem("partnerEmail") || '""'))
-
+  const [showQRModal, setShowQRModal] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -154,56 +154,97 @@ const AuthUserHeader = () => {
 
 
      
-      {/* Wallet Modal */}
+          {/* Wallet Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
-  <Modal.Header closeButton style={{ backgroundColor: "#f8f9fa" }}>
-    <Modal.Title className="w-100 text-center fw-bold">
-      💰 Add Wallet Balance
-    </Modal.Title>
-  </Modal.Header>
+        <Modal.Header closeButton style={{ backgroundColor: "#f8f9fa" }}>
+          <Modal.Title className="w-100 text-center fw-bold">
+            💰 Add Wallet Balance
+          </Modal.Title>
+        </Modal.Header>
 
-  <Modal.Body>
-    <div className="d-flex flex-column gap-4">
+        <Modal.Body>
+          <div className="d-flex flex-column gap-4">
+            {/* QR Code Section */}
+            <div className="p-3 rounded shadow-sm bg-light text-center">
+              <h5 className="fw-bold text-primary mb-3">
+                📷 Scan & Pay (QR Code)
+              </h5>
+              <img
+                src="./img/jasnathQRCode.jpg"
+                alt="QR Code"
+                onClick={() => setShowQRModal(!showQRModal)}
+                style={{
+                  width: "200px",
+                  height: "200px",
+                  borderRadius: "8px",
+                  border: "2px solid #eee",
+                  cursor: "pointer",
+                  objectFit: "cover",
+                }}
+              />
+              <p className="text-muted mt-2" style={{ fontSize: "0.9rem" }}>
+                Click the QR code to enlarge
+              </p>
+            </div>
 
-      {/* QR Code Section */}
-      <div className="p-3 rounded shadow-sm bg-light text-center">
-        <h5 className="fw-bold text-primary mb-3">📷 Scan & Pay (QR Code)</h5>
-        <img
-          src="./img/jasnathQRCode.jpg" // Replace with actual path
-          alt="QR Code"
-          style={{
-            width: "200px",
-            height: "200px",
-            borderRadius: "8px",
-            border: "2px solid #eee",
-          }}
-        />
-      </div>
+            {/* Bank Transfer Section */}
+            <div className="p-3 rounded shadow-sm bg-light">
+              <h5 className="fw-bold text-success mb-3">
+                🏦 Bank Transfer Details
+              </h5>
+              <p>
+                <strong>Account Name:</strong> PEMA RAM
+              </p>
+              <p>
+                <strong>Account Number:</strong> 153101512494
+              </p>
+              <p>
+                <strong>IFSC Code:</strong> ICIC0001531
+              </p>
+              <p>
+                <strong>Bank Name:</strong> ICICI BANK
+              </p>
+            </div>
 
-      {/* Bank Transfer Section */}
-      <div className="p-3 rounded shadow-sm bg-light">
-        <h5 className="fw-bold text-success mb-3">🏦 Bank Transfer Details</h5>
-        <p><strong>Account Name:</strong> PEMA RAM</p>
-        <p><strong>Account Number:</strong> 153101512494</p>
-        <p><strong>IFSC Code:</strong> ICIC0001531</p>
-        <p><strong>Bank Name:</strong> ICICI BANK</p>
-      </div>
+            {/* UPI Section */}
+            <div className="p-3 rounded shadow-sm bg-light">
+              <h5 className="fw-bold text-danger mb-3">💸 UPI Payment</h5>
+              <p>
+                <strong>UPI ID:</strong> NOT AVAILABLE
+              </p>
+            </div>
+          </div>
+        </Modal.Body>
 
-      {/* UPI Section */}
-      <div className="p-3 rounded shadow-sm bg-light">
-        <h5 className="fw-bold text-danger mb-3">💸 UPI Payment</h5>
-        <p><strong>UPI ID:</strong> NOT AVAILABLE</p>
-      </div>
+        {/* Fullscreen QR Modal */}
+        <Modal
+          show={showQRModal}
+          onHide={() => setShowQRModal(false)}
+          centered
+          size="lg"
+          backdrop="static"
+        >
+          <Modal.Body className="p-0 bg-dark text-center">
+            <img
+              src="./img/jasnathQRCode.jpg"
+              alt="Full QR Code"
+              style={{
+                width: "100%",
+                maxHeight: "90vh",
+                objectFit: "contain",
+                cursor: "pointer",
+              }}
+              onClick={() => setShowQRModal(false)}
+            />
+          </Modal.Body>
+        </Modal>
 
-    </div>
-  </Modal.Body>
-
-  <Modal.Footer className="d-flex justify-content-center">
-    <Button variant="outline-secondary" onClick={handleClose}>
-      ❌ Close
-    </Button>
-  </Modal.Footer>
-</Modal>
+        <Modal.Footer className="d-flex justify-content-center">
+          <Button variant="outline-secondary" onClick={handleClose}>
+            ❌ Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
 
     </>
