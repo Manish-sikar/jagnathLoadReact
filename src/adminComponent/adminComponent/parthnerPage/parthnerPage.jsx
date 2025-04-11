@@ -80,38 +80,71 @@ const PartnerPage = () => {
   };
 
 
-  const handleAddAmount = async (JN_Id) => {
-    const amount = prompt("Enter the amount to add:");
-    const remark = prompt("Enter the remark for this transaction:");
-    
-    if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
-      return alert("Please enter a valid amount.");
-    }
+const handleAddAmount = async (JN_Id) => {
+    // Step 1: Get the amount
+    Swal.fire({
+      title: 'Enter the amount to add:',
+      input: 'text',
+      inputLabel: 'Amount',
+      inputPlaceholder: 'Enter a number',
+      inputValidator: (value) => {
+        if (!value || isNaN(value) || Number(value) <= 0) {
+          return 'Please enter a valid number';
+        }
+      },
+      showCancelButton: true
+    }).then((amountResult) => {
+      if (amountResult.isConfirmed) {
+        const amount = parseFloat(amountResult.value);
   
-    try {
-      const response = await fetch(`${baseURL}/addAmountByAdmin`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          amount: Number(amount), 
-          partnerEmail: JN_Id, 
-          remark 
-        }),
-      });
+        // Step 2: Get the remark
+        Swal.fire({
+          title: 'Enter the remark for this transaction:',
+          input: 'text',
+          inputLabel: 'Remark',
+          inputPlaceholder: 'Enter a remark',
+          inputValidator: (value) => {
+            if (!value.trim()) {
+              return 'Remark cannot be empty';
+            }
+          },
+          showCancelButton: true
+        }).then(async (remarkResult) => {
+          if (remarkResult.isConfirmed) {
+            const remark = remarkResult.value;
   
-      const result = await response.json();
-      if (response.ok) {
-        alert(`Amount added successfully! Updated Balance: ₹${result.updatedBalance}`);
-        fetchTableData();
-      } else {
-        alert(result.error || "Failed to add amount.");
+            try {
+              const response = await fetch(`${baseURL}/addAmountByAdmin`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  amount,
+                  partnerEmail: JN_Id,
+                  remark,
+                }),
+              });
+  
+              const result = await response.json();
+              if (response.ok) {
+                Swal.fire(
+                  'Success!',
+                  `Amount added successfully! Updated Balance: ₹${result.updatedBalance}`,
+                  'success'
+                );
+                fetchTableData();
+              } else {
+                Swal.fire('Error', result.error || "Failed to add amount.", 'error');
+              }
+            } catch (error) {
+              console.error("Error adding amount:", error);
+              Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+            }
+          }
+        });
       }
-    } catch (error) {
-      console.error("Error adding amount:", error);
-      alert("An error occurred. Please try again.");
-    }
+    });
   };
   
 
