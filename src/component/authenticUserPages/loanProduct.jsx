@@ -99,6 +99,7 @@ import LoginBanner from "../bannerPages/loginBanner";
 import Service from "../Service";
 
 const LoanProductList = ({ products, refreshBalance }) => {
+  const category_name = products[0]?.category || "";
   const navigate = useNavigate();
 
   const handleClick = (link, category, subcategory, amount) => {
@@ -107,7 +108,9 @@ const LoanProductList = ({ products, refreshBalance }) => {
     if (typeof link === "string" && link.startsWith("http")) {
       window.location.href = link;
     } else {
-      navigate(link, { state: { subcategory, category, amount, refreshBalance } });
+      navigate(link, {
+        state: { subcategory, category, amount, refreshBalance },
+      });
     }
   };
 
@@ -122,40 +125,65 @@ const LoanProductList = ({ products, refreshBalance }) => {
 
   return (
     <div className="container">
+      <div className="category-header my-3 py-2 text-center">
+        <h5 className="text-uppercase fw-semibold text-primary-emphasis m-0">
+          {category_name}
+        </h5>
+      </div>
       <div className="row justify-content-center">
         {products.map((product, index) => (
-          <div key={index} className="col-md-2 col-sm-6 mb-3 d-flex justify-content-center">
+          <>
             <div
-              className="card shadow-sm p-2"
-              onClick={() =>
-                handleClick(product.link, product.category, product.category_name, product.amount)
-              }
-              style={{ cursor: product.link ? "pointer" : "default", width: "100%" }}
+              key={index}
+              className="col-md-2 col-sm-6 mb-3 d-flex justify-content-center"
             >
-              <div className="d-flex justify-content-center align-items-center" style={{ height: "50px" }}>
-                <img
-                  src={product.icon_pic}
-                  alt={product.category_name}
-                  className="card-img-top"
-                  style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
-                />
-              </div>
-              <div className="card-body text-center">
-                <h5
-                  className="card-title"
-                  style={{ fontSize: "1rem" }} // Default font size
+              <div
+                className="card shadow-sm p-2"
+                onClick={() =>
+                  handleClick(
+                    product.link,
+                    product.category,
+                    product.category_name,
+                    product.amount
+                  )
+                }
+                style={{
+                  cursor: product.link ? "pointer" : "default",
+                  width: "100%",
+                }}
+              >
+                <div
+                  className="d-flex justify-content-center align-items-center"
+                  style={{ height: "50px" }}
                 >
-                  {product.category_name}
-                </h5>
-                <p
-                  className="card-text"
-                  style={{ fontSize: "0.9rem" }} // Slightly smaller
-                >
-                  {product.sub_category_name}
-                </p>
+                  <img
+                    src={product.icon_pic}
+                    alt={product.category_name}
+                    className="card-img-top"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+                <div className="card-body text-center">
+                  <h5
+                    className="card-title"
+                    style={{ fontSize: "1rem" }} // Default font size
+                  >
+                    {product.category_name}
+                  </h5>
+                  <p
+                    className="card-text"
+                    style={{ fontSize: "0.9rem" }} // Slightly smaller
+                  >
+                    {product.sub_category_name}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </>
         ))}
       </div>
 
@@ -163,17 +191,37 @@ const LoanProductList = ({ products, refreshBalance }) => {
       <style>
         {`
           @media (max-width: 768px) {
-            .card-title { font-size: 0.6rem !important; } /* Smaller on tablets */
-            .card-text { font-size: 0.6rem !important; }
+            .card-title { font-size: 0.9rem !important; } /* Smaller on tablets */
+            .card-text { font-size: 0.8rem !important; }
           }
           @media (max-width: 480px) {
-            .card-title { font-size: 0.5rem !important; } /* Even smaller on mobile */
-            .card-text { font-size: 0.5rem !important; }
+            .card-title { font-size: 0.8rem !important; } /* Even smaller on mobile */
+            .card-text { font-size: 0.7rem !important; }
           }
           @media (max-width: 360px) {
             .card-title { font-size: x-small !important; } /* Extra small for very small screens */
             .card-text { font-size: x-small !important; }
           }
+
+    .category-header {
+      border-bottom: 2px solid #0d6efd22;
+      background: #f8f9fa;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .category-header h5 {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .category-header h5 {
+        font-size: 0.95rem;
+      }
+    }
+  
         `}
       </style>
     </div>
@@ -181,4 +229,3 @@ const LoanProductList = ({ products, refreshBalance }) => {
 };
 
 export default LoanProductList;
-
