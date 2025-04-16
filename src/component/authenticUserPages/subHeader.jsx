@@ -1,5 +1,4 @@
 
-
 import React from "react";
 
 const SubHeaderUser = ({ onCategorySelect }) => {
@@ -16,24 +15,57 @@ const SubHeaderUser = ({ onCategorySelect }) => {
   ];
 
   return (
-   
-
-    <nav class="navbar bg-body-tertiary">
-  <form class="container-fluid justify-content-start">
-  {dropdownData.map((dropdown, index) => (
+    <nav className="navbar bg-primary py-2">
+      <div className="container-fluid px-3">
+        <div className="d-flex flex-nowrap w-100 gap-2 overflow-auto scroll-container">
+          {dropdownData.map((dropdown, index) => (
             <div
               key={index}
-              className="sub-header-item text-white text-center"
+              className="text-white px-3 py-1 category-item"
               onClick={() => onCategorySelect(dropdown.category)}
+              style={{ cursor: "pointer", whiteSpace: "nowrap" }}
             >
-    <button class="btn btn-outline-success me-2 bg-dark mx-1" type="button">{dropdown.title}</button>
-
-    </div>
+              {dropdown.title}
+            </div>
           ))}
-  </form>
-</nav>
+        </div>
+      </div>
+
+      <style>
+        {`
+          .scroll-container::-webkit-scrollbar {
+            display: none;
+          }
+
+          .category-item {
+            font-size: 1rem;
+          }
+
+          @media (max-width: 768px) {
+            .scroll-container {
+              flex-wrap: nowrap !important;
+            }
+
+            .category-item {
+              font-size: 0.85rem;
+              padding: 0.4rem 0.6rem;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .category-item {
+              font-size: 0.75rem;
+              padding: 0.3rem 0.5rem;
+            }
+          }
+
+          .category-item:hover {
+            color: #ffc107;
+          }
+        `}
+      </style>
+    </nav>
   );
 };
 
 export default SubHeaderUser;
-
