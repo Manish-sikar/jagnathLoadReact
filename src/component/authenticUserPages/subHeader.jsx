@@ -15,7 +15,7 @@ const SubHeaderUser = ({ onCategorySelect }) => {
   ];
 
   return (
-    <nav className="navbar bg-primary py-2">
+    <nav className="navbar py-2" style={{backgroundColor:"#3e87f3"}} >
       <div className="container-fluid px-3">
         <div className="d-flex flex-nowrap w-100 gap-2 overflow-auto scroll-container">
           {dropdownData.map((dropdown, index) => (
