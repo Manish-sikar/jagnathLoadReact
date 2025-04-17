@@ -45,6 +45,7 @@ import BecomePartnerForm from "./adminComponent/adminComponent/parthnerPage/beco
 import LoanDataEdit from "./adminComponent/adminComponent/lloanProductPage/AdminloanProductEdit";
 import LoanServicesPage from "./adminComponent/adminComponent/lloanProductPage/AdminloanProduct";
 import EditPartnerPage from "./adminComponent/adminComponent/parthnerPage/editPertherData";
+import PaymentRequestPage from "./adminComponent/adminComponent/paymentRequest/paymentRequest";
 
 
 function App() {
@@ -271,6 +272,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <EditPartnerPage />
+                  </ProtectedRoute>
+                }
+              />
+                 <Route
+                path="/admin/paymentRequest"
+                element={
+                  <ProtectedRoute>
+                    <PaymentRequestPage />
                   </ProtectedRoute>
                 }
               />
