@@ -213,9 +213,9 @@ const AuthUserHeader = () => {
             </div>
 
             <div className="p-3 rounded shadow-sm bg-light">
-              <h5 className="fw-bold text-danger mb-3">💸 UPI Payment</h5>
+              <h5 className="fw-bold text-success mb-3">💸 UPI Payment</h5>
               <p>
-                <strong>UPI ID:</strong> NOT AVAILABLE
+                <strong>UPI ID:</strong> Jasnathfinance@ybl
               </p>
             </div>
 
