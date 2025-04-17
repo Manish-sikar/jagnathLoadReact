@@ -249,6 +249,16 @@ const AdminSideBar = () => {
                   <p>Loan Product's Data </p>
                 </NavLink>
               </li>
+               <li class="nav-item">
+                <NavLink
+                  to="/admin/paymentRequest"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i class="fas fa-desktop"></i>
+                  <p>Handle Payment Request </p>
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
