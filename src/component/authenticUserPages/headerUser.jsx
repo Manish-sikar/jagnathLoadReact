@@ -7,24 +7,26 @@ import Navbar from "react-bootstrap/Navbar";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useAuthUser } from "../authPagesForUser/contexUser";
 import { PaytmPaynow } from "../../services/paytmService";
- import { GetSpecialpartnerData } from "../../services/applyNewUserForm";
- 
+import { sambitPaymentDetails } from "../../services/billingService";
+import Swal from "sweetalert2"; // make sure this is imported
 
 const AuthUserHeader = () => {
   const [formData, setFormData] = useState({});
   const [socialLinks, setSocialLinks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [addAmount, setAddAmount] = useState("");
-  const { userDataUser, logoutUser , userBalance  } = useAuthUser();
-  const [JN_Id, setJN_Id] = useState(JSON.parse(localStorage.getItem("partnerEmail") || '""'))
+  const { userDataUser, logoutUser, userBalance } = useAuthUser();
+
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [paymentAmount, setPaymentAmount] = useState("");
+  const [utrNo, setUtrNo] = useState("");
+
   const [showQRModal, setShowQRModal] = useState(false);
 
   useEffect(() => {
     fetchData();
     fetchSocialLinks();
-     
   }, []);
-
 
   // Fetch site data
   const fetchData = async () => {
@@ -48,63 +50,69 @@ const AuthUserHeader = () => {
     }
   };
 
+  const handlePaymentSubmit = async () => {
+    if (!paymentAmount || !utrNo) {
+      Swal.fire({
+        icon: "warning",
+        title: "Missing Fields",
+        text: "Please fill in both the amount and UTR number.",
+      });
+      return;
+    }
+
+    const partnerEmail = JSON.parse(
+      localStorage.getItem("partnerEmail") || '""'
+    );
+
+    const payload = {
+      JN_ID: partnerEmail,
+      amount: paymentAmount,
+      utr: utrNo,
+    };
+
+    try {
+      const response = await sambitPaymentDetails(payload);
+
+      if (!response.status == 200) {
+        throw new Error("Failed to submit payment");
+      }
+      const successMessage = response?.data.message;
+      Swal.fire({
+        icon: "success",
+        title: "Payment Submitted",
+        text: `✅ ${successMessage}`,
+      });
+
+      // Reset form
+      setPaymentAmount("");
+      setUtrNo("");
+      setShowPaymentForm(false);
+      handleClose();
+    } catch (error) {
+      console.error(error);
+      const errorMessage = error.response.data.message;
+      Swal.fire({
+        icon: "error",
+        title: "Submission Failed",
+        text: `❌ ${errorMessage}`,
+      });
+    }
+  };
+
   // Open/Close Wallet Modal
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
- 
-
-  // 1️⃣ Initiate Paytm Payment
-  const handleAddBalance = async () => {
-    const amount = parseFloat(addAmount);
-    if (isNaN(amount) || amount <= 0) {
-      alert("Enter a valid amount");
-      return;
-    }
-
-    try {
-      const option = {
-        amount: amount.toString(),
-        customerId: "CUST1234", // Replace with actual user ID
-        customerEmail: "user@example.com", // Replace with actual email
-        customerPhone: "9876543210", // Replace with actual phone number
-      };
-      const { data } = await PaytmPaynow(option);
-
-      // Redirect to Paytm Payment Page
-      const paytmForm = document.createElement("form");
-      paytmForm.method = "POST";
-      paytmForm.action = "https://securegw.paytm.in/order/process"; // Paytm Payment URL
-
-      Object.keys(data.paytmParams).forEach((key) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = data.paytmParams[key];
-        paytmForm.appendChild(input);
-      });
-
-      document.body.appendChild(paytmForm);
-      paytmForm.submit();
-    } catch (error) {
-      console.error("Payment initiation failed:", error);
-      // alert("Payment initiation failed. Try again.");
-      alert("Please send a screenshot of the payment to Jasnath Finance admin.");
-    }
-  };
-
-
- 
-
   return (
     <>
       {/* Main Navbar */}
-    
-     <div style={{ height: "40px", backgroundColor: "#EB5B00" }}>
-  <marquee className="text-light p-2">
-    FOR ANY INFORMATION OR DETAILS KINDLY MAIL US AT JASNATHFINANCE@GMAIL .COM
-  </marquee>
-</div>
+
+      <div style={{ height: "40px", backgroundColor: "#EB5B00" }}>
+        <marquee className="text-light p-2">
+          FOR ANY INFORMATION OR DETAILS KINDLY MAIL US AT JASNATHFINANCE@GMAIL
+          .COM
+        </marquee>
+      </div>
 
       {/* Navbar */}
       <Navbar collapseOnSelect expand="lg" style={style.navbar} variant="dark">
@@ -118,43 +126,43 @@ const AuthUserHeader = () => {
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-         
-            <Nav className="me-auto"></Nav>
-            <Nav className="ms-auto d-flex align-items-center gap-3">
-              {/* Wallet Section */}
-              <div className="wallet-section" style={style.wallet}>
-                <span style={style.walletText}>
-                  <i className="fas fa-wallet"></i> Wallet: ₹{userBalance || 0}
-                </span>
-                <button className="btn btn-sm btn-primary" onClick={handleShow}>
-                  Add Balance
-                </button>
-              </div>
 
-              {/* Welcome Message */}
-              <p className="welcome-text m-0" style={style.welcomeText}>
-                <i className="fas fa-user-circle" style={{ fontSize: "1.5rem" }}></i>
-                Welcome, {userDataUser}!
-              </p>
-
-              {/* Logout Button */}
-              <button
-                className="btn btn-gradient p-2"
-                style={style.btnGradient}
-                onClick={logoutUser}
-                onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
-                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
-              >
-                <i className="fas fa-sign-out-alt me-2"></i> Logout
+          <Nav className="me-auto"></Nav>
+          <Nav className="ms-auto d-flex align-items-center gap-3">
+            {/* Wallet Section */}
+            <div className="wallet-section" style={style.wallet}>
+              <span style={style.walletText}>
+                <i className="fas fa-wallet"></i> Wallet: ₹{userBalance || 0}
+              </span>
+              <button className="btn btn-sm btn-primary" onClick={handleShow}>
+                Add Balance
               </button>
-            </Nav>
-         
+            </div>
+
+            {/* Welcome Message */}
+            <p className="welcome-text m-0" style={style.welcomeText}>
+              <i
+                className="fas fa-user-circle"
+                style={{ fontSize: "1.5rem" }}
+              ></i>
+              Welcome, {userDataUser}!
+            </p>
+
+            {/* Logout Button */}
+            <button
+              className="btn btn-gradient p-2"
+              style={style.btnGradient}
+              onClick={logoutUser}
+              onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+              onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+            >
+              <i className="fas fa-sign-out-alt me-2"></i> Logout
+            </button>
+          </Nav>
         </Container>
       </Navbar>
 
-
-     
-          {/* Wallet Modal */}
+      {/* Wallet Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton style={{ backgroundColor: "#f8f9fa" }}>
           <Modal.Title className="w-100 text-center fw-bold">
@@ -164,7 +172,6 @@ const AuthUserHeader = () => {
 
         <Modal.Body>
           <div className="d-flex flex-column gap-4">
-            {/* QR Code Section */}
             <div className="p-3 rounded shadow-sm bg-light text-center">
               <h5 className="fw-bold text-primary mb-3">
                 📷 Scan & Pay (QR Code)
@@ -187,7 +194,6 @@ const AuthUserHeader = () => {
               </p>
             </div>
 
-            {/* Bank Transfer Section */}
             <div className="p-3 rounded shadow-sm bg-light">
               <h5 className="fw-bold text-success mb-3">
                 🏦 Bank Transfer Details
@@ -206,13 +212,62 @@ const AuthUserHeader = () => {
               </p>
             </div>
 
-            {/* UPI Section */}
             <div className="p-3 rounded shadow-sm bg-light">
               <h5 className="fw-bold text-danger mb-3">💸 UPI Payment</h5>
               <p>
                 <strong>UPI ID:</strong> NOT AVAILABLE
               </p>
             </div>
+
+            {!showPaymentForm ? (
+              <div className="text-center">
+                <Button
+                  variant="success"
+                  onClick={() => setShowPaymentForm(true)}
+                >
+                  ✅ I’ve Paid - Submit Payment Info
+                </Button>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handlePaymentSubmit();
+                }}
+              >
+                <h5 className="fw-bold text-dark mb-3">
+                  📝 Submit Payment Details
+                </h5>
+
+                <div className="mb-3">
+                  <label className="form-label">Amount Paid</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={paymentAmount}
+                    onChange={(e) => setPaymentAmount(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">UTR / Transaction ID</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={utrNo}
+                    onChange={(e) => setUtrNo(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="text-center">
+                  <Button type="submit" variant="primary">
+                    📤 Submit Payment
+                  </Button>
+                </div>
+              </form>
+            )}
           </div>
         </Modal.Body>
 
@@ -245,8 +300,6 @@ const AuthUserHeader = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-
     </>
   );
 };
