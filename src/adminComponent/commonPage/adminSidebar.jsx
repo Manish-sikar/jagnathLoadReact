@@ -259,6 +259,16 @@ const AdminSideBar = () => {
                   <p>Handle Payment Request </p>
                 </NavLink>
               </li>
+                <li class="nav-item">
+                <NavLink
+                  to="admin/setting/ourTeam"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i class="fas fa-users"></i>
+                  <p> SUPPORT TEAM </p>
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
