@@ -1,14 +1,16 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AuthUserHeader from "./headerUser";
 import SubHeaderUser from "./subHeader";
 import LoanProductList from "./loanProduct";
 import { GetLoanData } from "../../services/loanDataServices";
 import ReportPage from "./reportPage";
+import SupportPage from "./supportPage";
 
 const Dashboard = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const fetchWalletBalanceRef = useRef(null);
 
   const fetchProductsByCategory = async (category) => {
     if (category === "report") {
@@ -28,21 +30,24 @@ const Dashboard = () => {
     }
   }, [selectedCategory]);
 
+ 
+
   return (
     <>
-      <AuthUserHeader />
-      <SubHeaderUser onCategorySelect={fetchProductsByCategory} />
-      <div className="container mt-4">
-        {selectedCategory === "report" ? (
-          <ReportPage />
-        ) : (
-          <LoanProductList products={filteredProducts} />
-        )}
-      </div>
+<AuthUserHeader />
+<SubHeaderUser onCategorySelect={fetchProductsByCategory} />
+<div className="container mt-4">
+  {selectedCategory === "report" ? (
+    <ReportPage />
+  ) : selectedCategory === "support" ? (
+    <SupportPage />
+  ) : (
+    <LoanProductList products={filteredProducts} />
+  )}
+</div>
     </>
   );
 };
-
 
 export default Dashboard;
 
