@@ -188,7 +188,7 @@ const OurTeamEdit = () => {
           ) : (
             item.teamimg && (
               <img
-                src={`${baseURL}/${item.teamimg}`}
+                src={item.teamimg}
                 alt="Current Team Member"
                 className="w-25 pt-2 img-fluid"
               />
