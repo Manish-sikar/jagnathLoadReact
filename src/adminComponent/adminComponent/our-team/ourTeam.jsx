@@ -303,7 +303,7 @@ const OurTeamPage = () => {
                   {teamsData.map((item) => (
                     <tr key={item._id}>
                       <td>
-                        <img src={`${baseURL}/${item.teamimg}`} className="w-25" alt={item.team_member} />
+                        <img src={item.teamimg} className="w-25" alt={item.team_member} />
                       </td>
                       <td>{item.team_member}</td>
                       <td>{item.degination}</td>

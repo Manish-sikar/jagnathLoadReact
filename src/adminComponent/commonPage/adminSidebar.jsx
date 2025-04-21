@@ -13,7 +13,6 @@ const AdminSideBar = () => {
     submenu: false,
   });
 
-  // Function to toggle collapse state
   const toggleCollapse = (section) => {
     setCollapseStates((prevState) => ({
       ...prevState,
@@ -25,7 +24,6 @@ const AdminSideBar = () => {
     <>
       <div className="sidebar" data-background-color="dark">
         <div className="sidebar-logo">
-          {/* Logo Header */}
           <div className="logo-header" data-background-color="dark">
             <NavLink to="/admin" className="logo">
               <img
@@ -229,6 +227,46 @@ const AdminSideBar = () => {
                 >
                   <i class="fas fa-desktop"></i>
                   <p>User Apply Form </p>
+                </NavLink>
+              </li>
+              <li class="nav-item">
+                <NavLink
+                  to="/admin/partner"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i class="fas fa-desktop"></i>
+                  <p>Partner's Data </p>
+                </NavLink>
+              </li>
+                <li class="nav-item">
+                <NavLink
+                  to="/admin/loanProduct"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i class="fas fa-desktop"></i>
+                  <p>Loan Product's Data </p>
+                </NavLink>
+              </li>
+               <li class="nav-item">
+                <NavLink
+                  to="/admin/paymentRequest"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i class="fas fa-desktop"></i>
+                  <p>Handle Payment Request </p>
+                </NavLink>
+              </li>
+                <li class="nav-item">
+                <NavLink
+                  to="admin/setting/ourTeam"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i class="fas fa-users"></i>
+                  <p> SUPPORT TEAM </p>
                 </NavLink>
               </li>
             </ul>

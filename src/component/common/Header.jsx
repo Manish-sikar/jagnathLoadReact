@@ -7,6 +7,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { baseURL } from "../../services/apiService";
 
+
 const Header = () => {
   const [formData, setFormData] = useState({});
   const [socialLinks, setSocialLinks] = useState([]);
@@ -59,42 +60,84 @@ const Header = () => {
     );
   };
 
-
+  const getIconStyle = (iconClass) => {
+    const baseStyle = {
+      width: "25px",
+      height: "25px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: "20%", // Makes icons circular
+      fontSize: "15px", // Ensures equal size
+    };
+  
+    switch (iconClass) {
+      case "bi bi-facebook":
+        return { ...baseStyle, color: "#0868f0", backgroundColor: "#e6eaf0" }; // Facebook
+      case "bi bi-x":
+        return { ...baseStyle, color: "#fff", backgroundColor: "#000" }; // X (Twitter)
+      case "bi bi-instagram":
+        return {
+          ...baseStyle,
+          background:
+            "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)",
+          color: "#fff",
+        }; // Instagram
+      case "bi bi-youtube":
+        return { ...baseStyle, color: "#fff", backgroundColor: "#FF0000" }; // YouTube
+      default:
+        return { ...baseStyle, color: "#000" }; // Default
+    }
+  };
 
   return (
     <>
       {/* Main Navbar */}
-      <Navbar collapseOnSelect expand="lg" style={style.navbar} variant="dark">
+      <Navbar collapseOnSelect expand="lg" style={style.navbar} >
         <Container>
-          <Navbar.Brand href="#home" style={style.navbarBrand}>
-          <img 
-        src={`${baseURL}/${formData?.site_logo}`} 
-        alt="Site Logo" 
-        className="rounded-circle" 
-        style={{ width: 'auto', height: '80px' }}  // Adjust size of the logo as needed
-      />
-          </Navbar.Brand>
+        <Navbar.Brand href="#home" className="ms-3" style={style.navbarBrand}>
+  <img 
+    src={formData?.site_logo || "https://my-jasnath-finance-project.s3.eu-north-1.amazonaws.com/site_assets/site_logo_f9be8b48-fa1f-46e2-9ad8-d5ca47170c59.jpg"}
+    alt="Site Logo" 
+    className="rounded-circle" 
+    style={{ width: 'auto', height: '80px' }} // Adjust size of the logo as needed
+  />
+</Navbar.Brand>
+
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              {/* Social Media Icons */}
-              {socialLinks.map((item, index) => (
-                <Nav.Link href={item.icon_url} target="_blank" key={index}>
-                  <i className={item.icon_class} style={style.socialIcon}></i>
-                </Nav.Link>
-              ))}
-            </Nav>
-            <Nav className="ms-auto">
-              {/* Navigation Links */}
-              <Nav.Link href="/loan-product" style={style.navLink}>Dashboard</Nav.Link>
-              <Nav.Link href="#features" style={style.navLink}>About Us</Nav.Link>
-              <Nav.Link href="#pricing" style={style.navLink}>Services</Nav.Link>
-              <Nav.Link href="#about" style={style.navLink}>Choose Us</Nav.Link>
-              <Nav.Link href="#emi" style={style.navLink}>EMI Collection</Nav.Link>
-              <Nav.Link href="/login-User" style={style.navLink}>Login</Nav.Link>
-              <Nav.Link href="/reg-User" style={style.navLink}>Register</Nav.Link>
-              <Nav.Link href="#contact" style={style.navLink}>Contact Us</Nav.Link>
-            </Nav>
+    <Nav className="me-auto" style={{ display: "flex", gap: "10px" }}>
+  {socialLinks.map((item, index) => (
+    <Nav.Link
+      href={item.icon_url}
+      target="_blank"
+      key={index}
+      style={{ textDecoration: "none" }}
+    >
+      <span
+        style={getIconStyle(item.icon_class)}
+        className={item.icon_class}
+      ></span>
+    </Nav.Link>
+  ))}
+</Nav>
+           <Nav className="ms-auto d-flex align-items-center gap-3">
+  {/* Home Icon & Link */}
+  <div className="d-flex align-items-center">
+    <img 
+      src="/img/homeicons.png" 
+      alt="Home Icon" 
+      style={{ width: "30px", height: "30px", marginRight: "8px" }}
+    />
+    <Nav.Link href="/" style={style.navLink}>Home</Nav.Link>
+  </div>
+
+  <Nav.Link href="/about" style={style.navLink}>About Us</Nav.Link>
+  <Nav.Link href="/service" style={style.navLink}>Services</Nav.Link>
+  <Nav.Link href="/project" style={style.navLink}>Project</Nav.Link>
+  <Nav.Link href="/login-User" style={style.navLink}>Login</Nav.Link>
+  <Nav.Link href="/contact" className="me-4" style={style.navLink}>Contact Us</Nav.Link>
+</Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>          
@@ -107,24 +150,24 @@ export default Header;
   // Inline style object for the Navbar and other components
   const style = {
     navbar: {
-      backgroundColor: "#3B1C32",
+      backgroundColor: "#FBFBFB",
       borderBottom: "3px solid #f1f1f1",
     },
     navbarBrand: {
       fontSize: "1.8rem",
       fontWeight: "bold",
-      color: "#fff",
+      color: "#212121",
     },
     navLink: {
-      color: "#fff",
+      color: "#212121",
       fontSize: "1.1rem",
     },
     navLinkHover: {
-      color: "#ff5a5f",
+      color: "#8E1616",
       textDecoration: "underline",
     },
     subNavbar: {
-      backgroundColor: "#A64D79",
+      backgroundColor: "#DAD2FF",
       borderTop: "3px solid #f1f1f1",
       padding: "1px 0",
       maxHeight: "100px", // Limit height
@@ -138,10 +181,10 @@ export default Header;
     socialIcon: {
       fontSize: "1.5rem",
       marginRight: "10px",
-      color: "#fff",
+      color: "#212121",
     },
     socialIconHover: {
-      color: "#ff5a5f",
+      color: "#727D73",
     },
     // Add media query inline styles for responsiveness
     "@media (max-width: 768px)": {

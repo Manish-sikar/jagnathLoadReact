@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {LoginApi} from "../../services/authServices";
  import { useAuth } from "./contex";
+import Swal from "sweetalert2";
 
 const SinInPage = () => {
   const [UserName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { setToken, setData } = useAuth();
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,11 +18,12 @@ const SinInPage = () => {
         localStorage.setItem("authToken", response.token);
         setToken(response.token)
         setData (response.admin_name)
-        navigate("/admin/dashboard");
+        navigate("/admin/setting/social_media");
       }
     } catch (error) {
-      console.error("Login failed:", error);
-      // Handle error (e.g., show an error message)
+      const errorMessage =
+        error.response?.data?.error || "Login failed. Please try again.";
+      Swal.fire("Error", errorMessage, "error");
     }
   };
 
@@ -33,14 +34,6 @@ const SinInPage = () => {
           <div className="col col-xl-10">
             <div className="card" style={{ borderRadius: "1rem" }}>
               <div className="row g-0">
-                <div className="col-md-6 col-lg-5 d-none d-md-block">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
-                    alt="login form"
-                    className="img-fluid"
-                    style={{ borderRadius: "1rem 0 0 1rem" }}
-                  />
-                </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">
                   <div className="card-body p-4 p-lg-5 text-black">
                     <form onSubmit={handleLogin}>

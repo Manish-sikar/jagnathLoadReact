@@ -124,7 +124,7 @@ const ServiceEdit = () => {
           ) : (
             item.card_logo && (
               <img
-                src={`${baseURL}/${item.card_logo}`}
+                src={item.card_logo}
                 alt="Current Banner"
                 className="w-25 pt-2 img-fluid"
               />

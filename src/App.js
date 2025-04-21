@@ -33,17 +33,19 @@ import FooterData from "./adminComponent/adminComponent/footer/footer";
 import BillingData from "./adminComponent/adminComponent/billing/billing";
 import SinInPage from "./adminComponent/authPage/SignInPage";
 import ProtectedRoute from "./adminComponent/authPage/protectRoutes";
-
-
 import { AuthProvider } from "./adminComponent/authPage/contex";
-import RegUserPage from "./component/authPagesForUser/regPage";
 import LoginUser from "./component/authPagesForUser/loginPage";
-import LoanProduct from "./component/authenticUserPages/dashboard";
 import { AuthProviderUser } from "./component/authPagesForUser/contexUser";
 import Dashboard from "./component/authenticUserPages/dashboard";
 import ProtectedRouteUser from "./component/authPagesForUser/protectRoutesUser";
 import UserFormFillPage from "./component/authenticUserPages/userFormFill";
 import ApplyFormData from "./adminComponent/adminComponent/userApplyForm/applyFormData";
+import PartnerPage from "./adminComponent/adminComponent/parthnerPage/parthnerPage";
+import BecomePartnerForm from "./adminComponent/adminComponent/parthnerPage/becomePartner";
+import LoanDataEdit from "./adminComponent/adminComponent/lloanProductPage/AdminloanProductEdit";
+import LoanServicesPage from "./adminComponent/adminComponent/lloanProductPage/AdminloanProduct";
+import EditPartnerPage from "./adminComponent/adminComponent/parthnerPage/editPertherData";
+import PaymentRequestPage from "./adminComponent/adminComponent/paymentRequest/paymentRequest";
 
 
 function App() {
@@ -64,7 +66,7 @@ function App() {
             <Route path="/billing" element={<Billing />} />
           </Route>
           <Route path="/login-User" element={<LoginUser />} />
-          <Route path="/reg-User" element={<RegUserPage />} />
+        
 
           <Route path="/dashboard" element={
             <ProtectedRouteUser>
@@ -232,6 +234,55 @@ function App() {
                 </ProtectedRoute>
               }
             />
+                   <Route
+                path="/admin/become-partner"
+                element={
+                  <ProtectedRoute>
+                    <BecomePartnerForm />
+                  </ProtectedRoute>
+                }
+              />
+                    <Route
+                path="/admin/loanProduct"
+                element={
+                  <ProtectedRoute>
+                    <LoanServicesPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/admin/loanProduct/edit"
+                element={
+                  <ProtectedRoute>
+                    <LoanDataEdit />
+                  </ProtectedRoute>
+                }
+              />
+                 <Route
+                path="/admin/partner"
+                element={
+                  <ProtectedRoute>
+                    <PartnerPage />
+                  </ProtectedRoute>
+                }
+              />
+                    <Route
+                path="/admin/partner/edit"
+                element={
+                  <ProtectedRoute>
+                    <EditPartnerPage />
+                  </ProtectedRoute>
+                }
+              />
+                 <Route
+                path="/admin/paymentRequest"
+                element={
+                  <ProtectedRoute>
+                    <PaymentRequestPage />
+                  </ProtectedRoute>
+                }
+              />
           </Route>
 
         </Routes>

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules"; // Import Autoplay module
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { GetServiceData } from "../services/serviceAdmin";
-import { baseURL } from "../services/apiService";
 
 const Service = () => {
-
-
   const [servicesData, setServicesData] = useState([]);
 
   useEffect(() => {
@@ -15,42 +15,55 @@ const Service = () => {
   }, []);
 
   const fetchServices = async () => {
-    const response = await GetServiceData();
-    const serviceData = response.services_Data;
-    setServicesData(serviceData.filter((service) => service.status === "1"));
+    try {
+      const response = await GetServiceData();
+      const serviceData = response.services_Data;
+      setServicesData(serviceData.filter((service) => service.status === "1"));
+    } catch (error) {
+      console.error("Error fetching services:", error);
+    }
   };
 
- 
-
- 
-
   return (
-
-
-
-    
-    <div className="service-page-container">
-    {/* Heading for the service page */}
-    <h1 className="text-center my-4">Our Services</h1> {/* Add heading with some margin */}
-    
-    <Row className="g-3 ms-4">
-      {servicesData.map((item, idx) => (
-        <Col xs={12} sm={6} md={4} lg={2} key={idx} className="p-3">
-          <Card style={{ width: "10rem" }} className="p-3">
-            <Card.Img
-              variant="top"
-              src={`${baseURL}/${item.card_logo}` || "https://via.placeholder.com/150"} // Fallback for missing images
-              alt={item.card_title || `Card ${idx + 1}`} // Fallback for missing names
-            />
-            <Card.Body>
-              <Card.Title>{item.card_title || `Card ${idx + 1}`}</Card.Title> {/* Fallback for missing names */}
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
-  </div>
-
+    <div className="service-page-container" style={{ width: "100%", overflow: "hidden" }}>
+      {servicesData.length === 0 ? (
+        <p className="text-center"><img src="https://my-jasnath-finance-project.s3.eu-north-1.amazonaws.com/banners/resized_1738144963450_cb036896-bb88-42ca-a9bb-20fa18b0303b.jpeg" alt="services image"></img></p>
+      ) : (
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={7}
+          slidesPerView={6} 
+          loop={true}
+          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          navigation
+          pagination={{ clickable: true }}
+          breakpoints={{
+            320: { slidesPerView: 1, spaceBetween: 10 },  // Mobile
+            640: { slidesPerView: 3, spaceBetween: 15 }, // Small tablets
+            768: { slidesPerView: 4, spaceBetween: 20 }, // Tablets
+            1024: { slidesPerView: 6, spaceBetween: 20 },
+            1280: { slidesPerView: 8, spaceBetween: 15 }, // Desktops
+          }}
+          style={{ width: "100%", padding: "0" }}
+        >
+          {servicesData.map((item, idx) => (
+            <SwiperSlide key={idx} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Card style={{ width: "100%", maxWidth: "150px" }} className="p-3 shadow-sm border-0 rounded-3">
+                <Card.Img
+                  variant="top"
+                  src={item.card_logo ? item.card_logo : "https://via.placeholder.com/150"}
+                  alt={item.card_title || `Card ${idx + 1}`}
+                  className="card__img rounded-3 img-fluid"
+                />
+                 <Card.Title className="small-card-title text-center">
+  {item.card_title || `Card ${idx + 1}`}
+</Card.Title>
+              </Card>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
+    </div>
   );
 };
 

@@ -282,7 +282,7 @@ const ProjectsPage = () => {
                   {serviceData.map((item) => (
                     <tr key={item._id}>
                       <td>
-                        <img src={`${baseURL}/${item.projectimg}`}></img>
+                        <img src={item.projectimg}></img>
                       </td>
                       <td>{item.project_title}</td>
                       <td>{item.project_desc}</td>
