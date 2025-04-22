@@ -255,7 +255,7 @@ const Home = () => {
                       <h4 className="mb-3">{project.project_title}</h4>
                       <p className="mb-4">{project.project_desc}</p>
                       <Link
-                        to="/Contact"
+                        to="/project"
                         className="btn btn-secondary text-white px-5 py-3 rounded-pill"
                       >
                         {project.btn_txt}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBContainer,
   MDBCol,
@@ -20,6 +20,7 @@ import {
   ResetPasswordApi,
 } from "../../services/authServices";
 import { useAuthUser } from "./contexUser";
+import Loading from "../../loadingFile";
 
 const LoginUser = () => {
   const [emailORphone, setEmailORPhone] = useState("");
@@ -30,31 +31,48 @@ const LoginUser = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [step, setStep] = useState(1);
+  const [pageLoading, setPageLoading] = useState(true);   // Initial screen
+  const [loginLoading, setLoginLoading] = useState(false); // On form submit
+  
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setPageLoading(false);
+    }, 1500);
+    return () => clearTimeout(timeout);
+  }, []);
+  
 
   const navigate = useNavigate();
-  const { setTokenUser, setDataUser, setuserEmail , setuserBalance } = useAuthUser();
+  const { setTokenUser, setDataUser, setuserEmail, setuserBalance } =
+    useAuthUser();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    if (!emailORphone || !password) {
-      Swal.fire("Error", "All fields are required!", "error");
-      return;
-    }
-    try {
-      const response = await UserLoginApi({ emailORphone, password });
-      if (response.token) {
-        localStorage.setItem("authTokenUser", response.token);
-        setTokenUser(response.token);
-        setDataUser(response.user_name);
-        setuserBalance(response.user_balance);
-        setuserEmail(response.email);
-        Swal.fire("Success", "Login successful!", "success");
-        navigate("/dashboard");
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      setLoginLoading(true);
+      if (!emailORphone || !password) {
+        Swal.fire("Error", "All fields are required!", "error");
+        setLoginLoading(false);
+        return;
       }
-    } catch (error) {
-      Swal.fire("Error", "Login failed. Please try again.", "error");
-    }
-  };
+      try {
+        const response = await UserLoginApi({ emailORphone, password });
+        if (response.token) {
+          localStorage.setItem("authTokenUser", response.token);
+          setTokenUser(response.token);
+          setDataUser(response.user_name);
+          setuserBalance(response.user_balance);
+          setuserEmail(response.email);
+          Swal.fire("Success", "Login successful!", "success");
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        Swal.fire("Error", "Login failed. Please try again.", "error");
+      } finally {
+        setLoginLoading(false);
+      }
+    };
+    
 
   const handleForgotPassword = async () => {
     try {
@@ -89,6 +107,9 @@ const LoginUser = () => {
     }
   };
 
+  if (pageLoading) return <Loading />;
+
+
   return (
     <MDBContainer fluid className="p-3 my-5">
       <MDBRow>
@@ -100,9 +121,11 @@ const LoginUser = () => {
           />
         </MDBCol>
 
-        <MDBCol col="4" md="6" className="border-2" >
-
-          <span style={{fontFamily: "ui-monospace !important"}}> <h1>Partner Login</h1></span>
+        <MDBCol col="4" md="6" className="border-2">
+          <span style={{ fontFamily: "ui-monospace !important" }}>
+            {" "}
+            <h1>Partner Login</h1>
+          </span>
           <form onSubmit={handleLogin}>
             {/* <MDBInput label="Email or Phone" id="emailORphone" type="text" size="lg" value={emailORphone} onChange={(e) => setEmailORPhone(e.target.value)} className="mb-4"  labelPlacement="top" /> */}
             <div className="mb-4 mt-5">
@@ -145,7 +168,14 @@ const LoginUser = () => {
             {/* <MDBBtn className="mb-4 w-100" size="lg" type="submit">
               Sign in
             </MDBBtn> */}
-            <button className="mb-4 w-100 btn btn-success" size="lg" type="submit" > Sign in </button>
+            <button
+              className="mb-4 w-100 btn btn-success"
+              size="lg"
+              type="submit"
+            >
+              {" "}
+              {loginLoading ? "Signing in..." : "Sign in"}{" "}
+            </button>
           </form>
 
           <MDBModal open={modalOpen} tabIndex="-1" setOpen={setModalOpen}>

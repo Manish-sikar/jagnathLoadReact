@@ -68,7 +68,7 @@ const Project = () => {
                         <p className="mb-4">{project.more_project_desc}</p>
                       )}
                     <Link
-                      to="/Contact"
+                      to="/project"
                       class="btn btn-secondary text-white px-5 py-3 rounded-pill"
                       onClick={() => toggleDetails(index)}
                       >
