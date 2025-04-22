@@ -74,7 +74,7 @@ const AdminHeader = () => {
                 >
                   <div class="avatar-sm">
                     <img
-                      src="/assets/img/profile.jpg"
+                      src="/img/favicon.png"
                       alt="..."
                       class="avatar-img rounded-circle"
                     />
@@ -90,14 +90,14 @@ const AdminHeader = () => {
                       <div class="user-box">
                         <div class="avatar-lg">
                           <img
-                            src="/assets/img/profile.jpg"
+                            src="/img/favicon.png"
                             alt="image profile"
                             class="avatar-img rounded"
                           />
                         </div>
                         <div class="u-text">
                           <h4>{userData}</h4>
-                          <p class="text-muted">hrteam@digitaladdworld.in</p>
+                          <p class="text-muted">jasnathfinance.in</p>
                          
                             View Profile
                        

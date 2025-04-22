@@ -203,7 +203,8 @@ const AdminSideBar = () => {
                   activeClassName="active"
                   className="nav-link"
                 >
-                  <i class="fas fa-desktop"></i>
+               <i class="fas fa-cogs"></i>
+
                   <p>Services Setting</p>
                 </NavLink>
               </li>
@@ -213,7 +214,8 @@ const AdminSideBar = () => {
                   activeClassName="active"
                   className="nav-link"
                 >
-                  <i class="fas fa-desktop"></i>
+                 <i class="fas fa-project-diagram"></i>
+
                   <p>Projects Setting</p>
                  
                 </NavLink>
@@ -225,7 +227,8 @@ const AdminSideBar = () => {
                   activeClassName="active"
                   className="nav-link"
                 >
-                  <i class="fas fa-desktop"></i>
+               <i class="fas fa-file-alt"></i>
+
                   <p>User Apply Form </p>
                 </NavLink>
               </li>
@@ -235,7 +238,8 @@ const AdminSideBar = () => {
                   activeClassName="active"
                   className="nav-link"
                 >
-                  <i class="fas fa-desktop"></i>
+               <i class="fas fa-handshake"></i>
+
                   <p>Partner's Data </p>
                 </NavLink>
               </li>
@@ -245,7 +249,8 @@ const AdminSideBar = () => {
                   activeClassName="active"
                   className="nav-link"
                 >
-                  <i class="fas fa-desktop"></i>
+            <i class="fas fa-piggy-bank"></i>
+
                   <p>Loan Product's Data </p>
                 </NavLink>
               </li>
@@ -255,7 +260,8 @@ const AdminSideBar = () => {
                   activeClassName="active"
                   className="nav-link"
                 >
-                  <i class="fas fa-desktop"></i>
+               <i class="fas fa-credit-card"></i>
+
                   <p>Handle Payment Request </p>
                 </NavLink>
               </li>
@@ -265,7 +271,8 @@ const AdminSideBar = () => {
                   activeClassName="active"
                   className="nav-link"
                 >
-                  <i class="fas fa-users"></i>
+                <i class="fas fa-headset"></i>
+
                   <p> SUPPORT TEAM </p>
                 </NavLink>
               </li>
