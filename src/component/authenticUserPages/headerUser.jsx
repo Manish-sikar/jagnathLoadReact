@@ -119,10 +119,14 @@ const AuthUserHeader = () => {
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
             <img
-              src={formData?.site_logo}
+              src={"./img/Jasnathlogopdf.svg" ||formData?.site_logo }
               alt="Site Logo"
               className="rounded-circle"
-              style={{ width: "auto", height: "80px" }}
+              style={{ width: "auto", height: "50px",
+                transform: "scale(1.8)", // zoom in 20%
+                objectFit: "cover",       // ensures image fills container neatly
+                margin: "-10px",  
+               }}
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
