@@ -100,7 +100,7 @@ const Header = () => {
     src={"./img/Jasnathlogopdf_1.JPG" ||formData?.site_logo }
     alt="Site Logo" 
     className="rounded-circle" 
-    style={{ width: 'auto', height: '100px' }} // Adjust size of the logo as needed
+    style={{ width: 'auto', height: '80px' }} // Adjust size of the logo as needed
   />
 </Navbar.Brand>
 
