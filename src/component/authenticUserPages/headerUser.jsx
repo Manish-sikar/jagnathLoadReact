@@ -119,7 +119,7 @@ const AuthUserHeader = () => {
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
             <img
-              src={"./img/Jasnathlogopdf.svg" ||formData?.site_logo }
+              src={"./img/Jasnathlogopdf_1.JPG" ||formData?.site_logo }
               alt="Site Logo"
               className="rounded-circle"
               style={{ width: "auto", height: "50px",
