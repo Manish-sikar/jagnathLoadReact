@@ -27,7 +27,7 @@ const Service = () => {
   return (
     <div className="service-page-container" style={{ width: "100%", overflow: "hidden" }}>
       {servicesData.length === 0 ? (
-        <p className="text-center"><img src="https://my-jasnath-finance-project.s3.eu-north-1.amazonaws.com/banners/resized_1738144963450_cb036896-bb88-42ca-a9bb-20fa18b0303b.jpeg" alt="services image"></img></p>
+        ""
       ) : (
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}

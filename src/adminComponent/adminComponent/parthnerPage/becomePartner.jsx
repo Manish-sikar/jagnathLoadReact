@@ -14,18 +14,26 @@ const BecomePartnerForm = () => {
     message: "",
     panNo: "",
     aadharNo: "",
+    acDetails: "",     // <-- add this
     password: "",
+    Avtar: null        // <-- add this, assume file upload
   });
+  
 
   const [errors, setErrors] = useState({});
 const navigate = useNavigate()
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+
+
+const handleInputChange = (e) => {
+  const { name, value, files } = e.target;
+  const newValue = name === "Avtar" ? files[0] : value;
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: newValue,
+  }));
+};
+
 
   const validateForm = () => {
     let validationErrors = {};
@@ -52,9 +60,13 @@ const navigate = useNavigate()
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
-  
     try {
-      const response = await UserRegApi(formData);
+      const formPayload = new FormData();
+      for (const key in formData) {
+        formPayload.append(key, formData[key]);
+      }
+  
+      const response = await UserRegApi(formPayload); // this function must support FormData
       if (response.status === 201) {
         Swal.fire({
           icon: "success",
@@ -105,31 +117,47 @@ const navigate = useNavigate()
                 { label: "Message", name: "message", type: "textarea", placeholder: "Enter your message" },
                 { label: "PAN Number", name: "panNo", type: "text", placeholder: "Enter PAN number" },
                 { label: "Aadhar Number", name: "aadharNo", type: "text", placeholder: "Enter Aadhar number" },
+                { label: "Account Details", name: "acDetails", type: "text", placeholder: "Enter Account Details" },
                 { label: "Password", name: "password", type: "password", placeholder: "Enter password" },
-              ].map((field) => (
-                <div className="form-group mb-4" key={field.name}>
-                  <label className="form-label">{field.label}</label>
-                  {field.type === "textarea" ? (
-                    <textarea
-                      className={`form-control ${errors[field.name] ? "is-invalid" : ""}`}
-                      placeholder={field.placeholder}
-                      name={field.name}
-                      value={formData[field.name]}
-                      onChange={handleInputChange}
-                    ></textarea>
-                  ) : (
-                    <input
-                      type={field.type}
-                      className={`form-control ${errors[field.name] ? "is-invalid" : ""}`}
-                      placeholder={field.placeholder}
-                      name={field.name}
-                      value={formData[field.name]}
-                      onChange={handleInputChange}
-                    />
-                  )}
-                  {errors[field.name] && <div className="invalid-feedback">{errors[field.name]}</div>}
-                </div>
-              ))}
+                { label: "Avtar", name: "Avtar", type: "Img", placeholder: "Select Your Image" },
+                 
+                ].map((field) => (
+                  <div className="form-group mb-4" key={field.name}>
+                    <label className="form-label">{field.label}</label>
+                
+                    {field.type === "Img" ? (
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className={`form-control ${errors[field.name] ? "is-invalid" : ""}`}
+                        name={field.name}
+                        onChange={handleInputChange}
+                      />
+                    ) : field.type === "textarea" ? (
+                      <textarea
+                        className={`form-control ${errors[field.name] ? "is-invalid" : ""}`}
+                        placeholder={field.placeholder}
+                        name={field.name}
+                        value={formData[field.name]}
+                        onChange={handleInputChange}
+                      ></textarea>
+                    ) : (
+                      <input
+                        type={field.type}
+                        className={`form-control ${errors[field.name] ? "is-invalid" : ""}`}
+                        placeholder={field.placeholder}
+                        name={field.name}
+                        value={formData[field.name]}
+                        onChange={handleInputChange}
+                      />
+                    )}
+                
+                    {errors[field.name] && (
+                      <div className="invalid-feedback">{errors[field.name]}</div>
+                    )}
+                  </div>
+                ))}
+                
 
               {/* Submit Button */}
               <div className="text-center">

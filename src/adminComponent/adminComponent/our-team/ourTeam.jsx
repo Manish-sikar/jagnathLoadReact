@@ -291,7 +291,7 @@ const OurTeamPage = () => {
               <table id="add-row" className="display table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>Logo</th>
+                    <th>Avtar</th>
                     <th>Name</th>
                     <th>Designation</th>
                     <th>Social Icons</th>
