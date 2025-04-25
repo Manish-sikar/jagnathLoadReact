@@ -32,10 +32,16 @@ const EditPartnerPage = () => {
 
   const handleEditSubmit = async () => {
     const formDataToSubmit = new FormData();
+
     Object.keys(formData).forEach((key) => {
-      formDataToSubmit.append(key, formData[key]);
+      if (key === "Avtar") {
+        if (formData.Avtar instanceof File) {
+          formDataToSubmit.append("Avtar", formData.Avtar);
+        }
+      } else {
+        formDataToSubmit.append(key, formData[key]);
+      }
     });
-    
 
     try {
       const response = await updatePartnerData(formDataToSubmit);
