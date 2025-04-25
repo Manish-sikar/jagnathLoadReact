@@ -87,6 +87,8 @@ const handleInputChange = (e) => {
             panNo: "",
             aadharNo: "",
             password: "",
+            Avtar: null  ,
+            acDetails: "",   
           });
           navigate("/admin/partner");
         }, 2000); // Delay navigation for 2 seconds

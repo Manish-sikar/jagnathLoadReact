@@ -184,6 +184,7 @@ const PartnerPage = () => {
               <table className="table table-striped table-hover">
                 <thead>
                   <tr>
+                    <th>Avtar</th>
                     <th>JN Id </th>
                     <th>Full Name</th>
                     <th>Email</th>
@@ -194,6 +195,7 @@ const PartnerPage = () => {
                     <th>Message</th>
                     <th>Pan No</th>
                     <th>Aadhar No</th>
+                    <th>Account Details </th>
                     {/* <th>Add Amount</th> */}
                     <th>Actions</th>
                   </tr>
@@ -201,6 +203,13 @@ const PartnerPage = () => {
                 <tbody>
                   {tableData.map((item) => (
                     <tr key={item._id}>
+                      <td>
+                      <img
+                    src={item.Avtar}
+                    alt="team"
+                    style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                  />
+                      </td>
                       <td>{item.JN_Id}</td>
                       <td>{item.fullName}</td>
                       <td>{item.email}</td>
@@ -211,6 +220,7 @@ const PartnerPage = () => {
                       <td>{item.message}</td>
                       <td>{item.panNo}</td>
                       <td>{item.aadharNo}</td>
+                      <td>{item.acDetails}</td>
                       {/* <td>
                      
                         <button
