@@ -15,6 +15,8 @@ const ApplyFormData = () => {
   const [modalType, setModalType] = useState(null); // 'edit', 'close', null
   const [closeMessage, setCloseMessage] = useState("");
   const [documents, setDocuments] = useState({});
+  const [showDetails, setShowDetails] = useState(false);
+const [detailUser, setDetailUser] = useState(null);
 
   const fetchTableData = async () => {
     try {
@@ -100,6 +102,14 @@ const ApplyFormData = () => {
     setDocuments({ ...documents, [e.target.name]: e.target.files[0] });
   };
 
+
+  const handleShowDetails = (user) => {
+  setDetailUser(user);
+  setShowDetails(true);
+};
+
+
+
   return (
     <>
       <div className="col-md-12 mt-5">
@@ -156,6 +166,7 @@ const ApplyFormData = () => {
                         {item.status === "2" && (
                           <button className="btn btn-danger me-2" onClick={() => handleModal('close', item)}>Close</button>
                         )} */}
+                        <button className="btn btn-info me-2" onClick={() => handleShowDetails(item)}>View Details</button>
                         <button className="btn btn-warning me-2" onClick={() => handleModal('edit', item)}>Edit</button>
                         {/* <button className="btn btn-danger" onClick={() => handleDelete(item._id)}>Delete</button> */}
                       </td>
@@ -197,6 +208,50 @@ const ApplyFormData = () => {
           </div>
         </div>
       )}
+
+{showDetails && detailUser && (
+  <div className="modal show" style={{ display: "block", background: "rgba(0,0,0,0.5)" }}>
+    <div className="modal-dialog modal-lg">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">User Details</h5>
+          <button className="btn-close" onClick={() => setShowDetails(false)}></button>
+        </div>
+        <div className="modal-body">
+          {/* Show all details of detailUser */}
+          <p><strong>Partner Email:</strong> {detailUser.partnerEmail}</p>
+          <p><strong>Full Name:</strong> {detailUser.fullName}</p>
+          <p><strong>Email:</strong> {detailUser.email}</p>
+          <p><strong>Phone:</strong> {detailUser.phone}</p>
+          <p><strong>Pan Card:</strong> {detailUser.panCard}</p>
+          <p><strong>State:</strong> {detailUser.state}</p>
+          <p><strong>District:</strong> {detailUser.district}</p>
+          <p><strong>Address:</strong> {detailUser.fullAddress}</p>
+          <p><strong>Category:</strong> {detailUser.category}</p>
+          <p><strong>Sub-Category:</strong> {detailUser.subCategory}</p>
+          <p><strong>Status:</strong> {detailUser.status === "1" ? "Pending" : detailUser.status === "2" ? "Confirmed" : "Closed"}</p>
+          {/* Show documents if available */}
+          {Object.entries(detailUser).map(([key, value]) => {
+            if (key.startsWith("document") && value) {
+              return (
+                <div key={key} className="mb-2">
+                  <strong>{key}:</strong> <a href={value} target="_blank" rel="noopener noreferrer">View Document</a>
+                </div>
+              );
+            }
+            return null;
+          })}
+        </div>
+        <div className="modal-footer">
+          <button className="btn btn-secondary" onClick={() => setShowDetails(false)}>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
     </>
   );
 };

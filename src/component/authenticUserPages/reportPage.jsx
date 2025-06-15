@@ -4,6 +4,7 @@ import {
   GetTransHistroyData,
   GetReportData,
 } from "../../services/applyNewUserForm";
+import EditUserApplyForm from "../../adminComponent/adminComponent/userApplyForm/editUserApplyForm";
 
 const ReportPage = () => {
   const [selectedTab, setSelectedTab] = useState("new_order");
@@ -11,6 +12,10 @@ const ReportPage = () => {
   const [confirmOrderData, setConfirmOrderData] = useState([]);
   const [closeOrderData, setCloseOrderData] = useState([]);
   const [transHistoryData, setTransHistoryData] = useState([]); // State for Transaction History
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [modalType, setModalType] = useState(null); // 'edit', 'close', null
+  const [closeMessage, setCloseMessage] = useState("");
+  const [documents, setDocuments] = useState({});
 
   const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
 
@@ -27,6 +32,7 @@ const ReportPage = () => {
   const fetchTransHistory = async () => {
     const response = await GetTransHistroyData(partnerEmail);
     if (response?.data?.length) {
+      console.log(response.data , "respose hhhh")
       setTransHistoryData(response.data);
     }
   };
@@ -36,7 +42,23 @@ const ReportPage = () => {
     fetchTransHistory();
   }, []);
 
-  return (
+  const handleModal = (type, user = null) => {
+    setSelectedUser(user);
+    setModalType(type);
+    setCloseMessage("");
+    setDocuments({});
+  };
+
+  const [showDetails, setShowDetails] = useState(false);
+const [detailUser, setDetailUser] = useState(null);
+
+const handleShowDetails = (user) => {
+  setDetailUser(user);
+  setShowDetails(true);
+};
+
+
+  return (<>
     <Container className="mt-5">
       <h2>Reports</h2>
       <div className="d-flex mb-4">
@@ -70,6 +92,7 @@ const ReportPage = () => {
                     <th>Service</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Edit</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -82,6 +105,14 @@ const ReportPage = () => {
                       <td>{order.subCategory}</td>
                       <td>{order.createdAt}</td>
                       <td>Pending</td>
+                      <td>
+                        <button
+                          className="btn btn-warning me-2"
+                          onClick={() => handleModal("edit", order)}
+                        >
+                          Edit
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -90,6 +121,14 @@ const ReportPage = () => {
               <p>No Orders Found</p>
             )}
           </>
+        )}
+
+        {modalType === "edit" && (
+          <EditUserApplyForm
+            user={selectedUser}
+            onClose={() => handleModal(null)}
+            onUpdate={fetchProductsByCategory}
+          />
         )}
 
         {/* Confirmed Orders Table */}
@@ -104,7 +143,7 @@ const ReportPage = () => {
                     <th>Token No</th>
                     <th>Name</th>
                     <th>Phone</th>
-                       <th>Service</th>
+                    <th>Service</th>
                     <th>Date</th>
                     <th>Status</th>
                   </tr>
@@ -116,7 +155,7 @@ const ReportPage = () => {
                       <td>{order?.token_No || "Not Availabe"}</td>
                       <td>{order.fullName}</td>
                       <td>{order.phone}</td>
-                         <td>{order.subCategory}</td>
+                      <td>{order.subCategory}</td>
                       <td>{order.updatedAt}</td>
                       <td>Confirm Order</td>
                     </tr>
@@ -141,7 +180,7 @@ const ReportPage = () => {
                     <th>Token No</th>
                     <th>Name</th>
                     <th>Phone</th>
-                       <th>Service</th>
+                    <th>Service</th>
                     <th>Date</th>
                     <th>Status</th>
                     <th>Message</th>
@@ -162,74 +201,21 @@ const ReportPage = () => {
                           <td>{order?.token_No || "Not Available"}</td>
                           <td>{order.fullName}</td>
                           <td>{order.phone}</td>
-                             <td>{order.subCategory}</td>
+                          <td>{order.subCategory}</td>
                           <td>
                             {new Date(order.updatedAt).toLocaleDateString()}
                           </td>
                           <td>Close Order</td>
                           <td>{order?.message || "Not Available"}</td>
+                          <td>
+                            <button
+                              className="btn btn-info btn-sm"
+                              onClick={() => handleShowDetails(order)}
+                            >
+                              View Details
+                            </button>
+                          </td>
                         </tr>
-
-                        {/* Show Document Headers and Links if Documents Exist */}
-                        {hasDocuments && (
-                          <>
-                            <tr>
-                              {order.document4 && <th>Document 1</th>}
-                              {order.document5 && <th>Document 2</th>}
-                              {order.document6 && <th>Document 3</th>}
-                              {order.document7 && <th>Document 4</th>}
-                            </tr>
-                            <tr>
-                              {order.document4 ? (
-                                <td>
-                                  <a
-                                    href={order.document4}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    View Document 1
-                                  </a>
-                                </td>
-                              ) : null}
-
-                              {order.document5 ? (
-                                <td>
-                                  <a
-                                    href={order.document5}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    View Document 2
-                                  </a>
-                                </td>
-                              ) : null}
-
-                              {order.document6 ? (
-                                <td>
-                                  <a
-                                    href={order.document6}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    View Document 3
-                                  </a>
-                                </td>
-                              ) : null}
-
-                              {order.document7 ? (
-                                <td>
-                                  <a
-                                    href={order.document7}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    View Document 4
-                                  </a>
-                                </td>
-                              ) : null}
-                            </tr>
-                          </>
-                        )}
                       </React.Fragment>
                     );
                   })}
@@ -250,7 +236,7 @@ const ReportPage = () => {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Amount Deducted</th>
+                    <th>Amount Cr/Dr</th>
                     <th>Available Balance After</th>
                     <th>Purpose</th>
                     <th>Date</th>
@@ -260,7 +246,10 @@ const ReportPage = () => {
                   {transHistoryData.map((transaction, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>₹{transaction.amountDeducted} ({transaction?.amountType || "debit"})</td>
+                      <td>
+                        ₹{transaction.amountDeducted?transaction.amountDeducted:transaction.requestingAmount} (
+                        {transaction?.amountType || "debit"})
+                      </td>
                       <td>₹{transaction.availableBalanceAfter}</td>
                       <td>{transaction.purpose}</td>
                       <td>
@@ -277,6 +266,57 @@ const ReportPage = () => {
         )}
       </div>
     </Container>
+    {showDetails && detailUser && (
+  <div
+    className="modal show fade"
+    style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
+  >
+    <div className="modal-dialog modal-lg">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">Order Details</h5>
+          <button className="btn-close" onClick={() => setShowDetails(false)}></button>
+        </div>
+        <div className="modal-body">
+          <p><strong>Full Name:</strong> {detailUser.fullName}</p>
+          <p><strong>Phone:</strong> {detailUser.phone}</p>
+          <p><strong>Email:</strong> {detailUser.email}</p>
+          <p><strong>Pan No:</strong> {detailUser.panNo}</p>
+          <p><strong>Aadhar No:</strong> {detailUser.aadharNo}</p>
+          <p><strong>Institution:</strong> {detailUser.institutionName}</p>
+          <p><strong>Message:</strong> {detailUser.message}</p>
+          <p><strong>Status:</strong> {detailUser.status === "1" ? "Pending" : detailUser.status === "2" ? "Confirmed" : "Closed"}</p>
+          <p><strong>Category:</strong> {detailUser.category}</p>
+          <p><strong>Sub-Category:</strong> {detailUser.subCategory}</p>
+
+          {/* Show any available documents */}
+          <div className="mt-3">
+            <h6>Documents:</h6>
+            {Object.entries(detailUser).map(([key, value]) => {
+              if (key.startsWith("document") && value) {
+                return (
+                  <div key={key}>
+                    <strong>{key}:</strong>{" "}
+                    <a href={value} target="_blank" rel="noopener noreferrer">
+                      View Document
+                    </a>
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
+        </div>
+        <div className="modal-footer">
+          <button className="btn btn-secondary" onClick={() => setShowDetails(false)}>
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+</>
   );
 };
 

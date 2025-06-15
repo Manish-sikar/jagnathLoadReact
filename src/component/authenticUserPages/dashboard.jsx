@@ -19,7 +19,11 @@ const Dashboard = () => {
     }
     const response = await GetLoanData();
     const productsData = response?.loan_Data || [];
+    console.log(productsData  , "productsData")
     const filteredData = productsData.filter((product) => product.category === category);
+//        const filteredData = productsData.filter(
+//   (product) => product.category === category && product.status === 1
+// );
     setFilteredProducts(filteredData);
     setSelectedCategory(category);
   };

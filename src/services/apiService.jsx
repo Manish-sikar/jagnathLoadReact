@@ -10,7 +10,8 @@ export function setAuthToken(token) {
 
 
 // helpers.js
-export  const baseURL = "https://jagannathnode.onrender.com/api/admin";
+// export  const baseURL = "https://jagannathnode.onrender.com/api/admin";
+export  const baseURL = "http://localhost:5656/api/admin";
     // Use the same base URL as your axios instance
 
 

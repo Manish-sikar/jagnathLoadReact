@@ -8,6 +8,10 @@ const EditPartnerPage = () => {
   const navigate = useNavigate();
   const { partner } = location.state || {};
 
+  const [selectedTeamImg, setSelectedTeamImg] = useState(
+    typeof partner?.Avtar === "string" ? partner.Avtar : null
+  );
+
   const [formData, setFormData] = useState({
     _id: partner?._id,
     fullName: partner?.fullName || "",
@@ -18,8 +22,8 @@ const EditPartnerPage = () => {
     message: partner?.message || "",
     panNo: partner?.panNo || "",
     aadharNo: partner?.aadharNo || "",
-    Avtar: partner?.Avtar || null,
     acDetails: partner?.acDetails || "",
+    Avtar: null, // holds the File object if a new image is selected
   });
 
   const handleChange = (e) => {
@@ -30,18 +34,33 @@ const EditPartnerPage = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const { files } = e.target;
+    if (files.length > 0) {
+      const file = files[0];
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedTeamImg(imageUrl);
+      setFormData((prevData) => ({
+        ...prevData,
+        Avtar: file, // Store the file object
+      }));
+    }
+  };
+
   const handleEditSubmit = async () => {
     const formDataToSubmit = new FormData();
 
+    // Append non-file fields
     Object.keys(formData).forEach((key) => {
-      if (key === "Avtar") {
-        if (formData.Avtar instanceof File) {
-          formDataToSubmit.append("Avtar", formData.Avtar);
-        }
-      } else {
+      if (key !== "Avtar") {
         formDataToSubmit.append(key, formData[key]);
       }
     });
+
+    // Append image file only if it's a File object
+    if (formData.Avtar instanceof File) {
+      formDataToSubmit.append("Avtar", formData.Avtar);
+    }
 
     try {
       const response = await updatePartnerData(formDataToSubmit);
@@ -65,30 +84,6 @@ const EditPartnerPage = () => {
       });
     }
   };
-
-
-  const [selectedTeamImg, setSelectedTeamImg] = useState(
-    partner?.Avtar || null
-  );
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData((prevData) => ({
-        ...prevData,
-        Avtar: file,
-      }));
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedTeamImg(imageUrl);
-    }
-  };
-
-
-
-
-
-
-
 
   return (
     <div className="container">
@@ -186,10 +181,8 @@ const EditPartnerPage = () => {
         <div className="form-group">
           <label>Partner Image</label>
           <input
-            id="Avtar"
             type="file"
             className="form-control"
-            name="Avtar"
             onChange={handleFileChange}
           />
           {selectedTeamImg && (

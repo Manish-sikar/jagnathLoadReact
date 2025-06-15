@@ -97,12 +97,25 @@
 import { useNavigate } from "react-router-dom";
 import LoginBanner from "../bannerPages/loginBanner";
 import Service from "../Service";
+import Swal from "sweetalert2";
 
 const LoanProductList = ({ products, refreshBalance }) => {
+
+
+  
   const category_name = products[0]?.category || "";
   const navigate = useNavigate();
 
-  const handleClick = (link, category, subcategory, amount) => {
+  const handleClick = (link, category, subcategory, amount , status) => {
+    if (status === 0) {
+  Swal.fire({
+    icon: "warning",
+    title: "Product Unavailable",
+    text: "This product is currently inactive. Please try again later.",
+    confirmButtonColor: "#d33",
+  });
+  return;
+}
     if (!link) return;
 
     if (typeof link === "string" && link.startsWith("http")) {
@@ -144,7 +157,9 @@ const LoanProductList = ({ products, refreshBalance }) => {
                     product.link,
                     product.category,
                     product.category_name,
-                    product.amount
+                    product.amount,
+                    product.status
+
                   )
                 }
                 style={{
@@ -152,6 +167,9 @@ const LoanProductList = ({ products, refreshBalance }) => {
                   width: "100%",
                 }}
               >
+                {product.status === 0 && (
+    <div className="inactive-ribbon">Inactive</div>
+  )}
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{ height: "50px" }}
@@ -190,6 +208,7 @@ const LoanProductList = ({ products, refreshBalance }) => {
       {/* Responsive Font Size for Mobile */}
       <style>
         {`
+        
           @media (max-width: 768px) {
             .card-title { font-size: 0.9rem !important; } /* Smaller on tablets */
             .card-text { font-size: 0.8rem !important; }
@@ -221,6 +240,28 @@ const LoanProductList = ({ products, refreshBalance }) => {
         font-size: 0.95rem;
       }
     }
+
+     .inactive-ribbon {
+      position: absolute;
+      top: 5px;
+      right: -10px;
+      background: red;
+      color: white;
+      padding: 5px 10px;
+      transform: rotate(45deg);
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 1;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .inactive-ribbon {
+        font-size: 10px;
+        padding: 2px 10px;
+        right: -10px;
+      }
+    }
   
         `}
       </style>
@@ -229,3 +270,6 @@ const LoanProductList = ({ products, refreshBalance }) => {
 };
 
 export default LoanProductList;
+ 
+
+
