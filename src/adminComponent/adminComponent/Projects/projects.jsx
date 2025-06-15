@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { baseURL } from "../../../services/apiService";
 import Swal from "sweetalert2";
 import { AddNewProject, changeStatusProject, deleteProjectData, GetProjectData } from "../../../services/projectService";
+import DataTableComponent from "../../../atoms/datatables/datatables";
  
 
 const ProjectsPage = () => {
@@ -120,6 +121,85 @@ const ProjectsPage = () => {
       projectimg: e.target.files[0],
     }));
   };
+
+  const columns = [
+  {
+    name: "Logo",
+    selector: (row) => row.projectimg,
+    cell: (row) => (
+      <img
+        src={row.projectimg}
+        alt="Project"
+        className="img-fluid rounded"
+        style={{ width: "60px", height: "auto" }}
+      />
+    ),
+    width: "100px",
+    sortable: false,
+  },
+  {
+    name: "Title",
+    selector: (row) => row.project_title,
+    sortable: true,
+  },
+  {
+    name: "Description",
+    selector: (row) => row.project_desc,
+    sortable: true,
+  },
+  {
+    name: "More Description",
+    selector: (row) => row.more_project_desc,
+    sortable: true,
+  },
+  {
+    name: "Button Text",
+    selector: (row) => row.btn_txt,
+    sortable: true,
+  },
+  {
+    name: "Button Link",
+    selector: (row) => row.btn_link,
+    sortable: true,
+  },
+  {
+    name: "Status",
+    cell: (row) => (
+      <button
+        onClick={() => handleStatus(row)}
+        className={`btn btn-sm ${
+          row.status === 1 ? "btn-success" : "btn-danger"
+        }`}
+      >
+        {row.status === 1 ? "Active" : "Deactive"}
+      </button>
+    ),
+    sortable: true,
+  },
+  {
+    name: "Action",
+    cell: (row) => (
+      <div className="btn-group">
+        <button
+          className="btn btn-sm btn-primary"
+          onClick={() => handleEditClick(row)}
+        >
+          <i className="fa fa-edit"></i>
+        </button>
+        <button
+          className="btn btn-sm btn-danger"
+          onClick={() => handleDeleteClick(row._id)}
+        >
+          <i className="fa fa-times"></i>
+        </button>
+      </div>
+    ),
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true,
+  },
+];
+
 
   return (
     <>
@@ -262,80 +342,8 @@ const ProjectsPage = () => {
             )}
 
             <div className="table-responsive">
-              <table
-                id="add-row"
-                className="display table table-striped table-hover"
-              >
-                <thead>
-                  <tr>
-                    <th>Logo</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>More Description</th>
-                    <th>Button Text </th>
-                    <th>Button Link </th>
-                    <th>Status</th>
-                    <th style={{ width: "10%" }}>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {serviceData.map((item) => (
-                    <tr key={item._id}>
-                      <td>
-                        <img src={item.projectimg}></img>
-                      </td>
-                      <td>{item.project_title}</td>
-                      <td>{item.project_desc}</td>
-                      <td>{item.more_project_desc}</td>
-                      <td>{item.btn_txt}</td>
-                      <td>{item.btn_link}</td>
-                      <td>
-                        <button
-                          type="button"
-                          className={`btn ${
-                            item.status == 1 ? "active" : "inactive"
-                          }`}
-                          onClick={() => handleStatus(item)}
-                          style={{
-                            backgroundColor: item.status == 1 ? "green" : "red",
-                            color: item.status == 1 ? "white" : "white",
-                          }}
-                        >
-                          {/* <i
-                            className={`fa ${
-                              item.status == 1
-                                ? "fa-check-circle"
-                                : "fa-times-circle"
-                            }`}
-                            style={{
-                              color: item.status == 1 ? "green" : "red",
-                            }}
-                          > </i> */}
-                          {item.status == 1 ? "Active" : "Deactive"}
-                        </button>
-                      </td>
-                      <td>
-                        <div className="form-button-action">
-                          <button
-                            type="button"
-                            className="btn btn-link btn-primary btn-lg"
-                            onClick={() => handleEditClick(item)}
-                          >
-                            <i className="fa fa-edit"></i>
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-link btn-danger"
-                            onClick={() => handleDeleteClick(item._id)}
-                          >
-                            <i className="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+           
+          <DataTableComponent columns={columns} data={serviceData}   />
             </div>
           </div>
         </div>
@@ -345,3 +353,77 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
+  //  <table
+  //               id="add-row"
+  //               className="display table table-striped table-hover"
+  //             >
+  //               <thead>
+  //                 <tr>
+  //                   <th>Logo</th>
+  //                   <th>Title</th>
+  //                   <th>Description</th>
+  //                   <th>More Description</th>
+  //                   <th>Button Text </th>
+  //                   <th>Button Link </th>
+  //                   <th>Status</th>
+  //                   <th style={{ width: "10%" }}>Action</th>
+  //                 </tr>
+  //               </thead>
+  //               <tbody>
+  //                 {serviceData.map((item) => (
+  //                   <tr key={item._id}>
+  //                     <td>
+  //                       <img src={item.projectimg}></img>
+  //                     </td>
+  //                     <td>{item.project_title}</td>
+  //                     <td>{item.project_desc}</td>
+  //                     <td>{item.more_project_desc}</td>
+  //                     <td>{item.btn_txt}</td>
+  //                     <td>{item.btn_link}</td>
+  //                     <td>
+  //                       <button
+  //                         type="button"
+  //                         className={`btn ${
+  //                           item.status == 1 ? "active" : "inactive"
+  //                         }`}
+  //                         onClick={() => handleStatus(item)}
+  //                         style={{
+  //                           backgroundColor: item.status == 1 ? "green" : "red",
+  //                           color: item.status == 1 ? "white" : "white",
+  //                         }}
+  //                       >
+  //                         {/* <i
+  //                           className={`fa ${
+  //                             item.status == 1
+  //                               ? "fa-check-circle"
+  //                               : "fa-times-circle"
+  //                           }`}
+  //                           style={{
+  //                             color: item.status == 1 ? "green" : "red",
+  //                           }}
+  //                         > </i> */}
+  //                         {item.status == 1 ? "Active" : "Deactive"}
+  //                       </button>
+  //                     </td>
+  //                     <td>
+  //                       <div className="form-button-action">
+  //                         <button
+  //                           type="button"
+  //                           className="btn btn-link btn-primary btn-lg"
+  //                           onClick={() => handleEditClick(item)}
+  //                         >
+  //                           <i className="fa fa-edit"></i>
+  //                         </button>
+  //                         <button
+  //                           type="button"
+  //                           className="btn btn-link btn-danger"
+  //                           onClick={() => handleDeleteClick(item._id)}
+  //                         >
+  //                           <i className="fa fa-times"></i>
+  //                         </button>
+  //                       </div>
+  //                     </td>
+  //                   </tr>
+  //                 ))}
+  //               </tbody>
+  //             </table>

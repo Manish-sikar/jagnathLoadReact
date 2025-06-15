@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../../../services/apiService";
 import Swal from "sweetalert2";
-import { AddNewOurTeam, changeStatusOurTeam, deleteOurTeamData, GetOurTeamData } from "../../../services/ourTeamService";
+import {
+  AddNewOurTeam,
+  changeStatusOurTeam,
+  deleteOurTeamData,
+  GetOurTeamData,
+} from "../../../services/ourTeamService";
+import DataTableComponent from "../../../atoms/datatables/datatables";
 
 const OurTeamPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +29,6 @@ const OurTeamPage = () => {
     fetchTeamsData();
   }, []);
 
-
   const handleSocialIconChange = (index, key, value) => {
     const newIcons = [...formData.social_icons];
     newIcons[index] = { ...newIcons[index], [key]: value };
@@ -36,12 +41,12 @@ const OurTeamPage = () => {
   const addSocialIcon = () => {
     setFormData((prev) => ({
       ...prev,
-      social_icons: [...prev.social_icons, { icon_name: "", icon_url: "", icon_class: "" }],
+      social_icons: [
+        ...prev.social_icons,
+        { icon_name: "", icon_url: "", icon_class: "" },
+      ],
     }));
   };
-
-
-
 
   const fetchTeamsData = async () => {
     try {
@@ -65,21 +70,23 @@ const OurTeamPage = () => {
     }));
   };
 
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataToSend = new FormData();
-  
+
     // Append basic fields
     formDataToSend.append("team_member", formData.team_member);
     formDataToSend.append("degination", formData.degination);
     formDataToSend.append("teamimg", formData.teamimg);
-  
+
     // Append social_icons as a JSON string
     if (formData.social_icons.length > 0) {
-      formDataToSend.append("social_icons", JSON.stringify(formData.social_icons));
+      formDataToSend.append(
+        "social_icons",
+        JSON.stringify(formData.social_icons)
+      );
     }
-  
+
     try {
       await AddNewOurTeam(formDataToSend);
       Swal.fire("Success!", "Team member added successfully.", "success");
@@ -94,7 +101,6 @@ const OurTeamPage = () => {
       });
     }
   };
-  
 
   const removeSocialIcon = (index) => {
     const newIcons = formData.social_icons.filter((_, i) => i !== index);
@@ -103,7 +109,6 @@ const OurTeamPage = () => {
       social_icons: newIcons,
     }));
   };
-
 
   const handleDeleteClick = async (_id) => {
     try {
@@ -150,27 +155,103 @@ const OurTeamPage = () => {
     }));
   };
 
+  const columns = [
+    {
+      name: "Avatar",
+      selector: (row) => row.teamimg,
+      cell: (row) => (
+        <img src={row.teamimg} alt={row.team_member} className="w-25 rounded" />
+      ),
+      sortable: false,
+      width: "120px",
+    },
+    {
+      name: "Name",
+      selector: (row) => row.team_member,
+      sortable: true,
+    },
+    {
+      name: "Designation",
+      selector: (row) => row.degination,
+      sortable: true,
+    },
+    {
+      name: "Social Icons",
+      cell: (row) => (
+        <div className="d-flex flex-column">
+          {row.social_icons?.map((icon, i) => (
+            <a
+              key={i}
+              href={icon.icon_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-decoration-none"
+            >
+              <i className={icon.icon_class}></i> {icon.icon_name}
+            </a>
+          ))}
+        </div>
+      ),
+      sortable: false,
+      grow: 2,
+    },
+    {
+      name: "Status",
+      cell: (row) => (
+        <button
+          onClick={() => handleStatus(row)}
+          className={`btn btn-sm ${
+            row.status === "1" ? "btn-success" : "btn-danger"
+          }`}
+        >
+          {row.status === "1" ? "Active" : "Inactive"}
+        </button>
+      ),
+      sortable: true,
+    },
+    {
+      name: "Action",
+      cell: (row) => (
+        <div className="btn-group">
+          <button
+            className="btn btn-sm btn-primary"
+            onClick={() => handleEditClick(row)}
+          >
+            <i className="fa fa-edit"></i>
+          </button>
+          <button
+            className="btn btn-sm btn-danger"
+            onClick={() => handleDeleteClick(row._id)}
+          >
+            <i className="fa fa-times"></i>
+          </button>
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+  ];
+
   return (
     <>
+      <div>
+        <h3 className="fw-bold mb-3">Setting</h3>
+        <ul className="breadcrumbs mb-3">
+          <li className="nav-home">
+            <a href="#">
+              <i className="icon-home"></i>
+            </a>
+          </li>
 
-
-<div>
-    <h3 className="fw-bold mb-3">Setting</h3>
-    <ul className="breadcrumbs mb-3">
-      <li className="nav-home">
-        <a href="#">
-          <i className="icon-home"></i>
-        </a>
-      </li>
-      
-      <li className="separator">
-        <i className="icon-arrow-right"></i>
-      </li>
-      <li className="nav-item">
-        <a href="#">Our Team Management</a>
-      </li>
-    </ul>
-  </div>
+          <li className="separator">
+            <i className="icon-arrow-right"></i>
+          </li>
+          <li className="nav-item">
+            <a href="#">Our Team Management</a>
+          </li>
+        </ul>
+      </div>
       <div className="col-md-12 mt-2">
         <div className="card">
           <div className="card-header">
@@ -193,7 +274,11 @@ const OurTeamPage = () => {
                   <div className="modal-content">
                     <div className="modal-header border-0">
                       <h5 className="modal-title">Add Team Member</h5>
-                      <button type="button" className="close" onClick={closeModal}>
+                      <button
+                        type="button"
+                        className="close"
+                        onClick={closeModal}
+                      >
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
@@ -232,21 +317,39 @@ const OurTeamPage = () => {
                                     className="form-control me-2"
                                     placeholder="Icon Name"
                                     value={icon.icon_name}
-                                    onChange={(e) => handleSocialIconChange(index, "icon_name", e.target.value)}
+                                    onChange={(e) =>
+                                      handleSocialIconChange(
+                                        index,
+                                        "icon_name",
+                                        e.target.value
+                                      )
+                                    }
                                   />
                                   <input
                                     type="text"
                                     className="form-control me-2"
                                     placeholder="http://facebook.com"
                                     value={icon.icon_url}
-                                    onChange={(e) => handleSocialIconChange(index, "icon_url", e.target.value)}
+                                    onChange={(e) =>
+                                      handleSocialIconChange(
+                                        index,
+                                        "icon_url",
+                                        e.target.value
+                                      )
+                                    }
                                   />
                                   <input
                                     type="text"
                                     className="form-control me-2"
                                     placeholder="fab fa-facebook"
                                     value={icon.icon_class}
-                                    onChange={(e) => handleSocialIconChange(index, "icon_class", e.target.value)}
+                                    onChange={(e) =>
+                                      handleSocialIconChange(
+                                        index,
+                                        "icon_class",
+                                        e.target.value
+                                      )
+                                    }
                                   />
                                   <button
                                     type="button"
@@ -257,7 +360,11 @@ const OurTeamPage = () => {
                                   </button>
                                 </div>
                               ))}
-                              <button type="button" className="btn btn-secondary" onClick={addSocialIcon}>
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={addSocialIcon}
+                              >
                                 Add Social Icon
                               </button>
                             </div>
@@ -276,7 +383,11 @@ const OurTeamPage = () => {
                           <button type="submit" className="btn btn-primary">
                             Add
                           </button>
-                          <button type="button" className="btn btn-danger" onClick={closeModal}>
+                          <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={closeModal}
+                          >
                             Close
                           </button>
                         </div>
@@ -288,67 +399,8 @@ const OurTeamPage = () => {
             )}
 
             <div className="table-responsive">
-              <table id="add-row" className="display table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>Avtar</th>
-                    <th>Name</th>
-                    <th>Designation</th>
-                    <th>Social Icons</th>
-                    <th>Status</th>
-                    <th style={{ width: "10%" }}>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teamsData.map((item) => (
-                    <tr key={item._id}>
-                      <td>
-                        <img src={item.teamimg} className="w-25" alt={item.team_member} />
-                      </td>
-                      <td>{item.team_member}</td>
-                      <td>{item.degination}</td>
-                      <td>
-                        {item.social_icons.map((icon) => (
-                          <a key={icon._id} href={icon.icon_url} target="_blank" rel="noopener noreferrer">
-                             &nbsp;<i className={icon.icon_class}></i>{icon.icon_name} 
-                          </a>
-                        ))}
-                      </td>
-                      <td>
-                        <button
-                          type="button"
-                          className={`btn ${item.status === "1" ? "active" : "inactive"}`}
-                          onClick={() => handleStatus(item)}
-                          style={{
-                            backgroundColor: item.status === "1" ? "green" : "red",
-                            color: "white",
-                          }}
-                        >
-                          {item.status === "1" ? "Active" : "Inactive"}
-                        </button>
-                      </td>
-                      <td>
-                        <div className="form-button-action">
-                          <button
-                            type="button"
-                            className="btn btn-link btn-primary btn-lg"
-                            onClick={() => handleEditClick(item)}
-                          >
-                            <i className="fa fa-edit"></i>
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-link btn-danger"
-                            onClick={() => handleDeleteClick(item._id)}
-                          >
-                            <i className="fa fa-times"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+             <DataTableComponent columns={columns} data={teamsData}/>
+
             </div>
           </div>
         </div>
@@ -358,3 +410,64 @@ const OurTeamPage = () => {
 };
 
 export default OurTeamPage;
+//  <table id="add-row" className="display table table-striped table-hover">
+//               <thead>
+//                 <tr>
+//                   <th>Avtar</th>
+//                   <th>Name</th>
+//                   <th>Designation</th>
+//                   <th>Social Icons</th>
+//                   <th>Status</th>
+//                   <th style={{ width: "10%" }}>Action</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {teamsData.map((item) => (
+//                   <tr key={item._id}>
+//                     <td>
+//                       <img src={item.teamimg} className="w-25" alt={item.team_member} />
+//                     </td>
+//                     <td>{item.team_member}</td>
+//                     <td>{item.degination}</td>
+//                     <td>
+//                       {item.social_icons.map((icon) => (
+//                         <a key={icon._id} href={icon.icon_url} target="_blank" rel="noopener noreferrer">
+//                            &nbsp;<i className={icon.icon_class}></i>{icon.icon_name}
+//                         </a>
+//                       ))}
+//                     </td>
+//                     <td>
+//                       <button
+//                         type="button"
+//                         className={`btn ${item.status === "1" ? "active" : "inactive"}`}
+//                         onClick={() => handleStatus(item)}
+//                         style={{
+//                           backgroundColor: item.status === "1" ? "green" : "red",
+//                           color: "white",
+//                         }}
+//                       >
+//                         {item.status === "1" ? "Active" : "Inactive"}
+//                       </button>
+//                     </td>
+//                     <td>
+//                       <div className="form-button-action">
+//                         <button
+//                           type="button"
+//                           className="btn btn-link btn-primary btn-lg"
+//                           onClick={() => handleEditClick(item)}
+//                         >
+//                           <i className="fa fa-edit"></i>
+//                         </button>
+//                         <button
+//                           type="button"
+//                           className="btn btn-link btn-danger"
+//                           onClick={() => handleDeleteClick(item._id)}
+//                         >
+//                           <i className="fa fa-times"></i>
+//                         </button>
+//                       </div>
+//                     </td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>

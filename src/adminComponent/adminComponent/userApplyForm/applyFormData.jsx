@@ -7,9 +7,14 @@ import {
   deleteUserApplyForm,
 } from "../../../services/applyNewUserForm";
 import EditUserApplyForm from "./editUserApplyForm";
+import DataTableComponent from "../../../atoms/datatables/datatables";
 
 
 const ApplyFormData = () => {
+
+
+
+
   const [tableData, setTableData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [modalType, setModalType] = useState(null); // 'edit', 'close', null
@@ -109,74 +114,107 @@ const [detailUser, setDetailUser] = useState(null);
 };
 
 
+const columns = [
+  {
+    name: "Partner Id",
+    selector: (row) => row.partnerEmail,
+    sortable: true,
+  },
+  {
+    name: "Full Name",
+    selector: (row) => row.fullName,
+    sortable: true,
+  },
+  {
+    name: "Email",
+    selector: (row) => row.email,
+    sortable: true,
+  },
+  {
+    name: "Phone",
+    selector: (row) => row.phone,
+    sortable: true,
+  },
+  {
+    name: "Pan Card No",
+    selector: (row) => row.panCard,
+  },
+  {
+    name: "State",
+    selector: (row) => row.state,
+  },
+  {
+    name: "District",
+    selector: (row) => row.district,
+  },
+  {
+    name: "Category",
+    selector: (row) => row.category,
+  },
+  {
+    name: "Sub-Category",
+    selector: (row) => row.subCategory,
+  },
+  {
+    name: "Status",
+    selector: (row) =>
+      row.status === "1"
+        ? "Pending"
+        : row.status === "2"
+        ? "Confirmed"
+        : "Closed",
+    sortable: true,
+  },
+  {
+    name: "Actions1",
+    cell: (row) => (
+      <>
+        {row.status === "1" && (
+          <button
+            className="btn btn-success btn-sm me-2"
+            onClick={() => handleConfirmOrder(row)}
+          >
+            Confirm
+          </button>
+        )}
+        {row.status === "2" && (
+          <button
+            className="btn btn-danger btn-sm me-2"
+            onClick={() => handleModal("close", row)}
+          >
+            Close
+          </button>
+        )}
+      </>
+    ),
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true,
+  },
+  {
+    name: "Actions",
+    cell: (row) => (
+      <button
+        className="btn btn-info btn-sm me-2"
+        onClick={() => handleShowDetails(row)}
+      >
+        View Details
+      </button>
+    ),
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true,
+  },
+];
+
+
+
 
   return (
     <>
       <div className="col-md-12 mt-5">
-        <div className="card">
-          <div className="card-header">
-            <h4 className="card-title">Apply Form User's Data</h4>
-          </div>
-          <div className="card-body">
-            <div className="table-responsive">
-              <table className="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>Partner Id</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Pan Card No</th>
-                    <th>State</th>
-                    <th>District</th>
-                    <th>Category</th>
-                    <th>Sub-Category</th>
-                    <th>Status</th>
-                    <th>Actions1</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableData.map((item) => (
-                    <tr key={item._id}>
-                      <td>{item.partnerEmail}</td>
-                      <td>{item.fullName}</td>
-                      <td>{item.email}</td>
-                      <td>{item.phone}</td>
-                      <td>{item.panCard}</td>
-                      <td>{item.state}</td>
-                      <td>{item.district}</td>
-                      <td>{item.category}</td>
-                      <td>{item.subCategory}</td>
-                      <td>{
-                        item.status === "1" ? "Pending" : item.status === "2" ? "Confirmed" : "Closed"
-                      }</td>
-                      <td>
-                      {item.status === "1" && (
-                          <button className="btn btn-success me-2" onClick={() => handleConfirmOrder(item)}>Confirm</button>
-                        )}
-                        {item.status === "2" && (
-                          <button className="btn btn-danger me-2" onClick={() => handleModal('close', item)}>Close</button>
-                        )}
-                      </td>
-                      <td>
-                        {/* {item.status === "1" && (
-                          <button className="btn btn-success me-2" onClick={() => handleConfirmOrder(item)}>Confirm</button>
-                        )}
-                        {item.status === "2" && (
-                          <button className="btn btn-danger me-2" onClick={() => handleModal('close', item)}>Close</button>
-                        )} */}
-                        <button className="btn btn-info me-2" onClick={() => handleShowDetails(item)}>View Details</button>
-                        {/* <button className="btn btn-warning me-2" onClick={() => handleModal('edit', item)}>Edit</button> */}
-                        {/* <button className="btn btn-danger" onClick={() => handleDelete(item._id)}>Delete</button> */}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+      <DataTableComponent columns={columns} data={tableData} title="Apply Form User's Data" />
+
       </div>
 
       {modalType === 'edit' && (
@@ -257,3 +295,63 @@ const [detailUser, setDetailUser] = useState(null);
 };
 
 export default ApplyFormData;
+
+
+  // <div className="card">
+  //         <div className="card-header">
+  //           <h4 className="card-title">Apply Form User's Data</h4>
+  //         </div>
+  //         <div className="card-body">
+  //           <div className="table-responsive">
+  //             <table className="table table-striped table-hover">
+  //               <thead>
+  //                 <tr>
+  //                   <th>Partner Id</th>
+  //                   <th>Full Name</th>
+  //                   <th>Email</th>
+  //                   <th>Phone</th>
+  //                   <th>Pan Card No</th>
+  //                   <th>State</th>
+  //                   <th>District</th>
+  //                   <th>Category</th>
+  //                   <th>Sub-Category</th>
+  //                   <th>Status</th>
+  //                   <th>Actions1</th>
+  //                   <th>Actions</th>
+  //                 </tr>
+  //               </thead>
+  //               <tbody>
+  //                 {tableData.map((item) => (
+  //                   <tr key={item._id}>
+  //                     <td>{item.partnerEmail}</td>
+  //                     <td>{item.fullName}</td>
+  //                     <td>{item.email}</td>
+  //                     <td>{item.phone}</td>
+  //                     <td>{item.panCard}</td>
+  //                     <td>{item.state}</td>
+  //                     <td>{item.district}</td>
+  //                     <td>{item.category}</td>
+  //                     <td>{item.subCategory}</td>
+  //                     <td>{
+  //                       item.status === "1" ? "Pending" : item.status === "2" ? "Confirmed" : "Closed"
+  //                     }</td>
+  //                     <td>
+  //                     {item.status === "1" && (
+  //                         <button className="btn btn-success me-2" onClick={() => handleConfirmOrder(item)}>Confirm</button>
+  //                       )}
+  //                       {item.status === "2" && (
+  //                         <button className="btn btn-danger me-2" onClick={() => handleModal('close', item)}>Close</button>
+  //                       )}
+  //                     </td>
+  //                     <td>
+  //                       <button className="btn btn-info me-2" onClick={() => handleShowDetails(item)}>View Details</button>
+  //                       <button className="btn btn-warning me-2" onClick={() => handleModal('edit', item)}>Edit</button>
+  //                       <button className="btn btn-danger" onClick={() => handleDelete(item._id)}>Delete</button>
+  //                     </td>
+  //                   </tr>
+  //                 ))}
+  //               </tbody>
+  //             </table>
+  //           </div>
+  //         </div>
+  //       </div>

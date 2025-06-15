@@ -7,6 +7,7 @@ import {
   deleteLoanData,
   GetLoanData,
 } from "../../../services/loanDataServices";
+import DataTableComponent from "../../../atoms/datatables/datatables";
 
 const LoanServicesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,6 +106,79 @@ const LoanServicesPage = () => {
     "report" ,
     "support"
   ];
+
+  const columns = [
+  {
+    name: "Icon",
+    selector: (row) => row.icon_pic,
+    cell: (row) => <img src={row.icon_pic} alt="icon" className="w-50" />,
+    sortable: false,
+  },
+  {
+    name: "Category Name",
+    selector: (row) => row.category_name,
+    sortable: true,
+  },
+  {
+    name: "Sub Category",
+    selector: (row) => row.sub_category_name,
+    sortable: true,
+  },
+  {
+    name: "Category",
+    selector: (row) => row.category,
+    sortable: true,
+  },
+  {
+    name: "Amount",
+    selector: (row) => row.amount || 0,
+    sortable: true,
+  },
+  {
+    name: "Link",
+    selector: (row) => row.link,
+    sortable: true,
+  },
+  {
+    name: "Status",
+    cell: (row) => (
+      <button
+        className={`btn btn-sm ${
+          row.status === 1 ? "btn-success" : "btn-danger"
+        }`}
+        onClick={() => handleStatus(row)}
+      >
+        {row.status === 1 ? "Active" : "Inactive"}
+      </button>
+    ),
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true,
+  },
+  {
+    name: "Action",
+    cell: (row) => (
+      <>
+        <button
+          className="btn btn-sm btn-primary me-2"
+          onClick={() => handleEditClick(row)}
+        >
+          Edit
+        </button>
+        <button
+          className="btn btn-sm btn-danger"
+          onClick={() => handleDeleteClick(row._id)}
+        >
+          Delete
+        </button>
+      </>
+    ),
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true,
+  },
+];
+
 
   return (
     <div className="container mt-4">
@@ -217,7 +291,7 @@ const LoanServicesPage = () => {
             </div>
           )}
 
-          <div className="table-responsive">
+          {/* <div className="table-responsive">
             <table className="table table-striped">
               <thead>
                 <tr>
@@ -278,7 +352,13 @@ const LoanServicesPage = () => {
                 )}
               </tbody>
             </table>
-          </div>
+          </div> */}
+
+          <DataTableComponent columns={columns} data={loanData}   />
+
+
+
+
         </div>
       </div>
     </div>
