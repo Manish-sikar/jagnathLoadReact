@@ -167,7 +167,7 @@ const [detailUser, setDetailUser] = useState(null);
                           <button className="btn btn-danger me-2" onClick={() => handleModal('close', item)}>Close</button>
                         )} */}
                         <button className="btn btn-info me-2" onClick={() => handleShowDetails(item)}>View Details</button>
-                        <button className="btn btn-warning me-2" onClick={() => handleModal('edit', item)}>Edit</button>
+                        {/* <button className="btn btn-warning me-2" onClick={() => handleModal('edit', item)}>Edit</button> */}
                         {/* <button className="btn btn-danger" onClick={() => handleDelete(item._id)}>Delete</button> */}
                       </td>
                     </tr>
