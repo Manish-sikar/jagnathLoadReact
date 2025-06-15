@@ -168,10 +168,10 @@ const ProjectsPage = () => {
       <button
         onClick={() => handleStatus(row)}
         className={`btn btn-sm ${
-          row.status === 1 ? "btn-success" : "btn-danger"
+          row.status == 1 ? "btn-success" : "btn-danger"
         }`}
       >
-        {row.status === 1 ? "Active" : "Deactive"}
+        {row.status == 1 ? "Active" : "Deactive"}
       </button>
     ),
     sortable: true,
