@@ -24,6 +24,7 @@ const ReportPage = () => {
   const fetchProductsByCategory = async () => {
     const response = await GetReportData(partnerEmail);
     const productsData = response?.userForm_Data || [];
+    console.log(productsData , "productsData")
     setOurOrderData(productsData.filter((product) => product.status == 1));
     setConfirmOrderData(productsData.filter((product) => product.status == 2));
     setCloseOrderData(productsData.filter((product) => product.status == 3));
