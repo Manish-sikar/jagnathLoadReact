@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../authPage/contex";
 
 const AdminSideBar = () => {
   const [collapseStates, setCollapseStates] = useState({
@@ -19,6 +20,33 @@ const AdminSideBar = () => {
       [section]: !prevState[section],
     }));
   };
+   const { userData } = useAuth();
+
+
+   
+  // If admin_name is "manish", render only the limited sidebar
+  if (userData === "manish@gmail.com") {
+    return (
+      <div className="sidebar" data-background-color="dark">
+        <div className="sidebar-wrapper scrollbar scrollbar-inner">
+          <div className="sidebar-content">
+            <ul className="nav nav-secondary">
+              <li className="nav-item">
+                <NavLink
+                  to="/admin/apply-form-data"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  <i className="fas fa-file-alt"></i>
+                  <p>User Apply Form</p>
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -221,7 +249,7 @@ const AdminSideBar = () => {
                 </NavLink>
               </li>
            
-              <li class="nav-item">
+          {    <li class="nav-item">
                 <NavLink
                   to="/admin/apply-form-data"
                   activeClassName="active"
@@ -231,7 +259,7 @@ const AdminSideBar = () => {
 
                   <p>User Apply Form </p>
                 </NavLink>
-              </li>
+              </li>}
               <li class="nav-item">
                 <NavLink
                   to="/admin/partner"

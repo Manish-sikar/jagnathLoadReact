@@ -18,7 +18,7 @@ const SinInPage = () => {
         localStorage.setItem("authToken", response.token);
         setToken(response.token)
         setData (response.admin_name)
-        navigate("/admin/setting/social_media");
+        navigate("/admin/apply-form-data");
       }
     } catch (error) {
       const errorMessage =
