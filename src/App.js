@@ -46,6 +46,7 @@ import LoanDataEdit from "./adminComponent/adminComponent/lloanProductPage/Admin
 import LoanServicesPage from "./adminComponent/adminComponent/lloanProductPage/AdminloanProduct";
 import EditPartnerPage from "./adminComponent/adminComponent/parthnerPage/editPertherData";
 import PaymentRequestPage from "./adminComponent/adminComponent/paymentRequest/paymentRequest";
+import LinkWithHttpDataTable from "./adminComponent/adminComponent/userLinkData/viewUserLinkData";
 
 
 function App() {
@@ -280,6 +281,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <PaymentRequestPage />
+                  </ProtectedRoute>
+                }
+              />
+                  <Route
+                path="/admin/httpLinkData"
+                element={
+                  <ProtectedRoute>
+                    <LinkWithHttpDataTable/>
                   </ProtectedRoute>
                 }
               />

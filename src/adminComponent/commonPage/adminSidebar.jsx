@@ -304,6 +304,17 @@ const AdminSideBar = () => {
                   <p> SUPPORT TEAM </p>
                 </NavLink>
               </li>
+              <li class="nav-item">
+                <NavLink
+                  to="admin/httpLinkData"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                <i class="fas fa-headset"></i>
+
+                  <p>Http Link Data </p>
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>

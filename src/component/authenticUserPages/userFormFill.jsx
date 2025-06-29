@@ -108,8 +108,9 @@ setLoading(true)
           category: formData.subCategory,
           price: formData.amount,
           orderDate: formattedDate,
-          userId: response.data.form_user_id,
+          userId: response?.data.form_user_id,
           paymentStatus: "PAID",
+          partnerEmail: response?.data.partnerEmail || partnerEmail
         });
         setFormData({
           fullName: "",
@@ -187,7 +188,7 @@ setLoading(true)
                 </tr>
                 <tr>
                   <th>User ID:</th>
-                  <td>{partnerEmail}</td>
+                  <td>{receiptData.partnerEmail}</td>
                 </tr>
                 <tr>
                   <th>Payment Status:</th>

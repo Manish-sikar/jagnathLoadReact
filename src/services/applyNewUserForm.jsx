@@ -167,10 +167,23 @@ async function GetnewUserApplyForm() {
     }
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 export {  AddnewUserApplyForm , GetnewUserApplyForm ,GetnewpartnerData ,
    deletePartner, ParthnerChangepass ,updatePartnerData ,
    UpdateUserApplyForm ,
    deleteUserApplyForm  , GetSpecialpartnerData ,
-   ChangeStatusConfirmOrder , ChangeStatusCloseOrder , GetReportData ,GetTransHistroyData
+   ChangeStatusConfirmOrder , ChangeStatusCloseOrder , GetReportData ,GetTransHistroyData 
   };
  

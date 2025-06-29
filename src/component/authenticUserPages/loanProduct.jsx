@@ -93,34 +93,52 @@
 
 // export default LoanProductList;
 
-
 import { useNavigate } from "react-router-dom";
 import LoginBanner from "../bannerPages/loginBanner";
 import Service from "../Service";
 import Swal from "sweetalert2";
+ 
+
+import React, { useState } from "react"; // Required for useState
+
+import { Modal, Button, Form, Spinner } from "react-bootstrap"; // Needed for Modal, Button, Form, Spinner
+import { AddnewUserApplyForm1 } from "../../services/linkWithHttpServices";
+// Make sure path is correct
 
 const LoanProductList = ({ products, refreshBalance }) => {
-
-
-  
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    panCard: "",
+    fullAddress: "",
+  });
+  const [loading, setLoading] = useState(false);
   const category_name = products[0]?.category || "";
   const navigate = useNavigate();
 
-  const handleClick = (link, category, subcategory, amount , status) => {
+  const handleClick = (link, category, subcategory, amount, status) => {
     if (status === 0) {
-  Swal.fire({
-    icon: "warning",
-    title: "Product Unavailable",
-    text: "This product is currently inactive. Please try again later.",
-    confirmButtonColor: "#d33",
-  });
-  return;
-}
-    if (!link) return;
+      Swal.fire({
+        icon: "warning",
+        title: "Product Unavailable",
+        text: "This product is currently inactive. Please try again later.",
+        confirmButtonColor: "#d33",
+      });
+      return;
+    }
 
-    if (typeof link === "string" && link.startsWith("http")) {
-      window.location.href = link;
+    if (link.startsWith("http") && link != "https://realfinserv.com/track/your-application") {
+      // Save product info and show modal
+      setSelectedProduct({ link, category, subcategory, amount });
+      setShowModal(true);
     } else {
+      // Directly navigate without modal
+      if (link == "https://realfinserv.com/track/your-application"){
+            window.location.href = link
+      }
       navigate(link, {
         state: { subcategory, category, amount, refreshBalance },
       });
@@ -135,6 +153,49 @@ const LoanProductList = ({ products, refreshBalance }) => {
       </div>
     );
   }
+
+  const handleFormChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await AddnewUserApplyForm1(formData);
+      console.log(response, "response");
+      if (response?.status == 201) {
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          panCard: "",
+          fullAddress: "",
+        });
+        Swal.fire({
+          icon: "success",
+          title: "Your data is save successfully",
+          text: `${response.data.message}`,
+        });
+
+        setShowModal(false);
+        const { link } = selectedProduct;
+
+        // Only external links should reach here
+        if (link.startsWith("http")) {
+          window.location.href = link;
+        }
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (error) {
+      const errMessage = error?.response?.data?.err || "Something went wrong";
+      Swal.fire("Error!", errMessage, "error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="container">
@@ -159,7 +220,6 @@ const LoanProductList = ({ products, refreshBalance }) => {
                     product.category_name,
                     product.amount,
                     product.status
-
                   )
                 }
                 style={{
@@ -168,8 +228,8 @@ const LoanProductList = ({ products, refreshBalance }) => {
                 }}
               >
                 {product.status === 0 && (
-    <div className="inactive-ribbon">Inactive</div>
-  )}
+                  <div className="inactive-ribbon">Inactive</div>
+                )}
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{ height: "50px" }}
@@ -204,6 +264,89 @@ const LoanProductList = ({ products, refreshBalance }) => {
           </>
         ))}
       </div>
+
+      {/* //model */}
+
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Enter Your Information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-2">
+              <Form.Label>Full Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleFormChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-2">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleFormChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-2">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleFormChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-2">
+              <Form.Label>PAN Card</Form.Label>
+              <Form.Control
+                type="text"
+                name="panCard"
+                value={formData.panCard}
+                onChange={handleFormChange}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-2">
+              <Form.Label>Full Address</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="fullAddress"
+                rows={2}
+                value={formData.fullAddress}
+                onChange={handleFormChange}
+                required
+              />
+            </Form.Group>
+
+            <div className="text-end">
+              <Button
+                variant="secondary"
+                onClick={() => setShowModal(false)}
+                className="me-2"
+              >
+                Cancel
+              </Button>
+              <Button type="submit" variant="primary" disabled={loading}>
+                {loading ? (
+                  <Spinner size="sm" animation="border" />
+                ) : (
+                  "Submit & Continue"
+                )}
+              </Button>
+            </div>
+          </Form>
+        </Modal.Body>
+      </Modal>
 
       {/* Responsive Font Size for Mobile */}
       <style>
@@ -270,6 +413,3 @@ const LoanProductList = ({ products, refreshBalance }) => {
 };
 
 export default LoanProductList;
- 
-
-
