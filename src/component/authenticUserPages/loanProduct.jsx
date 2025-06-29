@@ -137,7 +137,7 @@ const LoanProductList = ({ products, refreshBalance }) => {
     } else {
       // Directly navigate without modal
       if (link == "https://realfinserv.com/track/your-application"){
-            window.location.href = link
+           window.open(link, "_blank");
       }
       navigate(link, {
         state: { subcategory, category, amount, refreshBalance },
@@ -184,7 +184,7 @@ const LoanProductList = ({ products, refreshBalance }) => {
 
         // Only external links should reach here
         if (link.startsWith("http")) {
-          window.location.href = link;
+         window.open(link, "_blank");
         }
       } else {
         throw new Error("Submission failed");
