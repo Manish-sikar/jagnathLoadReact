@@ -8,7 +8,7 @@ const SinInPage = () => {
   const [UserName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setToken, setData } = useAuth();
+  const { setToken, setData , setStatus , setUser_Id} = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,6 +18,8 @@ const SinInPage = () => {
         localStorage.setItem("authToken", response.token);
         setToken(response.token)
         setData (response.admin_name)
+        setStatus (response.status)
+        setUser_Id (response.user_Id)
         navigate("/admin/apply-form-data");
       }
     } catch (error) {
@@ -39,7 +41,7 @@ const SinInPage = () => {
                     <form onSubmit={handleLogin}>
                       <div className="d-flex align-items-center mb-3 pb-1">
                      
-                        <span className="h1 fw-bold mb-0">Admin Jasnath Finance</span>
+                        <span className="h1 fw-bold mb-0">Jasnath Finance</span>
                       </div>
                       <h5
                         className="fw-normal mb-3 pb-3"

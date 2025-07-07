@@ -44,7 +44,7 @@ const LoginUser = () => {
   
 
   const navigate = useNavigate();
-  const { setTokenUser, setDataUser, setuserEmail, setuserBalance } =
+  const { setTokenUser, setDataUser, setuserEmail, setuserBalance , setuserDelar_id } =
     useAuthUser();
 
     const handleLogin = async (e) => {
@@ -63,6 +63,7 @@ const LoginUser = () => {
           setDataUser(response.user_name);
           setuserBalance(response.user_balance);
           setuserEmail(response.email);
+          setuserDelar_id(response.Delar_Id);
           Swal.fire("Success", "Login successful!", "success");
           navigate("/dashboard");
         }

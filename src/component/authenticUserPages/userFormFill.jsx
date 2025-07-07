@@ -16,6 +16,7 @@ const UserFormFillPage = () => {
 
 
   const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
+  const userDelar_id = JSON.parse(localStorage.getItem("userDelar_id") || '""');
 
   const [formData, setFormData] = useState({
     partnerEmail,
@@ -32,6 +33,7 @@ const UserFormFillPage = () => {
     document1: null,
     document2: null,
     document3: null,
+    userDelar_id:userDelar_id
   });
 
   const handleChange = (e) => {

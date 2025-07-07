@@ -3,8 +3,10 @@ import Swal from "sweetalert2";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { UserRegApi } from "../../../services/authServices"; // Ensure this is pointing to the correct service
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../authPage/contex";
 
 const BecomePartnerForm = () => {
+    const { user_Id  , statusData } = useAuth();
   const [formData, setFormData] = useState({
     fullName: "",
     designation: "",
@@ -16,7 +18,8 @@ const BecomePartnerForm = () => {
     aadharNo: "",
     acDetails: "",     // <-- add this
     password: "",
-    Avtar: null        // <-- add this, assume file upload
+    Avtar: null    ,    // <-- add this, assume file upload
+    create_id:user_Id
   });
   
 
@@ -88,7 +91,8 @@ const handleInputChange = (e) => {
             aadharNo: "",
             password: "",
             Avtar: null  ,
-            acDetails: "",   
+            acDetails: "",
+            user_Id:""
           });
           navigate("/admin/partner");
         }, 2000); // Delay navigation for 2 seconds

@@ -8,6 +8,7 @@ import {
 } from "../../../services/applyNewUserForm";
 import EditUserApplyForm from "./editUserApplyForm";
 import DataTableComponent from "../../../atoms/datatables/datatables";
+import { useAuth } from "../../authPage/contex";
 
 
 const ApplyFormData = () => {
@@ -22,20 +23,26 @@ const ApplyFormData = () => {
   const [documents, setDocuments] = useState({});
   const [showDetails, setShowDetails] = useState(false);
 const [detailUser, setDetailUser] = useState(null);
+ const { user_Id, statusData } = useAuth();
 
-  const fetchTableData = async () => {
+  const fetchTableData = async (user_Id) => {
     try {
-      const response = await GetnewUserApplyForm();
+      const response = await GetnewUserApplyForm(user_Id);
       setTableData(response.userForm_Data);
     } catch (error) {
       console.error("Error fetching table data:", error);
     }
   };
 
-  useEffect(() => {
-    fetchTableData();
-  }, []);
+ 
 
+    useEffect(() => {
+    if (statusData == 2) {
+      fetchTableData(user_Id);
+    } else {
+      fetchTableData();
+    }
+  }, []);
   const handleModal = (type, user = null) => {
     setSelectedUser(user);
     setModalType(type);

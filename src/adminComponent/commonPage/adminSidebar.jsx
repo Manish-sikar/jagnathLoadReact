@@ -20,7 +20,7 @@ const AdminSideBar = () => {
       [section]: !prevState[section],
     }));
   };
-   const { userData } = useAuth();
+   const { userData  , statusData} = useAuth();
 
 
    
@@ -47,6 +47,46 @@ const AdminSideBar = () => {
       </div>
     );
   }
+
+
+  // If admin_name is "manish", render only the limited sidebar
+  if (statusData == "2") {
+    return (
+      <div className="sidebar" data-background-color="dark">
+        <div className="sidebar-wrapper scrollbar scrollbar-inner">
+          <div className="sidebar-content">
+            <ul className="nav nav-secondary">
+             <li class="nav-item">
+                <NavLink
+                  to="/admin/partner"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+               <i class="fas fa-handshake"></i>
+
+                  <p>Partner's Data </p>
+                </NavLink>
+              </li>
+                <li class="nav-item">
+                <NavLink
+                  to="/admin/apply-form-data"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+               <i class="fas fa-file-alt"></i>
+
+                  <p>User Apply Form </p>
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+   
+
+
 
   return (
     <>
@@ -249,7 +289,7 @@ const AdminSideBar = () => {
                 </NavLink>
               </li>
            
-          {    <li class="nav-item">
+             <li class="nav-item">
                 <NavLink
                   to="/admin/apply-form-data"
                   activeClassName="active"
@@ -259,7 +299,7 @@ const AdminSideBar = () => {
 
                   <p>User Apply Form </p>
                 </NavLink>
-              </li>}
+              </li>
               <li class="nav-item">
                 <NavLink
                   to="/admin/partner"
@@ -313,6 +353,18 @@ const AdminSideBar = () => {
                 <i class="fas fa-headset"></i>
 
                   <p>Http Link Data </p>
+                </NavLink>
+              </li>
+
+                <li class="nav-item">
+                <NavLink
+                  to="/admin/viewDelarData"
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                <i class="fas fa-headset"></i>
+
+                  <p>View Delar </p>
                 </NavLink>
               </li>
             </ul>

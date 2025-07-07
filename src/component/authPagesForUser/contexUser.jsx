@@ -33,6 +33,7 @@ export const AuthProviderUser = ({ children }) => {
     localStorage.removeItem("authTokenUser");
     localStorage.removeItem("userDataUser");
     localStorage.removeItem("partnerEmail");
+    localStorage.removeItem("userDelar_id");
     setAuthTokenUserState(null);
     setUserDataUserState(null);
     clearTimeout(window.inactivityTimer); // Clear timer on logout
@@ -52,6 +53,9 @@ export const AuthProviderUser = ({ children }) => {
 
   const setuserEmail = (data) => {
     localStorage.setItem("partnerEmail", JSON.stringify(data));
+  };
+    const setuserDelar_id = (data) => {
+    localStorage.setItem("userDelar_id", JSON.stringify(data));
   };
 
   // Check if the user is authenticated
@@ -98,6 +102,7 @@ export const AuthProviderUser = ({ children }) => {
       setDataUser,
       setuserEmail,
       logoutUser,
+      setuserDelar_id,
       isAuthenticatedUser,
     }),
     [authTokenUser, userDataUser, userBalance]

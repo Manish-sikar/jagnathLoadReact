@@ -5,6 +5,8 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [authToken, setAuthToken] = useState(null);
     const [userData, setUserData] = useState(null);
+    const [statusData, setStatusData] = useState(null);
+    const [user_Id, setUserData_Id] = useState(null);
 
     const setToken = (token) => {
         setAuthToken(token);
@@ -17,10 +19,18 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('authToken');
         setAuthToken(null);
         setUserData(null);
+        setStatusData(null);
     };
 
     const setData = (data) => {
         setUserData(data);
+    };
+      const setStatus = (data) => {
+        setStatusData(data);
+    };
+
+       const setUser_Id = (data) => {
+        setUserData_Id(data);
     };
 
     const isAuthenticated = !!authToken;
@@ -31,6 +41,10 @@ export const AuthProvider = ({ children }) => {
         userData,
         setData,
         logout,
+        setStatus,
+        setUser_Id,
+        user_Id,
+        statusData,
         isAuthenticated,
     }), [authToken, userData]);
 

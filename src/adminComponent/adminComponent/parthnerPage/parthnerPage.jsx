@@ -8,6 +8,7 @@ import {
 } from "../../../services/applyNewUserForm";
 import { baseURL } from "../../../services/apiService";
 import DataTableComponent from "../../../atoms/datatables/datatables";
+import { useAuth } from "../../authPage/contex";
 
 const PartnerPage = () => {
   const [tableData, setTableData] = useState([]);
@@ -15,13 +16,14 @@ const PartnerPage = () => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const { user_Id, statusData } = useAuth();
 
-  const fetchTableData = async () => {
+  const fetchTableData = async (user_Id) => {
     try {
-      const response = await GetnewpartnerData();
-      if (response && Array.isArray(response.partner_Data)) {
-        setTableData(response.partner_Data);
-        setMessage(response.message);
+      const response = await GetnewpartnerData(user_Id);
+      if (response && Array.isArray(response?.partner_Data)) {
+        setTableData(response?.partner_Data);
+        setMessage(response?.message);
       } else {
         throw new Error("Invalid response format");
       }
@@ -34,7 +36,11 @@ const PartnerPage = () => {
   };
 
   useEffect(() => {
-    fetchTableData();
+    if (statusData == 2) {
+      fetchTableData(user_Id);
+    } else {
+      fetchTableData();
+    }
   }, []);
 
   const handleDelete = async (id) => {
@@ -162,107 +168,103 @@ const PartnerPage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="alert alert-danger">{error}</div>;
 
-
-
-const columns = [
-  {
-    name: "Avatar",
-    selector: (row) => row.Avtar,
-    cell: (row) => (
-      <img
-        src={row.Avtar}
-        alt="avatar"
-        style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-      />
-    ),
-    sortable: false,
-  },
-  {
-    name: "JN Id",
-    selector: (row) => row.JN_Id,
-    sortable: true,
-  },
-  {
-    name: "Full Name",
-    selector: (row) => row.fullName,
-    sortable: true,
-  },
-  {
-    name: "Email",
-    selector: (row) => row.email,
-    sortable: true,
-  },
-  {
-    name: "Phone",
-    selector: (row) => row.mobile,
-    sortable: true,
-  },
-  {
-    name: "Wallet Balance",
-    selector: (row) => row.balance,
-    sortable: true,
-  },
-  {
-    name: "Designation",
-    selector: (row) => row.designation,
-    sortable: true,
-  },
-  {
-    name: "Institution",
-    selector: (row) => row.institutionName,
-    sortable: true,
-  },
-  {
-    name: "Message",
-    selector: (row) => row.message,
-    sortable: false,
-  },
-  {
-    name: "Pan No",
-    selector: (row) => row.panNo,
-    sortable: true,
-  },
-  {
-    name: "Aadhar No",
-    selector: (row) => row.aadharNo,
-    sortable: true,
-  },
-  {
-    name: "Account Details",
-    selector: (row) => row.acDetails,
-    sortable: false,
-  },
-  {
-    name: "Actions",
-    cell: (row) => (
-      <>
-        <button
-          className="btn btn-sm btn-primary me-2"
-          onClick={() => handleEdit(row)}
-        >
-          <i className="fa fa-edit"></i>
-        </button>
-        <button
-          className="btn btn-sm btn-danger me-2"
-          onClick={() => handleDelete(row._id)}
-        >
-          <i className="fa fa-trash"></i>
-        </button>
-        <button
-          className="btn btn-sm btn-warning"
-          onClick={() => handleChangePassword(row._id)}
-        >
-          <i className="fa fa-key"></i>
-        </button>
-      </>
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
-];
-
-
+  const columns = [
+    {
+      name: "Avatar",
+      selector: (row) => row.Avtar,
+      cell: (row) => (
+        <img
+          src={row.Avtar}
+          alt="avatar"
+          style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+        />
+      ),
+      sortable: false,
+    },
+    {
+      name: "JN Id",
+      selector: (row) => row.JN_Id,
+      sortable: true,
+    },
+    {
+      name: "Full Name",
+      selector: (row) => row.fullName,
+      sortable: true,
+    },
+    {
+      name: "Email",
+      selector: (row) => row.email,
+      sortable: true,
+    },
+    {
+      name: "Phone",
+      selector: (row) => row.mobile,
+      sortable: true,
+    },
+    {
+      name: "Wallet Balance",
+      selector: (row) => row.balance,
+      sortable: true,
+    },
+    {
+      name: "Designation",
+      selector: (row) => row.designation,
+      sortable: true,
+    },
+    {
+      name: "Institution",
+      selector: (row) => row.institutionName,
+      sortable: true,
+    },
+    {
+      name: "Message",
+      selector: (row) => row.message,
+      sortable: false,
+    },
+    {
+      name: "Pan No",
+      selector: (row) => row.panNo,
+      sortable: true,
+    },
+    {
+      name: "Aadhar No",
+      selector: (row) => row.aadharNo,
+      sortable: true,
+    },
+    {
+      name: "Account Details",
+      selector: (row) => row.acDetails,
+      sortable: false,
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <>
+          <button
+            className="btn btn-sm btn-primary me-2"
+            onClick={() => handleEdit(row)}
+          >
+            <i className="fa fa-edit"></i>
+          </button>
+          <button
+            className="btn btn-sm btn-danger me-2"
+            onClick={() => handleDelete(row._id)}
+          >
+            <i className="fa fa-trash"></i>
+          </button>
+          <button
+            className="btn btn-sm btn-warning"
+            onClick={() => handleChangePassword(row._id)}
+          >
+            <i className="fa fa-key"></i>
+          </button>
+        </>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+  ];
 
   return (
     <div className="col-md-12 mt-5">
@@ -275,13 +277,19 @@ const columns = [
             <i className="fa fa-plus"></i> Add Partner
           </Link>
         </div>
-        {message && <div className="alert alert-success">{message}</div>}
-    
-<DataTableComponent columns={columns} data={tableData} title="Partner's Data" />
+        {/* {message && <div className="alert alert-success">{message}</div>} */}
+        {/*     
+<DataTableComponent columns={columns} data={tableData} title="Partner's Data" /> */}
 
-
-
-
+        {tableData.length === 0 ? (
+          <div className="alert alert-warning">No partner data available.</div>
+        ) : (
+          <DataTableComponent
+            columns={columns}
+            data={tableData}
+            title="Partner's Data"
+          />
+        )}
       </div>
     </div>
   );
@@ -289,87 +297,86 @@ const columns = [
 
 export default PartnerPage;
 
+// <div className="card-body">
+//       <div className="table-responsive">
+//         {tableData.length === 0 ? (
+//           <div className="alert alert-warning">
+//             No partner data available.
+//           </div>
+//         ) : (
+//           <table className="table table-striped table-hover">
+//             <thead>
+//               <tr>
+//                 <th>Avtar</th>
+//                 <th>JN Id </th>
+//                 <th>Full Name</th>
+//                 <th>Email</th>
+//                 <th>Phone</th>
+//                 <th>Wallet Balance</th>
+//                 <th>Designation</th>
+//                 <th>Institution</th>
+//                 <th>Message</th>
+//                 <th>Pan No</th>
+//                 <th>Aadhar No</th>
+//                 <th>Account Details </th>
+//                 {/* <th>Add Amount</th> */}
+//                 <th>Actions</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {tableData.map((item) => (
+//                 <tr key={item._id}>
+//                   <td>
+//                   <img
+//                 src={item.Avtar}
+//                 alt="team"
+//                 style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+//               />
+//                   </td>
+//                   <td>{item.JN_Id}</td>
+//                   <td>{item.fullName}</td>
+//                   <td>{item.email}</td>
+//                   <td>{item.mobile}</td>
+//                   <td>{item.balance}</td>
+//                   <td>{item.designation}</td>
+//                   <td>{item.institutionName}</td>
+//                   <td>{item.message}</td>
+//                   <td>{item.panNo}</td>
+//                   <td>{item.aadharNo}</td>
+//                   <td>{item.acDetails}</td>
+//                   {/* <td>
 
-    // <div className="card-body">
-    //       <div className="table-responsive">
-    //         {tableData.length === 0 ? (
-    //           <div className="alert alert-warning">
-    //             No partner data available.
-    //           </div>
-    //         ) : (
-    //           <table className="table table-striped table-hover">
-    //             <thead>
-    //               <tr>
-    //                 <th>Avtar</th>
-    //                 <th>JN Id </th>
-    //                 <th>Full Name</th>
-    //                 <th>Email</th>
-    //                 <th>Phone</th>
-    //                 <th>Wallet Balance</th>
-    //                 <th>Designation</th>
-    //                 <th>Institution</th>
-    //                 <th>Message</th>
-    //                 <th>Pan No</th>
-    //                 <th>Aadhar No</th>
-    //                 <th>Account Details </th>
-    //                 {/* <th>Add Amount</th> */}
-    //                 <th>Actions</th>
-    //               </tr>
-    //             </thead>
-    //             <tbody>
-    //               {tableData.map((item) => (
-    //                 <tr key={item._id}>
-    //                   <td>
-    //                   <img
-    //                 src={item.Avtar}
-    //                 alt="team"
-    //                 style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-    //               />
-    //                   </td>
-    //                   <td>{item.JN_Id}</td>
-    //                   <td>{item.fullName}</td>
-    //                   <td>{item.email}</td>
-    //                   <td>{item.mobile}</td>
-    //                   <td>{item.balance}</td>
-    //                   <td>{item.designation}</td>
-    //                   <td>{item.institutionName}</td>
-    //                   <td>{item.message}</td>
-    //                   <td>{item.panNo}</td>
-    //                   <td>{item.aadharNo}</td>
-    //                   <td>{item.acDetails}</td>
-    //                   {/* <td>
-                     
-    //                     <button
-    //                       className="btn btn-sm btn-success"
-    //                       onClick={() => handleAddAmount(item.JN_Id)}
-    //                     >
-    //                       Add Amount
-    //                     </button>
-    //                   </td> */}
-    //                   <td>
-    //                     <button
-    //                       className="btn btn-sm btn-primary me-2"
-    //                       onClick={() => handleEdit(item)}
-    //                     >
-    //                       <i className="fa fa-edit"></i>
-    //                     </button>
-    //                     <button
-    //                       className="btn btn-sm btn-danger me-2"
-    //                       onClick={() => handleDelete(item._id)}
-    //                     >
-    //                       <i className="fa fa-trash"></i>
-    //                     </button>
-    //                     <button
-    //                       className="btn btn-sm btn-warning"
-    //                       onClick={() => handleChangePassword(item._id)}
-    //                     >
-    //                       <i className="fa fa-key"></i>
-    //                     </button>
-    //                   </td>
-    //                 </tr>
-    //               ))}
-    //             </tbody>
-    //           </table>
-    //         )}
-    //       </div>
-    //     </div>
+//                     <button
+//                       className="btn btn-sm btn-success"
+//                       onClick={() => handleAddAmount(item.JN_Id)}
+//                     >
+//                       Add Amount
+//                     </button>
+//                   </td> */}
+//                   <td>
+//                     <button
+//                       className="btn btn-sm btn-primary me-2"
+//                       onClick={() => handleEdit(item)}
+//                     >
+//                       <i className="fa fa-edit"></i>
+//                     </button>
+//                     <button
+//                       className="btn btn-sm btn-danger me-2"
+//                       onClick={() => handleDelete(item._id)}
+//                     >
+//                       <i className="fa fa-trash"></i>
+//                     </button>
+//                     <button
+//                       className="btn btn-sm btn-warning"
+//                       onClick={() => handleChangePassword(item._id)}
+//                     >
+//                       <i className="fa fa-key"></i>
+//                     </button>
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         )}
+//       </div>
+//     </div>

@@ -16,9 +16,10 @@ async function AddnewUserApplyForm(formdata) {
   }
 }
 
-async function GetnewUserApplyForm() {
+async function GetnewUserApplyForm(user_Id) {
     try {
-      const response = await router.get("/user_apply_form" );
+        const url = user_Id ? `/user_apply_form?create_id=${user_Id}` : "/user_apply_form";
+    const response = await router.get(url);
       return response.data;
     } catch (error) {
       // Handle error, e.g., log it or throw a custom error
@@ -26,6 +27,8 @@ async function GetnewUserApplyForm() {
       throw error;
     }
   }
+
+ 
 
 
   async function UpdateUserApplyForm(id ,formdata) {
@@ -59,17 +62,17 @@ async function GetnewUserApplyForm() {
 
  // parther data 
 
-
-  async function GetnewpartnerData() {
-    try {
-      const response = await router.get("/User-reg" );
-      return response.data;
-    } catch (error) {
-      // Handle error, e.g., log it or throw a custom error
-      console.error("Error in getting status:", error);
-      throw error;
-    }
+async function GetnewpartnerData(user_Id) {
+  try {
+    const url = user_Id ? `/User-reg?create_id=${user_Id}` : "/User-reg";
+    const response = await router.get(url);
+    return response.data;
+  } catch (error) {
+    console.error("Error in getting partner data:", error);
+    throw error;
   }
+}
+
 
   async function ParthnerChangepass(data) {
     try {

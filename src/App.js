@@ -47,6 +47,8 @@ import LoanServicesPage from "./adminComponent/adminComponent/lloanProductPage/A
 import EditPartnerPage from "./adminComponent/adminComponent/parthnerPage/editPertherData";
 import PaymentRequestPage from "./adminComponent/adminComponent/paymentRequest/paymentRequest";
 import LinkWithHttpDataTable from "./adminComponent/adminComponent/userLinkData/viewUserLinkData";
+import ViewDelarPage from "./adminComponent/adminComponent/delarPage/viewDelarPage";
+import AddDelarPage from "./adminComponent/adminComponent/delarPage/AddDelar";
 
 
 function App() {
@@ -289,6 +291,24 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <LinkWithHttpDataTable/>
+                  </ProtectedRoute>
+                }
+              />
+
+                 <Route
+                path="/admin/viewDelarData"
+                element={
+                  <ProtectedRoute>
+                    <ViewDelarPage/>
+                  </ProtectedRoute>
+                }
+              />
+
+                 <Route
+                path="/admin/addDelarData"
+                element={
+                  <ProtectedRoute>
+                    <AddDelarPage/>
                   </ProtectedRoute>
                 }
               />
