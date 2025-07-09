@@ -187,6 +187,12 @@ const PartnerPage = () => {
       sortable: true,
     },
     {
+      name: "Delar Name",
+      selector: (row) =>
+        row.createUserName ? row.createUserName.split("@")[0] : "",
+      sortable: true,
+    },
+    {
       name: "Full Name",
       selector: (row) => row.fullName,
       sortable: true,

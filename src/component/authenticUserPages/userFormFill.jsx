@@ -33,7 +33,8 @@ const UserFormFillPage = () => {
     document1: null,
     document2: null,
     document3: null,
-    userDelar_id:userDelar_id
+    userDelar_id:userDelar_id , 
+    DelarAmount:location.state?.DelarAmount || ""
   });
 
   const handleChange = (e) => {

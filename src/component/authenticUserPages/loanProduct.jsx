@@ -97,7 +97,6 @@ import { useNavigate } from "react-router-dom";
 import LoginBanner from "../bannerPages/loginBanner";
 import Service from "../Service";
 import Swal from "sweetalert2";
- 
 
 import React, { useState } from "react"; // Required for useState
 
@@ -108,6 +107,8 @@ import { AddnewUserApplyForm1 } from "../../services/linkWithHttpServices";
 const LoanProductList = ({ products, refreshBalance }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
+  const userDelar_id = JSON.parse(localStorage.getItem("userDelar_id") || '""');
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -119,7 +120,14 @@ const LoanProductList = ({ products, refreshBalance }) => {
   const category_name = products[0]?.category || "";
   const navigate = useNavigate();
 
-  const handleClick = (link, category, subcategory, amount, status) => {
+  const handleClick = (
+    link,
+    category,
+    subcategory,
+    amount,
+    DelarAmount,
+    status
+  ) => {
     if (status === 0) {
       Swal.fire({
         icon: "warning",
@@ -130,17 +138,28 @@ const LoanProductList = ({ products, refreshBalance }) => {
       return;
     }
 
-    if (link.startsWith("http") && link != "https://realfinserv.com/track/your-application") {
+    console.log(
+      link,
+      category,
+      subcategory,
+      amount,
+      DelarAmount,
+      "shdfhsh111111111j"
+    );
+    if (
+      link.startsWith("http") &&
+      link != "https://realfinserv.com/track/your-application"
+    ) {
       // Save product info and show modal
-      setSelectedProduct({ link, category, subcategory, amount });
+      setSelectedProduct({ link, category, subcategory, amount, DelarAmount });
       setShowModal(true);
     } else {
       // Directly navigate without modal
-      if (link == "https://realfinserv.com/track/your-application"){
-           window.open(link, "_blank");
+      if (link == "https://realfinserv.com/track/your-application") {
+        window.open(link, "_blank");
       }
       navigate(link, {
-        state: { subcategory, category, amount, refreshBalance },
+        state: { subcategory, category, amount, refreshBalance, DelarAmount },
       });
     }
   };
@@ -161,9 +180,20 @@ const LoanProductList = ({ products, refreshBalance }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log(selectedProduct, "seleelelle");
+
+   const submitData = {
+    ...formData,
+    category: selectedProduct?.category || "",
+    subcategory: selectedProduct?.subcategory || "",
+    amount: selectedProduct?.amount || "",
+    DelarAmount: selectedProduct?.DelarAmount || "",
+    userDelar_id: userDelar_id,
+    partnerEmail: partnerEmail,
+  };
 
     try {
-      const response = await AddnewUserApplyForm1(formData);
+      const response = await AddnewUserApplyForm1(submitData);
       console.log(response, "response");
       if (response?.status == 201) {
         setFormData({
@@ -172,6 +202,10 @@ const LoanProductList = ({ products, refreshBalance }) => {
           phone: "",
           panCard: "",
           fullAddress: "",
+          category: "",
+          subcategory: "",
+          amount: "",
+          DelarAmount: "",
         });
         Swal.fire({
           icon: "success",
@@ -180,11 +214,11 @@ const LoanProductList = ({ products, refreshBalance }) => {
         });
 
         setShowModal(false);
-        const { link } = selectedProduct;
 
+        const { link } = selectedProduct;
         // Only external links should reach here
         if (link.startsWith("http")) {
-         window.open(link, "_blank");
+          window.open(link, "_blank");
         }
       } else {
         throw new Error("Submission failed");
@@ -219,6 +253,7 @@ const LoanProductList = ({ products, refreshBalance }) => {
                     product.category,
                     product.category_name,
                     product.amount,
+                    product.DelarAmount,
                     product.status
                   )
                 }

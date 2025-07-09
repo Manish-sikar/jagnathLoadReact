@@ -17,6 +17,7 @@ const LoanServicesPage = () => {
     sub_category_name: "",
     category: "",
         amount: "",
+        DelarAmount:"",
     link: "",
     loanimg: null,
   });
@@ -135,6 +136,11 @@ const LoanServicesPage = () => {
     selector: (row) => row.amount || 0,
     sortable: true,
   },
+    {
+    name: "Delar Amount",
+    selector: (row) => row.DelarAmount || 0,
+    sortable: true,
+  },
   {
     name: "Link",
     selector: (row) => row.link,
@@ -251,6 +257,15 @@ const LoanServicesPage = () => {
                         <input
                           type="text"
                           name="amount"
+                          className="form-control"
+                          onChange={handleChange}
+                        />
+                      </div>
+                       <div className="form-group">
+                        <label>Delar Amount</label>
+                        <input
+                          type="text"
+                          name="DelarAmount"
                           className="form-control"
                           onChange={handleChange}
                         />

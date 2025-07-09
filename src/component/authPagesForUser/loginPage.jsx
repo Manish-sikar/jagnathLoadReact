@@ -18,9 +18,11 @@ import {
   ForgotPasswordApi,
   VerifyOtpApi,
   ResetPasswordApi,
+  LoginApi,
 } from "../../services/authServices";
 import { useAuthUser } from "./contexUser";
 import Loading from "../../loadingFile";
+import { useAuth } from "../../adminComponent/authPage/contex";
 
 const LoginUser = () => {
   const [emailORphone, setEmailORPhone] = useState("");
@@ -31,9 +33,9 @@ const LoginUser = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [step, setStep] = useState(1);
-  const [pageLoading, setPageLoading] = useState(true);   // Initial screen
+  const [pageLoading, setPageLoading] = useState(true); // Initial screen
   const [loginLoading, setLoginLoading] = useState(false); // On form submit
-  
+  const [loginType, setLoginType] = useState("partner"); // default
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -41,39 +43,54 @@ const LoginUser = () => {
     }, 1500);
     return () => clearTimeout(timeout);
   }, []);
-  
 
   const navigate = useNavigate();
-  const { setTokenUser, setDataUser, setuserEmail, setuserBalance , setuserDelar_id } =
-    useAuthUser();
+  const {
+    setTokenUser,
+    setDataUser,
+    setuserEmail,
+    setuserBalance,
+    setuserDelar_id,
+  } = useAuthUser();
+  const { setToken, setData, setStatus, setUser_Id } = useAuth();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoginLoading(true);
+    if (!emailORphone || !password) {
+      Swal.fire("Error", "All fields are required!", "error");
+      setLoginLoading(false);
+      return;
+    }
+    try {
+      const response =
+        loginType == "partner"
+          ? await UserLoginApi({ emailORphone, password })
+          : await LoginApi({ UserName: emailORphone, password: password });
 
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      setLoginLoading(true);
-      if (!emailORphone || !password) {
-        Swal.fire("Error", "All fields are required!", "error");
-        setLoginLoading(false);
-        return;
+      if (response.token1) {
+        localStorage.setItem("authTokenUser", response.token);
+        setTokenUser(response.token1);
+        setDataUser(response.user_name);
+        setuserBalance(response.user_balance);
+        setuserEmail(response.email);
+        setuserDelar_id(response.Delar_Id);
+        Swal.fire("Success", "Login successful!", "success");
+        navigate("/dashboard");
       }
-      try {
-        const response = await UserLoginApi({ emailORphone, password });
-        if (response.token) {
-          localStorage.setItem("authTokenUser", response.token);
-          setTokenUser(response.token);
-          setDataUser(response.user_name);
-          setuserBalance(response.user_balance);
-          setuserEmail(response.email);
-          setuserDelar_id(response.Delar_Id);
-          Swal.fire("Success", "Login successful!", "success");
-          navigate("/dashboard");
-        }
-      } catch (error) {
-        Swal.fire("Error", "Login failed. Please try again.", "error");
-      } finally {
-        setLoginLoading(false);
+      if (response.token) {
+        localStorage.setItem("authToken", response.token);
+        setToken(response.token);
+        setData(response.admin_name);
+        setStatus(response.status);
+        setUser_Id(response.user_Id);
+        navigate("/admin/apply-form-data");
       }
-    };
-    
+    } catch (error) {
+      Swal.fire("Error", "Login failed. Please try again.", "error");
+    } finally {
+      setLoginLoading(false);
+    }
+  };
 
   const handleForgotPassword = async () => {
     try {
@@ -110,7 +127,6 @@ const LoginUser = () => {
 
   if (pageLoading) return <Loading />;
 
-
   return (
     <MDBContainer fluid className="p-3 my-5">
       <MDBRow>
@@ -124,14 +140,57 @@ const LoginUser = () => {
 
         <MDBCol col="4" md="6" className="border-2">
           <span style={{ fontFamily: "ui-monospace !important" }}>
-            {" "}
-            <h1>Partner Login</h1>
+            <h1>
+              {loginType === "partner" ? "Partner Login" : "Retailer Login"}
+            </h1>
           </span>
+
+          <div className="d-flex justify-content-center mb-4">
+            <button
+              // color={loginType === "partner" ? "primary" : "secondary"}
+              onClick={() => setLoginType("partner")}
+              className={
+                loginType === "partner"
+                  ? " ms-2 btn btn-primary"
+                  : " ms-2 btn btn-secondary"
+              }
+              size="sm"
+            >
+              Partner Login
+            </button>
+            {/* <MDBBtn
+            
+            >
+              Partner Login
+            </MDBBtn> */}
+            {/* <MDBBtn
+              color={loginType === "retailer" ? "primary" : "secondary"}
+              onClick={() => setLoginType("retailer")}
+              size="sm"
+            >
+              Retailer Login
+            </MDBBtn> */}
+
+            <button
+              className={
+                loginType === "retailer"
+                  ? "ms-2 btn btn-primary"
+                  : " ms-2 btn btn-secondary"
+              }
+              //  color={loginType === "retailer" ? "primary" : "secondary"}
+              onClick={() => setLoginType("retailer")}
+              size="sm"
+            >
+              Retailer Login
+            </button>
+          </div>
+
           <form onSubmit={handleLogin}>
-            {/* <MDBInput label="Email or Phone" id="emailORphone" type="text" size="lg" value={emailORphone} onChange={(e) => setEmailORPhone(e.target.value)} className="mb-4"  labelPlacement="top" /> */}
-            <div className="mb-4 mt-5">
+            <div className="mb-4 mt-3">
               <label htmlFor="User Name" className="form-label">
-                User Name
+                {loginType === "partner"
+                  ? "Partner Username"
+                  : "Retailer Username"}
               </label>
               <MDBInput
                 id="emailORphone"
@@ -153,7 +212,6 @@ const LoginUser = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {/* <MDBInput label="Password" id="password" type="password" size="lg" value={password} onChange={(e) => setPassword(e.target.value)} className="mb-4" /> */}
 
             <div className="d-flex justify-content-between mx-4 mb-4">
               <MDBCheckbox
@@ -166,16 +224,12 @@ const LoginUser = () => {
               </a>
             </div>
 
-            {/* <MDBBtn className="mb-4 w-100" size="lg" type="submit">
-              Sign in
-            </MDBBtn> */}
             <button
               className="mb-4 w-100 btn btn-success"
               size="lg"
               type="submit"
             >
-              {" "}
-              {loginLoading ? "Signing in..." : "Sign in"}{" "}
+              {loginLoading ? "Signing in..." : "Sign in"}
             </button>
           </form>
 
