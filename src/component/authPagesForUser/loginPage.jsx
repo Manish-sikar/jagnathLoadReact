@@ -66,7 +66,7 @@ const LoginUser = () => {
         loginType == "partner"
           ? await UserLoginApi({ emailORphone, password })
           : await LoginApi({ UserName: emailORphone, password: password });
-
+console.log(response , "response")
       if (response.token1) {
         localStorage.setItem("authTokenUser", response.token);
         setTokenUser(response.token1);

@@ -108,7 +108,8 @@ const LoanProductList = ({ products, refreshBalance }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
-  const userDelar_id = JSON.parse(localStorage.getItem("userDelar_id") || '""');
+  const userDelar_id = localStorage.getItem("userDelar_id") || "";
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -250,11 +251,11 @@ const LoanProductList = ({ products, refreshBalance }) => {
                 onClick={() =>
                   handleClick(
                     product.link,
-                    product.category,
-                    product.category_name,
-                    product.amount,
-                    product.DelarAmount,
-                    product.status
+                    product?.category,
+                    product?.category_name,
+                    product?.amount,
+                    product?.DelarAmount || 0,
+                    product?.status
                   )
                 }
                 style={{
