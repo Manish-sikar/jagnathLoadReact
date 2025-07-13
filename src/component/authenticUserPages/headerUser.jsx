@@ -23,8 +23,9 @@ const AuthUserHeader = () => {
   const [utrNo, setUtrNo] = useState("");
   const [showQRModal, setShowQRModal] = useState(false);
   const navigate = useNavigate();
-const [partnerStatus, setPartnerStatus] = useState(false);
-
+  const [partnerStatus, setPartnerStatus] = useState(() =>
+    localStorage.getItem("userUserStatus")
+  );
 
   useEffect(() => {
     fetchData();
@@ -52,11 +53,6 @@ const [partnerStatus, setPartnerStatus] = useState(false);
       console.error("Error fetching social media links: ", error);
     }
   };
-const partnerStatusForDelar = localStorage.getItem("userUserStatus")
-if(partnerStatusForDelar == "2"){
-  console.log("true")
-  partnerStatusForDelar(true)
-}
 
   const handlePaymentSubmit = async () => {
     if (!paymentAmount || !utrNo) {
@@ -136,7 +132,7 @@ if(partnerStatusForDelar == "2"){
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
           <Nav className="me-auto"></Nav>
-          { partnerStatus  && (
+          {partnerStatus == 2 && (
             <Nav className="ms-auto d-flex align-items-center gap-3">
               {/* Wallet Section */}
               <div className="wallet-section" style={style.wallet}>
