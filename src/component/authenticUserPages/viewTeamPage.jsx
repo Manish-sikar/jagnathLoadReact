@@ -268,7 +268,7 @@ const navigate = useNavigate()
         <div className="d-flex mb-4">
         <span className="me-3"><button className="btn btn-danger" onClick={()=>{ navigate("/dashboard")}}>Back</button></span>
 
-          {["View_Team_Orders", "View_Parthner" , "Add_Parhner" ].map(
+          {["View_Team_Orders", "View_Partner" , "Add_Partner" ].map(
             (tab) => (
               <Button
                 key={tab}
@@ -301,7 +301,7 @@ const navigate = useNavigate()
           )}
 
           {/* Transaction History Table */}
-          {selectedTab === "View_Parthner" && (
+          {selectedTab === "View_Partner" && (
             <>
               <h4>Teams</h4>
               {transHistoryData.length > 0 ? (
@@ -315,7 +315,7 @@ const navigate = useNavigate()
             </>
           )}
 
-           {selectedTab === "Add_Parhner" && (
+           {selectedTab === "Add_Partner" && (
             <>
             <AddPartnerForm></AddPartnerForm>
             </>
