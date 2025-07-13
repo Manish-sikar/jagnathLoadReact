@@ -127,6 +127,11 @@ const columns = [
     selector: (row) => row.partnerEmail,
     sortable: true,
   },
+   {
+    name: "Delar Id",
+    selector: (row) => row.userDelar_id,
+    sortable: true,
+  },
   {
     name: "Full Name",
     selector: (row) => row.fullName,

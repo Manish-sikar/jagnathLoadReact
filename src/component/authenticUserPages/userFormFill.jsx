@@ -133,7 +133,7 @@ setLoading(true)
         setSelectedState("");
         setDistricts([]);
         setuserBalance(response.data.user_balance);
-        setLoading(true)
+        setLoading(false)
       } else {
         throw new Error("Failed to submit form");
       }
@@ -141,6 +141,7 @@ setLoading(true)
       console.log(error.response.data.err);
       const errMessage = error.response.data.err;
       Swal.fire("Error!", errMessage, "error");
+      setLoading(false)
     }
   };
 

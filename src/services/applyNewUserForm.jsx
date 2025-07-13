@@ -16,9 +16,10 @@ async function AddnewUserApplyForm(formdata) {
   }
 }
 
-async function GetnewUserApplyForm(user_Id) {
+async function GetnewUserApplyForm(partnerEmail) {
+  console.log(partnerEmail)
     try {
-        const url = user_Id ? `/user_apply_form?create_id=${user_Id}` : "/user_apply_form";
+        const url = partnerEmail ? `/user_apply_form?create_id=${partnerEmail}` : "/user_apply_form";
     const response = await router.get(url);
       return response.data;
     } catch (error) {
@@ -62,9 +63,35 @@ async function GetnewUserApplyForm(user_Id) {
 
  // parther data 
 
-async function GetnewpartnerData(user_Id) {
+// async function GetnewpartnerData(status=null) {
+//   try {
+//     const url = status ? `/User-reg?status=${status}?delar-id` : "/User-reg";
+//     const response = await router.get(url);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error in getting partner data:", error);
+//     throw error;
+//   }
+// }
+
+
+async function GetnewpartnerData(params = null) {
   try {
-    const url = user_Id ? `/User-reg?create_id=${user_Id}` : "/User-reg";
+    let url = "/User-reg";
+
+    if (params) {
+      if (typeof params === "object" && params !== null) {
+        // Build query string from object
+        const queryString = Object.entries(params)
+          .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+          .join("&");
+        url += `?${queryString}`;
+      } else {
+        // Assume it's a single status number
+        url += `?status=${encodeURIComponent(params)}`;
+      }
+    }
+
     const response = await router.get(url);
     return response.data;
   } catch (error) {

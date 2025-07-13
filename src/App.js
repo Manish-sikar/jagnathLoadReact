@@ -49,195 +49,208 @@ import PaymentRequestPage from "./adminComponent/adminComponent/paymentRequest/p
 import LinkWithHttpDataTable from "./adminComponent/adminComponent/userLinkData/viewUserLinkData";
 import ViewDelarPage from "./adminComponent/adminComponent/delarPage/viewDelarPage";
 import AddDelarPage from "./adminComponent/adminComponent/delarPage/AddDelar";
-
+import EditDelarPage from "./adminComponent/adminComponent/delarPage/EditDelar";
+import ViewTeamPage from "./component/authenticUserPages/viewTeamPage";
 
 function App() {
   return (
     <AuthProvider>
       <AuthProviderUser>
-      <Router>
-        <Routes>
-          <Route path="/" element={<UserLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/project" element={<Project />} />
-            <Route path="/service" element={<Service />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/testimonial" element={<Testimonial />} />
-            <Route path="/billing" element={<Billing />} />
-          </Route>
-          <Route path="/login-User" element={<LoginUser />} />
-        
+        <Router>
+          <Routes>
+            <Route path="/" element={<UserLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/project" element={<Project />} />
+              <Route path="/service" element={<Service />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/testimonial" element={<Testimonial />} />
+              <Route path="/billing" element={<Billing />} />
+            </Route>
+            <Route path="/login-User" element={<LoginUser />} />
 
-          <Route path="/dashboard" element={
-            <ProtectedRouteUser>
-            <Dashboard/>
-            </ProtectedRouteUser>
-            } />
- <Route path="/user-apply-form" element={
-            <ProtectedRouteUser>
-            <UserFormFillPage/>
-            </ProtectedRouteUser>
-            } />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRouteUser>
+                  <Dashboard />
+                </ProtectedRouteUser>
+              }
+            />
+            <Route
+              path="/user-apply-form"
+              element={
+                <ProtectedRouteUser>
+                  <UserFormFillPage />
+                </ProtectedRouteUser>
+              }
+            />
+              <Route
+              path="/ViewTeamPage"
+              element={
+                <ProtectedRouteUser>
+                  <ViewTeamPage />
+                </ProtectedRouteUser>
+              }
+            />
 
-
-          <Route path="/admin/login" element={<SinInPage />} />
-          <Route path="/" element={<AdminLayout />}>
-            <Route
-              path="admin/dashboard"
-              element={
-                <ProtectedRoute>
-                  <AdminDashbBoard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/site"
-              element={
-                <ProtectedRoute>
-                  <SiteSetting />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/social_media"
-              element={
-                <ProtectedRoute>
-                  <SocialMedia />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/social_media/edit"
-              element={
-                <ProtectedRoute>
-                  <SocialMediaEdit />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/banner"
-              element={
-                <ProtectedRoute>
-                  <BannerTable />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/banner/edit"
-              element={
-                <ProtectedRoute>
-                  <BannerEdit />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/about"
-              element={
-                <ProtectedRoute>
-                  <AboutAdmin />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/about/edit"
-              element={
-                <ProtectedRoute>
-                  <AboutEdit />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/services"
-              element={
-                <ProtectedRoute>
-                  <ServicesPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/service/edit"
-              element={
-                <ProtectedRoute>
-                  <ServiceEdit />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/projects"
-              element={
-                <ProtectedRoute>
-                  <ProjectsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/project/edit"
-              element={
-                <ProtectedRoute>
-                  <ProjectEditPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/ourTeam"
-              element={
-                <ProtectedRoute>
-                  <OurTeamPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/ourTeam/edit"
-              element={
-                <ProtectedRoute>
-                  <OurTeamEdit />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/Contact-data"
-              element={
-                <ProtectedRoute>
-                  <ContactData />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/Contact-form"
-              element={
-                <ProtectedRoute>
-                  <ContactForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/footer"
-              element={
-                <ProtectedRoute>
-                  <FooterData />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="admin/setting/billing"
-              element={
-                <ProtectedRoute>
-                  <BillingData />
-                </ProtectedRoute>
-              }
-            />
-             <Route
-              path="/admin/apply-form-data"
-              element={
-                <ProtectedRoute>
-                  <ApplyFormData />
-                </ProtectedRoute>
-              }
-            />
-                   <Route
+            <Route path="/admin/login" element={<SinInPage />} />
+            <Route path="/" element={<AdminLayout />}>
+              <Route
+                path="admin/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <AdminDashbBoard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/site"
+                element={
+                  <ProtectedRoute>
+                    <SiteSetting />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/social_media"
+                element={
+                  <ProtectedRoute>
+                    <SocialMedia />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/social_media/edit"
+                element={
+                  <ProtectedRoute>
+                    <SocialMediaEdit />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/banner"
+                element={
+                  <ProtectedRoute>
+                    <BannerTable />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/banner/edit"
+                element={
+                  <ProtectedRoute>
+                    <BannerEdit />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/about"
+                element={
+                  <ProtectedRoute>
+                    <AboutAdmin />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/about/edit"
+                element={
+                  <ProtectedRoute>
+                    <AboutEdit />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/services"
+                element={
+                  <ProtectedRoute>
+                    <ServicesPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/service/edit"
+                element={
+                  <ProtectedRoute>
+                    <ServiceEdit />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/projects"
+                element={
+                  <ProtectedRoute>
+                    <ProjectsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/project/edit"
+                element={
+                  <ProtectedRoute>
+                    <ProjectEditPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/ourTeam"
+                element={
+                  <ProtectedRoute>
+                    <OurTeamPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/ourTeam/edit"
+                element={
+                  <ProtectedRoute>
+                    <OurTeamEdit />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/Contact-data"
+                element={
+                  <ProtectedRoute>
+                    <ContactData />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/Contact-form"
+                element={
+                  <ProtectedRoute>
+                    <ContactForm />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/footer"
+                element={
+                  <ProtectedRoute>
+                    <FooterData />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/setting/billing"
+                element={
+                  <ProtectedRoute>
+                    <BillingData />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/apply-form-data"
+                element={
+                  <ProtectedRoute>
+                    <ApplyFormData />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/admin/become-partner"
                 element={
                   <ProtectedRoute>
@@ -245,7 +258,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-                    <Route
+              <Route
                 path="/admin/loanProduct"
                 element={
                   <ProtectedRoute>
@@ -262,7 +275,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-                 <Route
+              <Route
                 path="/admin/partner"
                 element={
                   <ProtectedRoute>
@@ -270,7 +283,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-                    <Route
+              <Route
                 path="/admin/partner/edit"
                 element={
                   <ProtectedRoute>
@@ -278,7 +291,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-                 <Route
+              <Route
                 path="/admin/paymentRequest"
                 element={
                   <ProtectedRoute>
@@ -286,36 +299,44 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-                  <Route
+              <Route
                 path="/admin/httpLinkData"
                 element={
                   <ProtectedRoute>
-                    <LinkWithHttpDataTable/>
+                    <LinkWithHttpDataTable />
                   </ProtectedRoute>
                 }
               />
 
-                 <Route
+              <Route
                 path="/admin/viewDelarData"
                 element={
                   <ProtectedRoute>
-                    <ViewDelarPage/>
+                    <ViewDelarPage />
                   </ProtectedRoute>
                 }
               />
 
-                 <Route
+              <Route
                 path="/admin/addDelarData"
                 element={
                   <ProtectedRoute>
-                    <AddDelarPage/>
+                    <AddDelarPage />
                   </ProtectedRoute>
                 }
               />
-          </Route>
 
-        </Routes>
-      </Router>
+              <Route
+                path="/admin/editDelarData"
+                element={
+                  <ProtectedRoute>
+                    <EditDelarPage />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+          </Routes>
+        </Router>
       </AuthProviderUser>
     </AuthProvider>
   );

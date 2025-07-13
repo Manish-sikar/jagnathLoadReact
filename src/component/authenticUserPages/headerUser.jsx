@@ -9,6 +9,7 @@ import { useAuthUser } from "../authPagesForUser/contexUser";
 import { PaytmPaynow } from "../../services/paytmService";
 import { sambitPaymentDetails } from "../../services/billingService";
 import Swal from "sweetalert2"; // make sure this is imported
+import { useNavigate } from "react-router-dom";
 
 const AuthUserHeader = () => {
   const [formData, setFormData] = useState({});
@@ -20,8 +21,10 @@ const AuthUserHeader = () => {
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [paymentAmount, setPaymentAmount] = useState("");
   const [utrNo, setUtrNo] = useState("");
-
   const [showQRModal, setShowQRModal] = useState(false);
+  const navigate = useNavigate();
+// const [partnerStatus, setPartnerStatus] = useState(() => Number(localStorage.getItem("userUserStatus") || 0));
+
 
   useEffect(() => {
     fetchData();
@@ -49,6 +52,7 @@ const AuthUserHeader = () => {
       console.error("Error fetching social media links: ", error);
     }
   };
+const partnerStatus = JSON.parse(localStorage.getItem("userUserStatus") || 0)
 
   const handlePaymentSubmit = async () => {
     if (!paymentAmount || !utrNo) {
@@ -119,17 +123,31 @@ const AuthUserHeader = () => {
         <Container>
           <Navbar.Brand href="#home" style={style.navbarBrand}>
             <img
-              src={"./img/Jasnathlogopdf_1.JPG" ||formData?.site_logo }
+              src={"./img/Jasnathlogopdf_1.JPG" || formData?.site_logo}
               alt="Site Logo"
               className="rounded-circle"
-              style={{ width: "auto", height: "80px",
-             
-               }}
+              style={{ width: "auto", height: "80px" }}
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
           <Nav className="me-auto"></Nav>
+          { ( partnerStatus == 2 ) && (
+            <Nav className="ms-auto d-flex align-items-center gap-3">
+              {/* Wallet Section */}
+              <div className="wallet-section" style={style.wallet}>
+                <button
+                  className="btn btn-sm btn-primary"
+                  onClick={() => navigate("/ViewTeamPage")}
+                >
+                  <span style={style.walletText}>
+                    <i className="fas fa-users"></i> My Team
+                  </span>
+                </button>
+              </div>
+            </Nav>
+          )}
+
           <Nav className="ms-auto d-flex align-items-center gap-3">
             {/* Wallet Section */}
             <div className="wallet-section" style={style.wallet}>

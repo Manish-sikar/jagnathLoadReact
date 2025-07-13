@@ -16,11 +16,10 @@ const PartnerPage = () => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { user_Id, statusData } = useAuth();
 
-  const fetchTableData = async (user_Id) => {
+  const fetchTableData = async () => {
     try {
-      const response = await GetnewpartnerData(user_Id);
+      const response = await GetnewpartnerData(1);
       if (response && Array.isArray(response?.partner_Data)) {
         setTableData(response?.partner_Data);
         setMessage(response?.message);
@@ -36,11 +35,8 @@ const PartnerPage = () => {
   };
 
   useEffect(() => {
-    if (statusData == 2) {
-      fetchTableData(user_Id);
-    } else {
       fetchTableData();
-    }
+    
   }, []);
 
   const handleDelete = async (id) => {
@@ -189,7 +185,7 @@ const PartnerPage = () => {
     {
       name: "Delar Name",
       selector: (row) =>
-        row.createUserName ? row.createUserName.split("@")[0] : "",
+        row.createUserName,
       sortable: true,
     },
     {
