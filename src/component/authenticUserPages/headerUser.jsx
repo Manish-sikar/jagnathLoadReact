@@ -9,7 +9,7 @@ import { useAuthUser } from "../authPagesForUser/contexUser";
 import { PaytmPaynow } from "../../services/paytmService";
 import { sambitPaymentDetails } from "../../services/billingService";
 import Swal from "sweetalert2"; // make sure this is imported
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthUserHeader = () => {
   const [formData, setFormData] = useState({});
@@ -23,9 +23,12 @@ const AuthUserHeader = () => {
   const [utrNo, setUtrNo] = useState("");
   const [showQRModal, setShowQRModal] = useState(false);
   const navigate = useNavigate();
+
+  const location = useLocation();
   const [partnerStatus, setPartnerStatus] = useState(() =>
     localStorage.getItem("userUserStatus")
   );
+  const partnerEmail = localStorage.getItem("partnerEmail") || '""';
 
   useEffect(() => {
     fetchData();
@@ -112,10 +115,7 @@ const AuthUserHeader = () => {
       {/* Main Navbar */}
 
       <div style={{ height: "40px", backgroundColor: "#EB5B00" }}>
-        <marquee className="text-light p-2">
-          FOR ANY INFORMATION OR DETAILS KINDLY MAIL US AT JASNATHFINANCE@GMAIL
-          .COM
-        </marquee>
+        <marquee className="text-light p-2">{formData?.title}</marquee>
       </div>
 
       {/* Navbar */}
@@ -130,15 +130,28 @@ const AuthUserHeader = () => {
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Nav className="me-auto">
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              disabled
+            ><span className="text-black cursor-pointer fw-bold">{partnerEmail}</span>
 
-          <Nav className="me-auto"></Nav>
+            </button>
+          </Nav>
           {partnerStatus == 2 && (
             <Nav className="ms-auto d-flex align-items-center gap-3">
               {/* Wallet Section */}
               <div className="wallet-section" style={style.wallet}>
                 <button
                   className="btn btn-sm btn-primary"
-                  onClick={() => navigate("/ViewTeamPage")}
+                  onClick={() => {
+                    if (location.pathname === "/ViewTeamPage") {
+                      navigate(-1);
+                    } else {
+                      navigate("/ViewTeamPage");
+                    }
+                  }}
                 >
                   <span style={style.walletText}>
                     <i className="fas fa-users"></i> My Team

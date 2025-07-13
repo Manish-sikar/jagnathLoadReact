@@ -183,9 +183,9 @@ const PartnerPage = () => {
       sortable: true,
     },
     {
-      name: "Delar Name",
+      name: "Delar Id",
       selector: (row) =>
-        row.createUserName,
+        row.create_id,
       sortable: true,
     },
     {

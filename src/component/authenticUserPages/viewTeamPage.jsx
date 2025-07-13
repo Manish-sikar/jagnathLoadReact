@@ -48,7 +48,7 @@ const ViewTeamPage = () => {
   useEffect(() => {
     fetchProductsByCategory();
     fetchTransHistory();
-  }, []);
+  }, [selectedTab]);
 
   const handleModal = (type, user = null) => {
     setSelectedUser(user);
@@ -264,10 +264,11 @@ const navigate = useNavigate()
     <>
     <AuthUserHeader />
       <Container className="mt-5">
-        <h2>Reports</h2>
-        <span className=""><button className="btn btn-danger ms-auto" onClick={()=>{ navigate("/dashboard")}}>Back</button></span>
+        <h2>My Team Reports</h2>
         <div className="d-flex mb-4">
-          {["View_Team_Orders", "View_Parthner" , "Add_Parhner"].map(
+        <span className="me-3"><button className="btn btn-danger" onClick={()=>{ navigate("/dashboard")}}>Back</button></span>
+
+          {["View_Team_Orders", "View_Parthner" , "Add_Parhner" ].map(
             (tab) => (
               <Button
                 key={tab}
