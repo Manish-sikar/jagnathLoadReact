@@ -8,9 +8,7 @@ const EditPartnerPage = () => {
   const navigate = useNavigate();
   const { partner } = location.state || {};
 
-  const [selectedTeamImg, setSelectedTeamImg] = useState(
-    typeof partner?.Avtar === "string" ? partner.Avtar : null
-  );
+  const [selectedTeamImg, setSelectedTeamImg] = useState(null);
 
   const [formData, setFormData] = useState({
     _id: partner?._id,
@@ -52,15 +50,21 @@ const EditPartnerPage = () => {
 
     // Append non-file fields
     Object.keys(formData).forEach((key) => {
-      if (key !== "Avtar") {
+      if (key != "Avtar") {
         formDataToSubmit.append(key, formData[key]);
       }
     });
-
-    // Append image file only if it's a File object
     if (formData.Avtar instanceof File) {
-      formDataToSubmit.append("Avtar", formData.Avtar);
-    }
+  formDataToSubmit.append("Avtar", formData.Avtar);
+}
+
+
+//     // Append image file only if it's a File object
+ 
+    // if (setSelectedTeamImg) {
+    //   const imageFile = formData.Avtar; // This should hold the new file
+    //   formDataToSubmit.append("Avtar", imageFile);
+    // }
 
     try {
       const response = await updatePartnerData(formDataToSubmit);
@@ -178,7 +182,7 @@ const EditPartnerPage = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>Partner Image</label>
           <input
             type="file"
@@ -191,6 +195,32 @@ const EditPartnerPage = () => {
               alt="Selected Partner"
               className="w-25 pt-2"
             />
+          )}
+        </div> */}
+
+        <div className="form-group">
+          <label>Partner Image</label>
+          <input
+            id="Avtar"
+            type="file"
+            className="form-control"
+            name="Avtar"
+            onChange={handleFileChange}
+          />
+          {selectedTeamImg ? (
+            <img
+              src={selectedTeamImg}
+              alt="Selected Avtar"
+              className="w-25 pt-2"
+            />
+          ) : (
+            partner.Avtar && (
+              <img
+                src={partner.Avtar}
+                alt="Current Avtar"
+                className="w-25 pt-2 img-fluid"
+              />
+            )
           )}
         </div>
 

@@ -129,7 +129,7 @@ const columns = [
   },
    {
     name: "Delar Id",
-    selector: (row) => row.userDelar_id,
+   selector: (row) => (row?.userDelar_id ?? "") ,
     sortable: true,
   },
   {
