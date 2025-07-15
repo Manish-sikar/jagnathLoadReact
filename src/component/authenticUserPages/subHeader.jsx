@@ -12,7 +12,7 @@ const SubHeaderUser = ({ onCategorySelect }) => {
     { title: "E-Store", category: "e_store" },
     { title: "Report", category: "report" },
     { title: "Support", category: "support" },
-    { title: "Instant Deal", category: "Instant_Deal" },
+    { title: "Track Loan Application", category: "Track_Application" },
   ];
 
   return (
