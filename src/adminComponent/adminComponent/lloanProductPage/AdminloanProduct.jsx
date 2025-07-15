@@ -106,7 +106,7 @@ const LoanServicesPage = () => {
     "loan_product",
     "report" ,
     "support",
-    "Track_Application"
+    "Instant_Deal"
   ];
 
   const columns = [

@@ -148,17 +148,14 @@ const LoanProductList = ({ products, refreshBalance }) => {
       "shdfhsh111111111j"
     );
     if (
-      link.startsWith("http") &&
-      link != "https://realfinserv.com/track/your-application"
+      link.startsWith("http") 
     ) {
       // Save product info and show modal
       setSelectedProduct({ link, category, subcategory, amount, DelarAmount });
       setShowModal(true);
     } else {
       // Directly navigate without modal
-      if (link == "https://realfinserv.com/track/your-application") {
-        window.open(link, "_blank");
-      }
+    
       navigate(link, {
         state: { subcategory, category, amount, refreshBalance, DelarAmount },
       });

@@ -12,15 +12,13 @@ const SubHeaderUser = ({ onCategorySelect }) => {
     { title: "E-Store", category: "e_store" },
     { title: "Report", category: "report" },
     { title: "Support", category: "support" },
-    { title: "Track Loan Application", category: "Track_Application" },
+    { title: "Instant Deal", category: "Instant_Deal" },
   ];
 
   return (
     <nav className="navbar py-2" style={{backgroundColor:"#3674b5"}} >
       <div className="container-fluid px-3">
         <div className="d-flex flex-nowrap w-100 gap-2 overflow-auto scroll-container justify-content-center">
-
-
 
           {dropdownData.map((dropdown, index) => (
             <div

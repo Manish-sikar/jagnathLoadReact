@@ -46,6 +46,10 @@ const LinkWithHttpDataTable = () => {
     { name: "Phone", selector: (row) => row.phone },
     { name: "Pan Card", selector: (row) => row.panCard },
     { name: "Address", selector: (row) => row.fullAddress },
+    { name: "category", selector: (row) => row.category },
+    { name: "subcategory", selector: (row) => row.subcategory },
+    { name: "Jn_Id", selector: (row) => row.partnerEmail },
+    { name: "Delar Id", selector: (row) => row.userDelar_id },
     {
       name: "Actions",
       cell: (row) => (
