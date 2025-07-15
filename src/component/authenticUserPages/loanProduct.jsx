@@ -155,9 +155,6 @@ const LoanProductList = ({ products, refreshBalance }) => {
       setShowModal(true);
     } else {
       // Directly navigate without modal
-      if (link == "https://realfinserv.com/track/your-application") {
-        window.open(link, "_blank");
-      }
       navigate(link, {
         state: { subcategory, category, amount, refreshBalance, DelarAmount },
       });
