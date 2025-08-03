@@ -82,7 +82,8 @@ const LoginUser = () => {
       Swal.fire("Success", "OTP sent to your email!", "success");
       setStep(2);
     } catch (error) {
-      Swal.fire("Error", "Failed to send OTP.", "error");
+      const err = error?.response?.data.message
+      Swal.fire( err || "Error", "Failed to send OTP.", "error");
     }
   };
 
