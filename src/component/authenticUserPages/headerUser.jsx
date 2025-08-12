@@ -10,12 +10,13 @@ import { PaytmPaynow } from "../../services/paytmService";
 import { sambitPaymentDetails } from "../../services/billingService";
 import Swal from "sweetalert2"; // make sure this is imported
 import { useNavigate, useLocation } from "react-router-dom";
+import { baseURL } from "../../services/apiService";
 
 const AuthUserHeader = () => {
   const [formData, setFormData] = useState({});
   const [socialLinks, setSocialLinks] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [addAmount, setAddAmount] = useState("");
+  const [showModalONLINE, setShowModalONLINE] = useState(false);
   const { userDataUser, logoutUser, userBalance } = useAuthUser();
 
   const [showPaymentForm, setShowPaymentForm] = useState(false);
@@ -25,6 +26,7 @@ const AuthUserHeader = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
+  const [amount, setAmount] = useState("");
   const [partnerStatus, setPartnerStatus] = useState(() =>
     localStorage.getItem("userUserStatus")
   );
@@ -110,6 +112,81 @@ const AuthUserHeader = () => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
+  const handleOnlinePayment = async () => {
+    if (!amount || isNaN(amount) || amount <= 0) {
+      Swal.fire({
+        icon: "warning",
+        title: "Enter Amount",
+        text: "Please enter the amount you want to add before paying online.",
+      });
+      return;
+    }
+
+    try {
+      const partnerEmail1 = JSON.parse(
+        localStorage.getItem("partnerEmail") || '""'
+      );
+      const cleanPartnerEmail = partnerEmail1.replace(/^"+|"+$/g, "");
+      // 1️⃣ Create Razorpay order from backend
+      const res = await fetch(`${baseURL}/testGetway`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amount, JN_Id: cleanPartnerEmail }),
+      });
+
+      const orderData = await res.json();
+      console.log(orderData, "orderData");
+      if (!orderData.order.id) throw new Error("Order creation failed");
+
+      // 2️⃣ Open Razorpay Checkout
+      const options = {
+        key: "rzp_test_TgeZ5UsbCb3z7r",
+        amount: orderData.order.amount,
+        currency: "INR",
+        name: "Jasnath Finance",
+        description: "Wallet Top-up",
+        order_id: orderData.order.id,
+        handler: async function (response) {
+          // 3️⃣ Send verification request to backend
+          const verifyRes = await fetch(`${baseURL}/payment-success`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(response),
+          });
+
+          const verifyData = await verifyRes.json();
+          if (verifyRes.ok) {
+            Swal.fire({
+              icon: "success",
+              title: "Payment Successful",
+              text: `₹${amount} added to your wallet.`,
+            });
+            handleClose();
+            setAmount("")
+            setShowModalONLINE(false);
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Payment Failed",
+              text: verifyData.error || "Unable to verify payment",
+            });
+          }
+        },
+        theme: { color: "#3399cc" },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err.message || "Something went wrong with payment",
+      });
+    }
+  };
+
   return (
     <>
       {/* Main Navbar */}
@@ -135,8 +212,10 @@ const AuthUserHeader = () => {
               className="btn btn-outline-secondary"
               type="button"
               disabled
-            ><span className="text-black cursor-pointer fw-bold">{partnerEmail}</span>
-
+            >
+              <span className="text-black cursor-pointer fw-bold">
+                {partnerEmail}
+              </span>
             </button>
           </Nav>
           {partnerStatus == 2 && (
@@ -254,12 +333,20 @@ const AuthUserHeader = () => {
 
             {!showPaymentForm ? (
               <div className="text-center">
-                <Button
-                  variant="success"
-                  onClick={() => setShowPaymentForm(true)}
-                >
-                  ✅ I’ve Paid - Submit Payment Info
-                </Button>
+                <div className="text-center d-flex flex-column gap-2">
+                  <Button
+                    variant="primary"
+                    onClick={() => setShowModalONLINE(true)}
+                  >
+                    💳 Pay Online (Razorpay)
+                  </Button>
+                  <Button
+                    variant="success"
+                    onClick={() => setShowPaymentForm(true)}
+                  >
+                    🏦 Offline Payment (QR / Bank Transfer)
+                  </Button>
+                </div>
               </div>
             ) : (
               <form
@@ -330,6 +417,29 @@ const AuthUserHeader = () => {
         <Modal.Footer className="d-flex justify-content-center">
           <Button variant="outline-secondary" onClick={handleClose}>
             ❌ Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Your existing Modal (simplified example) */}
+      <Modal show={showModalONLINE} onHide={() => setShowModalONLINE(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Enter Amount</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder="Enter amount"
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModalONLINE(false)}>
+            Cancel
+          </Button>
+          <Button variant="success" onClick={handleOnlinePayment}>
+            Add Amount
           </Button>
         </Modal.Footer>
       </Modal>
