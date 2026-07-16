@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Table } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import {
-  GetTransHistroyData,
-  GetReportData,
   GetnewpartnerData,
   GetnewUserApplyForm,
 } from "../../services/applyNewUserForm";
-import EditUserApplyForm from "../../adminComponent/adminComponent/userApplyForm/editUserApplyForm";
 import DataTableComponent from "../../atoms/datatables/datatables";
 import AuthUserHeader from "./headerUser";
 import AddPartnerForm from "./addPathnerPage";
@@ -15,14 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 const ViewTeamPage = () => {
   const [selectedTab, setSelectedTab] = useState("View_Team_Orders");
-  const [ourOrderData, setOurOrderData] = useState([]);
-  const [confirmOrderData, setConfirmOrderData] = useState([]);
   const [closeOrderData, setCloseOrderData] = useState([]);
   const [transHistoryData, setTransHistoryData] = useState([]); // State for Transaction History
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [modalType, setModalType] = useState(null); // 'edit', 'close', null
-  const [closeMessage, setCloseMessage] = useState("");
-  const [documents, setDocuments] = useState({});
 
   const partnerEmail = JSON.parse(localStorage.getItem("partnerEmail") || '""');
 
@@ -50,12 +41,7 @@ const ViewTeamPage = () => {
     fetchTransHistory();
   }, [selectedTab]);
 
-  const handleModal = (type, user = null) => {
-    setSelectedUser(user);
-    setModalType(type);
-    setCloseMessage("");
-    setDocuments({});
-  };
+ 
 
   const [showDetails, setShowDetails] = useState(false);
   const [detailUser, setDetailUser] = useState(null);
@@ -217,32 +203,7 @@ const FillFormcolumns = [
         : "Closed",
     sortable: true,
   },
-  // {
-  //   name: "Actions1",
-  //   cell: (row) => (
-  //     <>
-  //       {row.status === "1" && (
-  //         <button
-  //           className="btn btn-success btn-sm me-2"
-  //           onClick={() => handleConfirmOrder(row)}
-  //         >
-  //           Confirm
-  //         </button>
-  //       )}
-  //       {row.status === "2" && (
-  //         <button
-  //           className="btn btn-danger btn-sm me-2"
-  //           onClick={() => handleModal("close", row)}
-  //         >
-  //           Close
-  //         </button>
-  //       )}
-  //     </>
-  //   ),
-  //   ignoreRowClick: true,
-  //   allowOverflow: true,
-  //   button: true,
-  // },
+  
   {
     name: "Actions",
     cell: (row) => (

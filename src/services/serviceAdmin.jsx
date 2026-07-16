@@ -1,4 +1,4 @@
-import router, { setAuthToken } from "./apiService";
+import router from "./apiService";
 
 async function GetServiceData() {
   try {

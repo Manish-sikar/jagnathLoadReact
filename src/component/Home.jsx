@@ -1,8 +1,6 @@
-import OwlCarousel from "react-owl-carousel";
 import React, { useEffect, useState } from "react";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faXTwitter,
   faGithub,
@@ -10,15 +8,12 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
-import { baseURL } from "../services/apiService";
 import { GetServiceData } from "../services/serviceAdmin";
 import { GetProjectData } from "../services/projectService";
 import { GetOurTeamData } from "../services/ourTeamService";
 import { GetContactDetailsData } from "../services/contactService";
 import { AddNewContactForm } from "../services/contactFormService";
 import Swal from "sweetalert2";
-import Row from "react-bootstrap/Row";
-import LoginBanner from "./bannerPages/loginBanner";
 import { Carousel, Card } from "react-bootstrap";
 import Service from "./Service";
 import BankServices from "./bankicon";

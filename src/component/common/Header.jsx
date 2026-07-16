@@ -1,11 +1,9 @@
-import { Link, NavLink } from "react-router-dom";
 import { getSiteData } from "../../services/siteService";
 import { useEffect, useState } from "react";
 import { getSocialData } from "../../services/socialService";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { baseURL } from "../../services/apiService";
 
 
 const Header = () => {
@@ -40,25 +38,7 @@ const Header = () => {
     }
   };
 
-  // Format title with alternate styling
-  const titleChange = () => {
-    const title_new = formData.title || ""; // Default to an empty string if title is not set
-    const words = title_new.split(" ");
-    const formattedWords = words.map((word, index) =>
-      index % 2 === 0 ? (
-        word
-      ) : (
-        <span className="text-secondary" key={index}>
-          {word}
-        </span>
-      )
-    );
-    return (
-      <h1 className="text-white fw-bold d-block">
-        {formattedWords.reduce((prev, curr) => [prev, "", curr])}
-      </h1>
-    );
-  };
+ 
 
   const getIconStyle = (iconClass) => {
     const baseStyle = {
